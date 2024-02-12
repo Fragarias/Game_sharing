@@ -1,0 +1,2 @@
+class GameBookmark < ApplicationRecord
+end

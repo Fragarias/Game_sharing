@@ -33,9 +33,9 @@ class DeviseCreateEndUsers < ActiveRecord::Migration[6.1]
       # t.datetime :locked_at
 
       ## カラム追加
-      t.string :name, 　　　　null: false                 #ニックネーム
-      t.string :introduction, null: false                 #自己紹介文
-      t.boolean :is_active, 　null: false, default: true  #ユーザステータス
+      t.string  :name, 　　　　null: false                 #ニックネーム
+      t.string  :introduction, null: false                 #自己紹介文
+      t.boolean :is_active,  　null: false, default: true  #ユーザステータス
 
       t.timestamps null: false
     end
