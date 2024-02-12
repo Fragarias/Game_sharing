@@ -1,49 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    get 'tags/index'
-  end
-  namespace :admin do
-    get 'posts/show'
-  end
-  namespace :admin do
-    get 'end_users/index'
-    get 'end_users/show'
-    get 'end_users/edit'
-  end
-  namespace :admin do
-    get 'communities/new'
-    get 'communities/index'
-    get 'communities/show'
-    get 'communities/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
-    get 'notifications/index'
-  end
-  namespace :public do
-    get 'relationships/index'
-  end
-  namespace :public do
-    get 'posts/new'
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-  end
-  namespace :public do
-    get 'communities/index'
-    get 'communities/show'
-  end
-  namespace :public do
-    get 'end_users/index'
-    get 'end_users/show'
-    get 'end_users/edit'
-    get 'end_users/quit'
-  end
-  namespace :public do
-    get 'homes/top'
-  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_for :end_users, skip: [:passwords], controllers: { #sign_up sign_inのみ
@@ -51,8 +6,35 @@ Rails.application.routes.draw do
     sessions: "public/sessions"
   }
 
+  scope module: :public do
+    root to: 'homes#top'
+    resources :end_users, only: [:index, :show]
+    get 'end_users/information/edit' => 'end_users#edit'
+    get 'end_users/quit'
+    patch 'end_users/update'
+    patch 'end_users/withdraw'
+    resources :communities, only: [:index, :show]
+    resources :game_bookmarks, only: [:create, :destroy]
+    resources :posts, only: [:new, :create, :index, :show, :destroy]
+    get 'posts/information/edit' => 'posts#edit'
+    patch 'posts/update'
+    resources :relationships, only: [:create, :index, :destroy]
+    resources :comments, only: [:create, :destroy]
+    resources :likes, only: [:create, :destroy]
+    resources :notifications, only: [:index]
+  end
+
   devise_for :admins, skip: [:registrations, :passwords], controllers: { #sign_inのみ
     sessions: "admin/sessions"
   }
+
+  namespace :admin do
+    root to: 'homes#top'
+    resources :communities, only: [:new, :create, :index, :show, :edit, :update]
+    resources :end_users, only: [:index, :show, :edit, :update]
+    resources :posts, only: [:show, :destroy]
+    resources :tags, only: [:create, :index, :update, :destroy]
+    resources :comments, only: [:destroy]
+  end
 
 end
