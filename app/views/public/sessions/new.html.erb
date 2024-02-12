@@ -1,26 +1,60 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container px-5 px-sm-0">
+  <div class="row m-3 pt-3">
+    <div class="col-2">
+      <h4 class="bg text-center">ログイン</h4>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
+  <div class="row m-3">
+    <div class="col-4 ml-5">
+      <h5 class="bg text-center">会員の方はこちらからログイン</h5>
+    </div>
   </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+  <%= form_with model: @end_user, url: end_user_session_path do |f| %>
+    <div class="row justify-content-center py-1">
+      <label class="col-sm-2 col-form-label">メールアドレス</label>
+      <%= f.email_field :email, autocomplete: "email", placeholder: "sample@exampl", size: 50 %>
+    </div>
+    <div class="row justify-content-center py-1">
+      <label class="col-sm-2 col-form-label">パスワード</label>
+      <%= f.password_field :password, autocomplete: "current-password", size: 50 %>
+    </div>
+    <div class="row m-3 pt-3" align="center">
+      <div class="col">
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="row m-3 pt-3">
+    <div class="col-4 ml-5">
+      <h5 class="bg text-center">会員登録がお済みでない方</h5>
+    </div>
   </div>
-<% end %>
+  <div class="row justify-content-center">
+    <div class="col-7">
+      <%= link_to new_end_user_registration_path do %>
+        こちら
+      <% end %> から新規登録を行ってください。
+    </div>
+  </div>
+</div>
 
-<%= render "public/shared/links" %>
+
+<!--<h2>Log in</h2>-->
+
+<!--<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>-->
+<!--  <div class="field">-->
+<!--    <%#= f.label :email %><br />-->
+<!--    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>-->
+<!--  </div>-->
+
+<!--  <div class="field">-->
+<!--    <%#= f.label :password %><br />-->
+<!--    <%#= f.password_field :password, autocomplete: "current-password" %>-->
+<!--  </div>-->
+
+<!--  <div class="actions">-->
+<!--    <%#= f.submit "Log in" %>-->
+<!--  </div>-->
+<!--<%# end %>-->
+
+<!--<%#= render "public/shared/links" %>-->
