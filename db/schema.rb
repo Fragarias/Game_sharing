@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2024_02_12_163045) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "nofitications", force: :cascade do |t|
+  create_table "notifications", force: :cascade do |t|
     t.integer "target_user_id", null: false
     t.integer "target_id", null: false
     t.integer "target_type", null: false

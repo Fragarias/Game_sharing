@@ -1,6 +1,6 @@
-class CreateNofitications < ActiveRecord::Migration[6.1]
+class CreateNotifications < ActiveRecord::Migration[6.1]
   def change
-    create_table :nofitications do |t|
+    create_table :notifications do |t|
       t.integer :target_user_id, null: false                  #通知先ユーザID
       t.integer :target_id,      null: false                  #通知元ID
       t.integer :target_type,    null: false                  #通知元種類[enum使用]
