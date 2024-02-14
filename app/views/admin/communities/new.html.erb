@@ -2,10 +2,10 @@
 
 <%= form_with model: @community, url: admin_communities_path do |f| %>
   <label>ゲーム写真</label>
-  <%= f.file_field :image, accept: "image/*" %>
+  <%= f.file_field :image, accept: "image/*" %><br>
   <label>ゲームタイトル</label>
-  <%= f.text_field :name, autocomplete: "community_name", placeholder: "ゲーム名を入力してください。", size: 50 %>
+  <%= f.text_field :name, autocomplete: "community.name", placeholder: "ゲーム名を入力してください。", size: "50" %><br>
   <label>ゲーム概要</label>
-  <%= f.text_area :overview, autocomplete: "community_overview", placeholder: "ゲーム概要", size: 50×50 %>
+  <%= f.text_area :overview, autocomplete: "community.overview", placeholder: "ゲーム概要", size: "50×50" %><br>
   <%= f.submit "登録" %>
 <% end %>
