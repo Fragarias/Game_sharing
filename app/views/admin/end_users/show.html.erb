@@ -1,2 +1,19 @@
-<h1>Admin::EndUsers#show</h1>
-<p>Find me in app/views/admin/end_users/show.html.erb</p>
+<h1>ユーザ詳細画面</h1>
+
+<div>
+  <%= image_tag @end_user.get_profile_image(100, 100) %><br>
+  <%= @end_user.name %><br>
+  <%= @end_user.introduction %><br>
+  <%= link_to "設定", edit_admin_end_user_path(@end_user.id), class: "btn btn-secondary" %>
+</div>
+
+<h3>play game</h3>
+<% @game_bookmarks.each do |game| %>
+  <%= link_to admin_community_path(game.id) do %>
+    <%= image_tag game.get_image %>
+  <% end %>
+<% end %>
+
+<% @posts.each do |post| %>
+  <%= post.title %>
+<% end %>

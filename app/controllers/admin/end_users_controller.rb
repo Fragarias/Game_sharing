@@ -6,6 +6,8 @@ class Admin::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
+    @game_bookmarks = @end_user.game_bookmarks.all
+    @posts = @end_user.posts.all
   end
 
   def edit
