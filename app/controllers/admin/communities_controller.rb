@@ -5,9 +5,9 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def create
-    @community = Community.new(community_params)
-    @community.save
-    redirect_to admin_community_path(@community.id)
+    community = Community.new(community_params)
+    community.save
+    redirect_to admin_community_path(community.id)
   end
 
   def index
@@ -16,10 +16,18 @@ class Admin::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
+    @tag = Tag.all
+    @posts = @community.posts.all
   end
 
   def edit
     @community = Community.find(params[:id])
+  end
+
+  def update
+    community = Community.find(params[:id])
+    community.update(community_params)
+    redirect_to admin_community_path(community.id)
   end
 
   private

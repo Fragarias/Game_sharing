@@ -9,10 +9,10 @@
       <%= form_with model: @end_user, url: end_users_update_path do |f| %>
         <table style="border-collapse: collapse">
           <tbody>
-            <!--<tr>-->
-            <!--  <td align="left" height="50" width="150">プロフィール画像</td>-->
-            <!--  <td width="500"><%#= f.file_field :image, accept: "image/*" %></td>-->
-            <!--</tr>-->
+            <tr>
+              <td align="left" height="50" width="150">プロフィール画像</td>
+              <td width="500"><%= f.file_field :profile_image, accept: "image/*" %></td>
+            </tr>
             <tr align="left">
               <td height="50" width="200">ニックネーム</td>
               <td width="500"><%= f.text_field :name %></td>
