@@ -1,2 +1,0 @@
-class Nofitication < ApplicationRecord
-end
