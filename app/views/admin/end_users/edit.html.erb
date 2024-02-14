@@ -5,6 +5,8 @@
   <%= f.file_field :profile_image, accept: "image/*" %>
   <label>ニックネーム</label>
   <%= f.text_field :name, size: "40" %>
+  <label>メールアドレス</label>
+  <%= f.email_field :email, autocomplete: "email" %>
   <label>自己紹介文</label>
   <%= f.text_area :introduction, size: "40×60" %>
   <label>会員ステータス</label>
