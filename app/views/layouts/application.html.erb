@@ -92,6 +92,9 @@
       </nav>
     </header>
     <main>
+      <div class="container px-5 my-3">
+        <%= flash[:notice] %>
+      </div>
       <%= yield %>
     </main>
     <footer></footer>

@@ -24,6 +24,10 @@
       </div>
     </div>
   <% end %>
+  <div class="row m-3 pt-3" align="center">
+      <%= link_to 'ゲストログイン（閲覧用）', end_users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+  </div>
+
   <div class="row m-3 pt-3">
     <div class="col-4 ml-5">
       <h5 class="bg text-center">会員登録がお済みでない方</h5>
@@ -32,8 +36,8 @@
   <div class="row justify-content-center">
     <div class="col-7">
       <%= link_to new_end_user_registration_path do %>
-        こちら
-      <% end %> から新規登録を行ってください。
+        新規登録へ
+      <% end %>
     </div>
   </div>
 </div>

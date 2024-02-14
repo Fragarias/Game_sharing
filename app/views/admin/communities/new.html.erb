@@ -1,2 +1,11 @@
-<h1>Admin::Communities#new</h1>
-<p>Find me in app/views/admin/communities/new.html.erb</p>
+<h1>ゲームコミュニティ新規登録画面</h1>
+
+<%= form_with model: @community, url: admin_communities_path do |f| %>
+  <label>ゲーム写真</label>
+  <%= f.file_field :image, accept: "image/*" %>
+  <label>ゲームタイトル</label>
+  <%= f.text_field :name, autocomplete: "community_name", placeholder: "ゲーム名を入力してください。", size: 50 %>
+  <label>ゲーム概要</label>
+  <%= f.text_area :overview, autocomplete: "community_overview", placeholder: "ゲーム概要", size: 50×50 %>
+  <%= f.submit "登録" %>
+<% end %>

@@ -6,11 +6,15 @@ Rails.application.routes.draw do
     sessions: "public/sessions"
   }
 
+  devise_scope :end_user do
+    post 'end_users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
   scope module: :public do
     root to: 'homes#top'
     resources :end_users, only: [:index, :show]
     get 'end_users/information/edit' => 'end_users#edit'
-    get 'end_users/quit'
+    #get 'end_users/quit'
     patch 'end_users/update'
     patch 'end_users/withdraw'
     resources :communities, only: [:index, :show]
