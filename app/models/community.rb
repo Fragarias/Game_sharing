@@ -1,6 +1,11 @@
 class Community < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :game_bookmarks, dependent: :destroy
+
+  def bookmarked_by?
+    bookmarks.exists?(end_user_id: end_user.id)
+  end
+
   has_one_attached :image
 
   def get_image(width, height)

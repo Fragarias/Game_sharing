@@ -18,13 +18,13 @@ Rails.application.routes.draw do
     patch 'end_users/update'
     patch 'end_users/withdraw'
     resources :communities, only: [:index, :show]
-    resources :game_bookmarks, only: [:create, :destroy]
+    resource :game_bookmarks, only: [:create, :destroy]
     resources :posts, only: [:new, :create, :index, :show, :destroy]
     get 'posts/information/edit' => 'posts#edit'
     patch 'posts/update'
     resources :relationships, only: [:create, :index, :destroy]
     resources :comments, only: [:create, :destroy]
-    resources :likes, only: [:create, :destroy]
+    resource :likes, only: [:create, :destroy]
     resources :notifications, only: [:index]
   end
 

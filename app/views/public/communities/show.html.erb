@@ -1,2 +1,27 @@
-<h1>Public::Communities#show</h1>
-<p>Find me in app/views/public/communities/show.html.erb</p>
+<h1>ゲーム詳細画面</h1>
+
+<div>
+  <%= image_tag @community.get_image(300, 300) %>
+  <%= @community.name %>
+  <%= @community.overview %>
+</div>
+
+<%#= link_to "ブックマーク", edit_admin_community_path(@community.id), class: "btn btn-success" %>
+
+<!--
+<table class="table" border="1" style="border-collapse: collapse">
+  <tbody>
+    <%# @tags.each do |tag| %>
+      <tr>
+        <td><%#= tag.name %></td>
+      </tr>
+    <%# end %>
+  </tbody>
+</table>
+
+<%# @posts.each do |post| %>
+  <%#= link_to admin_post_path do %>
+    <%#= post.title %>
+  <%# end %>
+<%# end %>
+
