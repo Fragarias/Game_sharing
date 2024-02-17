@@ -1,2 +1,18 @@
-<h1>Public::EndUsers#quit</h1>
-<p>Find me in app/views/public/end_users/quit.html.erb</p>
+<div class="container mt-5">
+  <div class="p-5">
+    <div align="center">
+      <h4 class="font-weight-bold">退会前にご確認ください。</h4>
+    </div>
+    <br>
+    <div align="center">
+      登録されたユーザ情報や投稿はすべて削除されます。<br>
+      退会後、再登録・ログインすることはできません。<br>
+      本当に退会しますか？
+    </div>
+    <br>
+    <div align="center">
+      <%= link_to "退会する", end_users_withdraw_path(@end_user), class: "btn btn-danger", method: :patch, "data-confirm" => "本当に退会しますか？" %>
+      <%= link_to "詳細画面へ戻る", end_user_path(current_end_user.id), class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
