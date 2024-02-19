@@ -1,2 +1,18 @@
-<h1>Public::Posts#new</h1>
-<p>Find me in app/views/public/posts/new.html.erb</p>
+<h1>投稿新規作成</h1>
+
+<%= form_with model: @post, url: posts_path, method: :post, local: true do |f| %>
+  <label>投稿写真</label><br>
+  <%= f.file_field :post_image, accept: "image/*" %><br>
+  <label>ゲームタイトル</label><br>
+  <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name) %><br>
+  <label>題名</label><br>
+  <%= f.text_field :title, placeholder: "投稿タイトルを入力してください。", size: "50" %><br>
+  <label>本文</label><br>
+  <%= f.text_area :text, placeholder: "投稿内容を入力してください。", size: "50×50" %><br>
+  <label>タグ</label>
+  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |t| %><br>
+    <%= t.check_box %>
+    <%= t.label %>
+  <% end %><br>
+  <%= f.submit "投稿", class: "btn btn-success" %>
+<% end %>

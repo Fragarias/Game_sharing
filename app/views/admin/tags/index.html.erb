@@ -1,2 +1,32 @@
-<h1>Admin::Tags#index</h1>
-<p>Find me in app/views/admin/tags/index.html.erb</p>
+<h1>タグ管理</h1>
+
+<table class="table" border="1" style="border-collapse: collapse">
+  <thead>
+    <th height="50" width="150">タグ名</th>
+    <th width="100"></th>
+    <th width="100"></th>
+  </thead>
+  <tbody>
+    <% @tags.each do |tag| %>
+      <tr>
+        <%= form_with model: tag, url: admin_tag_path(tag.id), method: :patch, local: true do |f| %>
+          <td>
+            <%= f.text_field :name, size: "30" %>
+          </td>
+          <td>
+            <%= f.submit "更新", class: "btn btn-success" %>
+          </td>
+        <% end %>
+        <td>
+          <%= link_to "削除", admin_tag_path(tag.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= form_with model: @tag, url: admin_tags_path, method: :post, local: true do |f| %>
+  <label>タグ名</label><br>
+  <%= f.text_field :name, size: "50" %>
+  <%= f.submit "タグ登録", class: "btn btn-primary" %>
+<% end %>

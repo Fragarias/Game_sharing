@@ -1,9 +1,22 @@
 <h1>ゲーム一覧</h1>
 
 <% @communities.each do |community| %>
-  <%= image_tag community.get_image(300, 300) %>
-  <%= link_to community_oath(community.id) do %>
-    <%= community.name %>
-  <% end %>
-  <%= community.overview %>
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <%= image_tag community.get_image(300, 300) %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= link_to community_path(community.id) do %>
+              <%= community.name %>
+            <% end %>
+          </h5>
+          <p class="card-text"><%= community.overview %></p>
+          <!--<p class="card-text"><small class="text-muted">最終更新3分前</small></p>-->
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

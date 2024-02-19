@@ -1,9 +1,14 @@
 <h1>ゲーム詳細画面</h1>
 
-<div>
-  <%= image_tag @community.get_image(300, 300) %>
-  <%= @community.name %>
-  <%= @community.overview %>
+<div class="card-deck">
+  <div class="card">
+    <%= image_tag @community.get_image(300, 300) %>
+    <div class="card-body">
+      <h5 class="card-title"><%= @community.name %></h5>
+      <p class="card-text"><%= @community.overview %></p>
+      <!--<p class="card-text"><small class="text-muted">最終更新3分前</small></p>-->
+    </div>
+  </div>
 </div>
 
 <%#= link_to "ブックマーク", edit_admin_community_path(@community.id), class: "btn btn-success" %>
@@ -24,4 +29,5 @@
     <%#= post.title %>
   <%# end %>
 <%# end %>
-
+-->
+<%= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary" %>
