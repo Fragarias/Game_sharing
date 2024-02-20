@@ -1,2 +1,18 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<h1>投稿内容編集</h1>
+
+<%= form_with model: @post, url: post_path(@post.id), method: :patch, local: true do |f| %>
+  <label>投稿写真</label><br>
+  <%= f.file_field :post_image, accept: "image/*" %><br>
+  <label>ゲームタイトル</label><br>
+  <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name) %><br>
+  <label>題名</label><br>
+  <%= f.text_field :title, size: "50" %><br>
+  <label>本文</label><br>
+  <%= f.text_area :text, size: "50×50" %><br>
+  <label>タグ</label>
+  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |t| %><br>
+    <%= t.check_box %>
+    <%= t.label %>
+  <% end %><br>
+  <%= f.submit "投稿", class: "btn btn-success" %>
+<% end %>
