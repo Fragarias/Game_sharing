@@ -1,13 +1,30 @@
 <h1>コミュニティ詳細画面</h1>
 
-<div>
+<div class="card" style="width: 18rem;">
   <%= image_tag @community.get_image(300, 300) %>
-  <%= @community.name %>
-  <%= @community.overview %>
+  <div class="card-body">
+    <h5 class="card-title">
+      <%= @community.name %>
+    </h5>
+    <p class="card-text">
+      <%= @community.overview %>
+    </p>
+    <%= link_to "登録内容編集", edit_admin_community_path(@community.id), class: "btn btn-success" %>
+  </div>
 </div>
 
-<%= link_to "登録内容編集", edit_admin_community_path(@community.id), class: "btn btn-success" %>
-
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      すべて
+    </li>
+    <% @tags.each do |tag| %>
+      <li class="list-group-item">
+        <%= tag.name %>
+      </li>
+    <% end %>
+  </ul>
+</div>
 <!--
 <table class="table" border="1" style="border-collapse: collapse">
   <tbody>
@@ -18,10 +35,31 @@
     <%# end %>
   </tbody>
 </table>
+-->
 
-<%# @posts.each do |post| %>
-  <%#= link_to admin_post_path do %>
-    <%#= post.title %>
-  <%# end %>
-<%# end %>
+<% @posts.each do |post| %>
+  <div class="card mb-3" style="max-width: 18rem;">
+    <h2 class="card-header">
+      <%= link_to admin_post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </h2>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= post.community.name %>
+        <% post.post_tags.all.each do |post_tag| %>
+          <%= post_tag.tag.name %>
+        <% end %>
+      </h5>
+      <p class="card-text">
+        <%= post.text %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <%= link_to admin_end_user_path(post.end_user.id) do %>
+        <%= post.end_user.name %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 

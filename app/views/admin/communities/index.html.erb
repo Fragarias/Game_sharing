@@ -6,8 +6,8 @@
   <thead>
     <th>id</th>
     <th>ゲームタイトル</th>
-    <th>ブックマーク数</th>
     <th>投稿数</th>
+    <th>ブックマーク数</th>
   </thead>
   <tbody>
     <% @communities.each do |community| %>
@@ -18,7 +18,7 @@
             <%= community.name %>
           <% end %>
         </td>
-        <td></td>
+        <td><%= community.posts.count %></td>
         <td></td>
       </tr>
     <% end %>

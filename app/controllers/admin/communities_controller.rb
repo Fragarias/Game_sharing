@@ -16,7 +16,7 @@ class Admin::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    @tag = Tag.all
+    @tags = Tag.all
     @posts = @community.posts.all
   end
 
