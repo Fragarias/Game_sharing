@@ -8,12 +8,12 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.end_user_id = current_end_user.id
     @post.save
-    @post.tags.all.each do |tag|
-      @post_tag = PostTag.new
-      @post_tag.post_id = @post.id
-      @post_tag.tag_id = tag.id
-      @post_tag.save
-    end
+    # @post.tags.all.each do |tag|
+    #   @post_tag = PostTag.new
+    #   @post_tag.post_id = @post.id
+    #   @post_tag.tag_id = tag.id
+    #   @post_tag.save
+    # end
     redirect_to post_path(@post.id)
   end
 
