@@ -1,2 +1,30 @@
-<h1>Public::Posts#show</h1>
-<p>Find me in app/views/public/posts/show.html.erb</p>
+<h1>投稿詳細画面</h1>
+
+<div>
+  <%= image_tag @end_user.get_profile_image(100, 100) %><br>
+  <%= @end_user.name %><br>
+  <%= @end_user.introduction %><br>
+  <% if @end_user == current_end_user %>
+    <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
+    <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to "フォローする", relationships_path(@end_user.id), method: :post, class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<h3>play game</h3>
+
+<% @game_bookmarks.each do |game| %>
+  <%= link_to community_path(game.id) do %>
+    <%= image_tag game.get_image %>
+  <% end %>
+<% end %>
+
+<%= @post.title %>
+<%= link_to community_path(@post.community.id) do %>
+  <%= @post.community.name %>
+<% end %>
+<% @post.post_tags.all.each do |post_tag| %>
+  <%= post_tag.tag.name %>
+<% end %>
+<%= @post.text %>

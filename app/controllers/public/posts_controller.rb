@@ -19,6 +19,8 @@ class Public::PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @end_user = @post.end_user
+    @game_bookmarks = @end_user.game_bookmarks.all
   end
 
   def edit
