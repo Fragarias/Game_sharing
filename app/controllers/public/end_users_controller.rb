@@ -42,7 +42,7 @@ class Public::EndUsersController < ApplicationController
   end
 
   def ensure_guest_user #guestuserログイン用
-    @end_user = Enduser.find(params[:id])
+    @end_user = current_end_user
     if @end_user.name == "guestuser"
       redirect_to end_user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end

@@ -12,11 +12,11 @@ Rails.application.routes.draw do
 
   scope module: :public do
     root to: 'homes#top'
-    resources :end_users, only: [:index, :show]
     get 'end_users/information/edit' => 'end_users#edit'
-    #get 'end_users/quit'
+    get 'end_users/quit'
     patch 'end_users/update'
     patch 'end_users/withdraw'
+    resources :end_users, only: [:index, :show]
     resources :communities, only: [:index, :show]
     resource :game_bookmarks, only: [:create, :destroy]
     resources :posts #, only: [:new, :create, :index, :show, :destroy]

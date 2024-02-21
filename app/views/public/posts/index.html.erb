@@ -1,2 +1,39 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<h1>フォロー中投稿一覧</h1>
+
+<%= image_tag @end_user.get_profile_image(100, 100) %>
+<%= @end_user.name %>
+<%= @end_user.introduction %>
+<% if @end_user.name != "guestuser" %>
+  <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
+  <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+<% end %>
+
+<p>play game</p>
+
+<% @posts.each do |post| %>
+  <div class="card mb-3" style="max-width: 18rem;">
+    <h2 class="card-header">
+      <%= link_to post_path(post.id) do %>
+        <%= post.title %>
+      <% end %>
+    </h2>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to community_path(post.community.id) do %>
+          <%= post.community.name %>
+        <% end %>
+        <% post.post_tags.all.each do |post_tag| %>
+          <%= post_tag.tag.name %>
+        <% end %>
+      </h5>
+      <p class="card-text">
+        <%= post.text %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <%= link_to end_user_path(post.end_user.id) do %>
+        <%= post.end_user.name %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
