@@ -6,9 +6,16 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.end_user_id = current_end_user.id
-    @post.save
-    redirect_to post_path(@post.id)
+    #@post.end_user_id = current_end_user.id
+    if params[:publish]
+      @post.save
+      flash[:notice] = "投稿しました。"
+      redirect_to post_path(@post.id)
+    else
+      @post.update(is_published: false)
+      flash[:notice] = "下書き保存しました。"
+      redirect_to end_user_path(current_end_user.id)
+    end
   end
 
   def index
