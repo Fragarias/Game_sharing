@@ -5,7 +5,7 @@ class Public::CommunitiesController < ApplicationController
 
   def show
     @community = Community.find(params[:id])
-    # @tags = Community.tags.all
-    # @posts = Community.posts.all
+    @tags = Tag.all
+    @posts = @community.posts.all
   end
 end

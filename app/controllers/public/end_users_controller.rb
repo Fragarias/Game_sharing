@@ -8,6 +8,8 @@ class Public::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
+    @game_bookmarks = @end_user.game_bookmarks.all
+    @posts = @end_user.posts.all
   end
 
   def edit
@@ -44,7 +46,7 @@ class Public::EndUsersController < ApplicationController
   def ensure_guest_user #guestuserログイン用
     @end_user = current_end_user
     if @end_user.name == "guestuser"
-      redirect_to end_user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      redirect_to end_user_path(@end_user.id), notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
     end
   end
 

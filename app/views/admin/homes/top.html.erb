@@ -1,2 +1,33 @@
-<h1>Admin::Homes#top</h1>
-<p>Find me in app/views/admin/homes/top.html.erb</p>
+<h1>新規投稿一覧</h1>
+<% @new_posts.each do |new_post| %>
+  <div class="card mb-3" style="max-width: 18rem;">
+    <h2 class="card-header">
+      <%= link_to admin_post_path(new_post.id) do %>
+        <%= new_post.title %>
+      <% end %>
+    </h2>
+    <div class="card-body">
+      <h5 class="card-title">
+        <%= link_to admin_community_path(new_post.community.id) do %>
+          <%= new_post.community.name %>
+        <% end %>
+        <% new_post.post_tags.all.each do |post_tag| %>
+          <%= post_tag.tag.name %>
+        <% end %>
+      </h5>
+      <p class="card-text">
+        <%= new_post.text %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <%= link_to admin_end_user_path(new_post.end_user.id) do %>
+        <%= new_post.end_user.name %>
+      <% end %>
+    </div>
+  </div>
+  <%#= link_to post_path(new_post.id) do %>
+    <%# if new_post.get_post_image.present? %>
+      <%#= image_tag new_post.get_post_image(150, 150) %>
+    <%# end %>
+  <%# end %>
+<% end %>

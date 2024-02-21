@@ -9,6 +9,11 @@
 <% end %>
 
 <p>play game</p>
+<% @game_bookmarks.each do |game| %>
+  <%= link_to community_path(game.id) do %>
+    <%= image_tag game.get_image %>
+  <% end %>
+<% end %>
 
 <% @posts.each do |post| %>
   <div class="card mb-3" style="max-width: 18rem;">
