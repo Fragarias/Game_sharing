@@ -3,6 +3,8 @@ class Public::EndUsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def index
+    @end_user = current_end_user
+    @game_bookmarks = @end_user.game_bookmarks.all
     @end_users = EndUser.all
   end
 

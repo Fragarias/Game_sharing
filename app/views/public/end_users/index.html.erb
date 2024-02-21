@@ -1,2 +1,26 @@
-<h1>Public::EndUsers#index</h1>
-<p>Find me in app/views/public/end_users/index.html.erb</p>
+<h1>ユーザ一覧</h1>
+
+<%= image_tag @end_user.get_profile_image(100, 100) %>
+<%= @end_user.name %>
+<%= @end_user.introduction %>
+<% if @end_user.name != "guestuser" %>
+  <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
+  <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+<% end %>
+
+<p>play game</p>
+<% @game_bookmarks.each do |game| %>
+  <%= link_to community_path(game.id) do %>
+    <%= image_tag game.get_image %>
+  <% end %>
+<% end %>
+
+<% @end_users.each do |end_user| %>
+  <div>
+    <%= image_tag end_user.get_profile_image(100, 100) %>
+    <%= link_to end_user_path(end_user.id) do %>
+      <%= end_user.name %>
+    <% end %>
+    <%= link_to "フォローする", relationships_path(end_user.id), method: :post, class: "btn btn-primary" %>
+  </div>
+<% end %>
