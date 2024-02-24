@@ -19,12 +19,11 @@ Rails.application.routes.draw do
     resources :end_users, only: [:index, :show]
     resources :communities, only: [:index, :show]
     resource :game_bookmarks, only: [:create, :destroy]
-    resources :posts #, only: [:new, :create, :index, :show, :destroy]
-    # get 'posts/information/edit' => 'posts#edit'
-    # patch 'posts/update'
+    resources :posts do
+      resources :comments, only: [:create, :destroy]
+      resource :likes, only: [:create, :destroy]
+    end
     resources :relationships, only: [:create, :index, :destroy]
-    resources :comments, only: [:create, :destroy]
-    resource :likes, only: [:create, :destroy]
     resources :notifications, only: [:index]
   end
 
@@ -36,9 +35,10 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources :communities, only: [:new, :create, :index, :show, :edit, :update]
     resources :end_users, only: [:index, :show, :edit, :update]
-    resources :posts, only: [:show, :destroy]
+    resources :posts, only: [:show, :destroy] do
+      resources :comments, only: [:destroy]
+    end
     resources :tags, only: [:create, :index, :update, :destroy]
-    resources :comments, only: [:destroy]
   end
 
 end

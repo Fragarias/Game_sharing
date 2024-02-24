@@ -6,6 +6,6 @@ class Public::CommunitiesController < ApplicationController
   def show
     @community = Community.find(params[:id])
     @tags = Tag.all
-    @posts = @community.posts.all
+    @posts = @community.posts.where(is_deleted: false)
   end
 end

@@ -31,3 +31,34 @@
     <%# end %>
   <%# end %>
 <% end %>
+
+<table class="table" border="1" style="border-collapse: collapse">
+  <thead>
+    <th>投稿日時</th>
+    <th>コミュニティ名</th>
+    <th>ユーザ名</th>
+    <th>投稿タイトル</th>
+    <th>コメント数</th>
+    <th>いいね数</th>
+    <th>投稿ステータス</th>
+  </thead>
+  <tbody>
+    <% @new_post.each do |new_post| %>
+      <tr>
+        <td></td>
+        <td><%= new_post.community.name %></td>
+        <td><%= new_post.end_user.name %></td>
+        <td><%= new_post.title %></td>
+        <td><%= new_post.comments.count %></td>
+        <td><%= new_post.likes.count %></td>
+        <td>
+          <% if new_post.is_deleted == false %>
+            <%= link_to "削除", admin_post_path(new_post.id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "btn btn-danger" %>
+          <% else %>
+            削除済
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

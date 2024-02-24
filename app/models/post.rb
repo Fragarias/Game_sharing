@@ -1,10 +1,14 @@
 class Post < ApplicationRecord
   belongs_to :end_user
   belongs_to :community
-  has_many :comments, dependent: :destroy
+  has_many :comments
   has_many :likes, dependent: :destroy
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
+
+  def liked_by?(end_user)
+    likes.exists?(end_user_id: end_user.id)
+  end
 
   has_one_attached :post_image
 

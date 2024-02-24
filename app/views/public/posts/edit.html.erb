@@ -1,5 +1,7 @@
 <h1>投稿内容編集</h1>
 
+<%= link_to "投稿削除", post_path(@post.id), method: :delete, "data-confirm" => "投稿を削除してよろしいですか？", class: "btn btn-danger" %>
+
 <%= form_with model: @post, url: post_path(@post.id), method: :patch, local: true do |f| %>
   <label>投稿写真</label><br>
   <%= f.file_field :post_image, accept: "image/*" %><br>
@@ -15,4 +17,5 @@
     <%= t.label %>
   <% end %><br>
   <%= f.submit "更新", class: "btn btn-success" %>
+
 <% end %>

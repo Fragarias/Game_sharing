@@ -6,18 +6,26 @@
     <th>ニックネーム</th>
     <th>メールアドレス</th>
     <th>投稿数</th>
+    <th>会員ステータス</th>
   </thead>
   <tbody>
-    <% @end_users.each do |user| %>
+    <% @end_users.each do |end_user| %>
       <tr>
-        <td><%= user.id %></td>
+        <td><%= end_user.id %></td>
         <td>
-          <%= link_to admin_end_user_path(user.id) do %>
-            <%= user.name %>
+          <%= link_to admin_end_user_path(end_user.id) do %>
+            <%= end_user.name %>
           <% end %>
         </td>
-        <td><%= user.email %></td>
-        <td></td>
+        <td><%= end_user.email %></td>
+        <td><%= end_user.posts.count %></td>
+        <td>
+          <% if end_user.is_active == true %>
+            有効
+          <% else %>
+            退会
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

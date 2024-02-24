@@ -5,29 +5,31 @@ class Public::PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    #@post.end_user_id = current_end_user.id
-    if params[:publish]
-      @post.save
+    post = Post.new(post_params)
+    post.end_user_id = current_end_user.id
+    # if params[:publish]
+      post.save
       flash[:notice] = "投稿しました。"
-      redirect_to post_path(@post.id)
-    else
-      @post.update(is_published: false)
-      flash[:notice] = "下書き保存しました。"
-      redirect_to end_user_path(current_end_user.id)
-    end
+      redirect_to post_path(post.id)
+    # else
+    #   @post.update(is_published: false)
+    #   flash[:notice] = "下書き保存しました。"
+    #   redirect_to end_user_path(current_end_user.id)
+    # end
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.all.where(is_deleted: false)
     @end_user = current_end_user
     @game_bookmarks = @end_user.game_bookmarks.all
   end
 
-  def show
+  def show #URL入力で論理削除した投稿を表示させない処理が必要
     @post = Post.find(params[:id])
     @end_user = @post.end_user
     @game_bookmarks = @end_user.game_bookmarks.all
+    @comments = @post.comments.where(is_deleted: false)
+    @comment = Comment.new
   end
 
   def edit
@@ -35,11 +37,20 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to post_path(@post.id)
+    post = Post.find(params[:id])
+    post.update(post_params)
+    redirect_to post_path(post.id)
   end
 
+  def destroy
+    post = Post.find(params[:id])
+    post.update(is_deleted: true)
+    post.comments.each do |comment|
+      comment.update(is_deleted: true)
+    end
+    flash[:notice] = "投稿を削除しました。"
+    redirect_to community_path(post.community.id)
+  end
 
   private
   def post_params

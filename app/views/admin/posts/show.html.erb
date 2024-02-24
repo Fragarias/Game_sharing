@@ -16,10 +16,35 @@
 <% end %>
 
 <%= @post.title %>
+<% if @post.is_deleted == false %>
+  <%= link_to "削除", admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
+<% else %>
+  削除済
+<% end %><br>
 <%= link_to admin_community_path(@post.community.id) do %>
   <%= @post.community.name %>
 <% end %>
 <% @post.post_tags.all.each do |post_tag| %>
   <%= post_tag.tag.name %>
-<% end %>
+<% end %><br>
 <%= @post.text %>
+
+<div><%= @post.likes.count %>いいね</div>
+<div><%= @comments.count %>コメント</div>
+
+
+<div>
+  <% @post.comments.all.each do |comment| %>
+    <%= image_tag comment.end_user.get_profile_image(50, 50) %>
+    <%= comment.end_user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %>
+    <% if comment.is_deleted == false %>
+      <%= link_to "削除", admin_post_comment_path(comment.post.id, comment.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？", class: "btn btn-danger" %>
+    <% else %>
+      削除済
+    <% end %>
+    <div>
+      <%= comment.text %>
+    </div>
+  <% end %>
+</div>
