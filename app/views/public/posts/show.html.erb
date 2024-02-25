@@ -4,7 +4,7 @@
   <%= image_tag @end_user.get_profile_image(100, 100) %><br>
   <%= @end_user.name %><br>
   <%= @end_user.introduction %><br>
-  <% if @end_user == current_end_user %>
+  <% if @end_user == current_end_user || @end_user.name != "guestuser" %>
     <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
     <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
   <% else %>
