@@ -5,8 +5,10 @@
   <%= @end_user.name %><br>
   <%= @end_user.introduction %><br>
   <% if @end_user == current_end_user %>
-    <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
-    <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+    <% if @end_user.name != "guestuser" %>
+      <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
+      <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+    <% end %>
   <% else %>
     <%= link_to "フォローする", relationships_path(@end_user.id), method: :post, class: "btn btn-primary" %>
   <% end %>
