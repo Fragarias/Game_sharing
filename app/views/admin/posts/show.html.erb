@@ -1,21 +1,26 @@
 <h1>投稿詳細画面</h1>
 
 <div>
-  <%= image_tag @end_user.get_profile_image(100, 100) %><br>
-  <%= @end_user.name %><br>
+  <%= link_to admin_end_user_path(@end_user.id) do %>
+    <%= image_tag @end_user.get_profile_image(100, 100) %>
+  <% end %><br>
+  <%= link_to admin_end_user_path(@end_user.id) do %>
+    <%= @end_user.name %>
+  <% end %><br>
   <%= @end_user.introduction %><br>
   <%= link_to "設定", edit_admin_end_user_path(@end_user.id), class: "btn btn-secondary" %>
 </div>
 
 <h3>play game</h3>
-
 <% @game_bookmarks.each do |game| %>
-  <%= link_to admin_community_path(game.id) do %>
-    <%= image_tag game.get_image %>
+  <%= link_to admin_community_path(game.community.id) do %>
+    <%= image_tag game.community.get_image(100, 100) %>
   <% end %>
 <% end %>
 
-<%= @post.title %>
+<h2>
+  <%= @post.title %>
+</h2>
 <% if @post.is_deleted == false %>
   <%= link_to "削除", admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
 <% else %>

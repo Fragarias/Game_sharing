@@ -9,7 +9,17 @@
     <p class="card-text">
       <%= @community.overview %>
     </p>
-    <%= link_to "ブックマーク", game_bookmarks_path, method: :post, class: "btn btn-primary" %>
+    <% if @community.game_bookmarked_by?(current_end_user) %>
+      <div>
+      <%= link_to community_game_bookmarks_path(@community), method: :delete, class: "btn btn-secondary" do %>
+        ブックマーク済
+      <% end %>
+      </div>
+    <% else %>
+      <%= link_to community_game_bookmarks_path(@community), method: :post, class: "btn btn-primary" do %>
+        ブックマーク
+      <% end %>
+    <% end %>
   </div>
 </div>
 

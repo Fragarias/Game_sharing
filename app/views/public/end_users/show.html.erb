@@ -15,8 +15,8 @@
 <h3>play game</h3>
 
 <% @game_bookmarks.each do |game| %>
-  <%= link_to community_path(game.id) do %>
-    <%= image_tag game.get_image %>
+  <%= link_to community_path(game.community.id) do %>
+    <%= image_tag game.community.get_image(100, 100) %>
   <% end %>
 <% end %>
 

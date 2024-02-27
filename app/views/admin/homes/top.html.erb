@@ -43,9 +43,9 @@
     <th>投稿ステータス</th>
   </thead>
   <tbody>
-    <% @new_post.each do |new_post| %>
+    <% @new_posts.each do |new_post| %>
       <tr>
-        <td></td>
+        <td><%= new_post.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
         <td><%= new_post.community.name %></td>
         <td><%= new_post.end_user.name %></td>
         <td><%= new_post.title %></td>
