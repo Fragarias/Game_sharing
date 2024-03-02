@@ -7,15 +7,22 @@ class Public::PostsController < ApplicationController
   def create
     post = Post.new(post_params)
     post.end_user_id = current_end_user.id
-    # if params[:publish]
+    if params[:publish].present?
+      if post.save(context: :publicize)
+        flash[:notice] = "投稿しました。"
+        redirect_to post_path(post.id)
+      else
+        render :new
+      end
+    else
+      post.is_published = false
       post.save
-      flash[:notice] = "投稿しました。"
-      redirect_to post_path(post.id)
-    # else
-    #   @post.update(is_published: false)
-    #   flash[:notice] = "下書き保存しました。"
-    #   redirect_to end_user_path(current_end_user.id)
-    # end
+      flash[:notice] = "下書き保存しました。"
+      redirect_to end_user_path(current_end_user.id)
+      #post.update(post_params)
+      #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
+    end
+    #update(is_published: true)
   end
 
   def index
@@ -37,9 +44,24 @@ class Public::PostsController < ApplicationController
   end
 
   def update
-    post = Post.find(params[:id])
-    post.update(post_params)
-    redirect_to post_path(post.id)
+    @post = Post.find(params[:id])
+    if params[:publish].present?
+      @post.attributes = post_params.merge(is_published: true)
+      if @post.save(context: :publicize)
+        # post.update(post_params, is_published: true)
+        flash[:notice] = "内容を更新し、投稿しました。"
+        redirect_to post_path(@post.id)
+      else
+        @post.update(is_published: false)
+        render :edit
+      end
+    else
+      @post.update(is_published: false)
+      @post.update(post_params)
+      #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
+      flash[:notice] = "下書きで更新しました。"
+      redirect_to end_user_path(current_end_user.id)
+    end
   end
 
   def destroy

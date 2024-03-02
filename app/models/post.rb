@@ -6,6 +6,9 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags
 
+  validates :title, presence: true, length: { maximum: 20 }, on: :publicize
+  validates :text, presence: true, length: { maximum: 200 }, on: :publicize
+
   def liked_by?(end_user)
     likes.exists?(end_user_id: end_user.id)
   end

@@ -76,13 +76,13 @@
             </ul>
             <div class="ml-auto">
               <% if admin_signed_in? %> <!-- 管理者ログイン時 -->
-                <%#= form_with url: admin_items_path, method: :get do |f| %>
-                  <%#= f.text_field :name, placeholder: "Search" %>
+                <%#= form_with url: admin_root_path, method: :get do |f| %>
+                  <%#= f.text_field :word, placeholder: "Search" %>
                   <%#= f.submit "検索" %>
                 <%# end %>
               <% else %> <!-- 顧客ログイン時 又は ログアウト時 -->
-                <%#= form_with url: items_path, method: :get do |f| %>
-                  <%#= f.text_field :name, placeholder: "Search" %>
+                <%#= form_with url: root_path, method: :get do |f| %>
+                  <%#= f.text_field :word, placeholder: "Search" %>
                   <%#= f.submit "検索" %>
                 <%# end %>
               <% end %>

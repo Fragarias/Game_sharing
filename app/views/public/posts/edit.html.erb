@@ -16,6 +16,12 @@
     <%= t.check_box %>
     <%= t.label %>
   <% end %><br>
-  <%= f.submit "更新", class: "btn btn-success" %>
+  <% if @post.is_published == true %>
+    <%= f.submit "公開したまま更新する", :name => 'publish', class: "btn btn-success" %>
+    <%= f.submit "下書きにする", :name => 'draft', class: "btn btn-secondary" %>
+  <% else %>
+    <%= f.submit "公開する", :name => 'publish', class: "btn btn-success" %>
+    <%= f.submit "下書きのまま更新する", :name => 'draft', class: "btn btn-secondary" %>
+  <% end %>
 
 <% end %>
