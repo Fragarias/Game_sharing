@@ -17,7 +17,12 @@ class Admin::CommunitiesController < ApplicationController
   def show
     @community = Community.find(params[:id])
     @tags = Tag.all
-    @posts = @community.posts.all
+    if params[:tag_id]
+      @tag = Tag.find(params[:tag_id])
+      @posts = @tag.posts.where(community_id: @community.id)
+    else
+      @posts = @community.posts.all
+    end
   end
 
   def edit

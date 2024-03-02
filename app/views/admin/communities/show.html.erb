@@ -16,11 +16,11 @@
 <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">
-      すべて
+      <%= link_to "すべて", admin_community_path(@community.id), class: "text-dark" %>
     </li>
     <% @tags.each do |tag| %>
       <li class="list-group-item">
-        <%= tag.name %>
+        <%= link_to tag.name, admin_community_path(@community.id, tag_id: tag.id), class: "text-dark" %>
       </li>
     <% end %>
   </ul>
