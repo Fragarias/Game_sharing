@@ -1,11 +1,11 @@
-<h1>フォロー中投稿一覧</h1>
+<h1>投稿一覧Post/index</h1>
 
 <%= image_tag @end_user.get_profile_image(100, 100) %>
 <%= @end_user.name %>
 <%= @end_user.introduction %>
 <% if @end_user.name != "guestuser" %>
   <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
-  <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+  <%= link_to "フォロー一覧", end_user_relationships_path(@end_user.id), class: "btn btn-secondary" %>
 <% end %>
 
 <p>play game</p>

@@ -6,9 +6,9 @@
   <%= @end_user.introduction %><br>
   <% if @end_user == current_end_user || @end_user.name != "guestuser" %>
     <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
-    <%= link_to "フォロー一覧", relationships_path, class: "btn btn-secondary" %>
+    <%#= link_to "フォロー一覧", end_user_relationships_path, class: "btn btn-secondary" %>
   <% else %>
-    <%= link_to "フォローする", relationships_path(@end_user.id), method: :post, class: "btn btn-primary" %>
+    <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: "btn btn-primary" %>
   <% end %>
 </div>
 
@@ -22,6 +22,9 @@
 <h2>
   <%= @post.title %>
 </h2>
+<% if @post.post_image.attached? %>
+  <%= image_tag @post.get_post_image(300, 300) %>
+<% end %>
 <% if @post.end_user == current_end_user %>
   <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
   <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？" %>

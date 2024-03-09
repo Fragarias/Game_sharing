@@ -6,8 +6,9 @@
   <thead>
     <th>id</th>
     <th>ゲームタイトル</th>
-    <th>投稿数</th>
     <th>ブックマーク数</th>
+    <th>投稿数</th>
+    <th>編集</th>
   </thead>
   <tbody>
     <% @communities.each do |community| %>
@@ -18,8 +19,9 @@
             <%= community.name %>
           <% end %>
         </td>
+        <td><%= community.game_bookmarks.count %></td>
         <td><%= community.posts.count %></td>
-        <td></td>
+        <td><%= link_to "編集", edit_admin_community_path(community.id), class: "btn btn-success" %></td>
       </tr>
     <% end %>
   </tbody>

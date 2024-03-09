@@ -5,7 +5,8 @@ class Public::EndUsersController < ApplicationController
   def index
     @end_user = current_end_user
     @game_bookmarks = @end_user.game_bookmarks.all
-    @end_users = EndUser.all
+    # @end_users = EndUser.all
+    @end_users = EndUser.find(Like.group(:end_user_id).order('count(end_user_id) desc'))
   end
 
   def show
