@@ -58,11 +58,11 @@
       <% end %>
     </div>
   <% else %>
-  <div>
-    <%= link_to post_likes_path(@post.id), method: :post do %>
-      ♡<%= @post.likes.count %>いいね
-    <% end %>
-  </div>
+    <div>
+      <%= link_to post_likes_path(@post.id), method: :post do %>
+        ♡<%= @post.likes.count %>いいね
+      <% end %>
+    </div>
   <% end %>
 </div>
 <div>

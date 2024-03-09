@@ -5,8 +5,11 @@ class Public::EndUsersController < ApplicationController
   def index
     @end_user = current_end_user
     @game_bookmarks = @end_user.game_bookmarks.all
-    @end_users = EndUser.all
-    # @end_users = EndUser.find(Like.group(:end_user_id).order('count(end_user_id) desc'))
+    post_like_count = {}
+    EndUser.all.each do |end_user|
+      post_like_count.store(end_user, Like.where(post_id: Post.where(end_user_id: end_user.id).pluck(:id)).count)
+    end
+    @end_users = post_like_count.sort_by { |_, v| v }.reverse.to_h.keys
   end
 
   def show
