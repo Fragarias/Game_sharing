@@ -8,8 +8,15 @@ class EndUser < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :game_bookmarks, dependent: :destroy
-  has_many :notifications, dependent: :destroy
-  has_many :relationships#, dependent: :destroy
+  has_many :notifications
+
+  # フォローをした、されたの関係
+  has_many :relationships, class_name: "Relationship", foreign_key: "followers_id", dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followees_id", dependent: :destroy
+  # 一覧画面で使う
+  has_many :followings, through: :relationships, source: :followees
+  has_many :followers, through: :reverse_of_relationships, source: :followers
+
 
   has_one_attached :profile_image
 
@@ -28,17 +35,17 @@ class EndUser < ApplicationRecord
     end
   end
 
-  # フォロー済みの場合...ユーザ、未フォローの場合...nil
-  def following?(current_end_user, follower_id)
-    Relationship.find_by(followees_id: follower_id, followers_id: current_end_user.id)
+  # フォローしたときの処理
+  def follow(end_user_id)
+    relationships.find_or_create_by(followees_id: end_user_id)
   end
-
-  def followed(end_user)
-    Relationship.where(followers_id: end_user.id) #end_userがフォローしている
+  # フォローを外すときの処理
+  def unfollow(end_user_id)
+    relationships.find_by(followees_id: end_user_id).destroy
   end
-
-  def follower(current_end_user)
-    Relationship.where(followees_id: current_end_user.id) #Log_inユーザをフォローしている
+  # フォローしているか判定
+  def following?(current_end_user, end_user)
+    followings.include?(end_user)
   end
 
 end

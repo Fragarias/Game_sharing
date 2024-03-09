@@ -57,6 +57,9 @@
                   <%= link_to "通知", notifications_path, class: 'nav-link text-dark border rounded' %>
                 </li>
                 <li class="nav-item">
+                  <%= link_to "マイページ", end_user_path(current_end_user.id), class: 'nav-link text-dark border rounded' %>
+                </li>
+                <li class="nav-item">
                   <%= link_to "ログアウト", destroy_end_user_session_path, class: 'nav-link text-dark border rounded', method: :delete %>
                 </li>
               <% else %>

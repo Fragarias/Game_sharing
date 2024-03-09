@@ -17,7 +17,8 @@ Rails.application.routes.draw do
     patch 'end_users/update'
     patch 'end_users/withdraw'
     resources :end_users, only: [:index, :show] do
-      resources :relationships, only: [:create, :index, :destroy]
+      resources :relationships, only: [:index]
+      resource :relationships, only: [:create, :destroy]
     end
     resources :communities, only: [:index, :show] do
       resource :game_bookmarks, only: [:create, :destroy]

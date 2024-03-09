@@ -141,6 +141,6 @@ ActiveRecord::Schema.define(version: 2024_02_18_163909) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "relationships", "end_users", column: "followees_id"
   add_foreign_key "relationships", "end_users", column: "followers_id"
-  add_foreign_key "relationships", "followees", column: "followees_id"
 end
