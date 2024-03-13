@@ -5,6 +5,7 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
       t.integer :target_id,      null: false                  #通知元ID
       t.integer :target_type,    null: false                  #通知元種類[enum使用]
       t.boolean :is_checked,     null: false, default: false  #既読ステータス
+      #t.integer :sender_user_id, null: false                 #通知を送ったユーザID
       t.timestamps
     end
   end

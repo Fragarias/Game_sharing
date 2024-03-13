@@ -4,6 +4,7 @@ class Public::LikesController < ApplicationController
     post = Post.find(params[:post_id])
     like = current_end_user.likes.new(post_id: post.id)
     like.save
+    like.create_notification_like!(current_end_user, post)
     redirect_to post_path(post.id)
   end
 

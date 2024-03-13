@@ -8,7 +8,10 @@ class EndUser < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :game_bookmarks, dependent: :destroy
-  has_many :notifications
+
+  # 通知を送られた(通知先)の関係
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'target_id', dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "target_user_id", dependent: :destroy
 
   # フォローをした、されたの関係
   has_many :relationships, class_name: "Relationship", foreign_key: "followers_id", dependent: :destroy
@@ -18,8 +21,7 @@ class EndUser < ApplicationRecord
   has_many :followers, through: :reverse_of_relationships, source: :followers
 
 
-  has_one_attached :profile_image
-
+  has_one_attached :profile_image #ActiveStorage_プロフィール画像
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
@@ -28,7 +30,7 @@ class EndUser < ApplicationRecord
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
 
-  def self.guest
+  def self.guest #ゲストログイン用メソッド
     find_or_create_by!(name: 'guestuser' ,email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "guestuser"

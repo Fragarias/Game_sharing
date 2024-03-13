@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_02_18_163909) do
+ActiveRecord::Schema.define(version: 2024_03_13_082334) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 2024_02_18_163909) do
     t.boolean "is_checked", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "sender_user_id", null: false
   end
 
   create_table "post_tags", force: :cascade do |t|
