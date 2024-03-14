@@ -13,7 +13,10 @@ class Public::RelationshipsController < ApplicationController
 
   def create
     # # [フォロー先:パラメータ・フォロー主:Log_inユーザ] を探し、なければ作成
-    current_end_user.follow(params[:end_user_id])
+    end_user_id = params[:end_user_id]
+    current_end_user.follow(end_user_id)
+    relationship = Relationship.find_by(followers_id: current_end_user.id, followees_id: end_user_id)
+    relationship.create_notification_follow!(current_end_user, end_user_id)
     #redirect_to root_path
   end
   def destroy

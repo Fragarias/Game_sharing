@@ -7,7 +7,7 @@ class Like < ApplicationRecord
   # Notification作成
   def create_notification_like!(current_end_user, post)
     end_user_id = post.end_user_id
-    # 既にいいね通知があるかどうかの判定
+    # 既に通知があるかどうかの判定
     temp = Notification.where(["target_user_id = ? and target_id = ? and target_type = ?", end_user_id, id, 2]) # target_typeは、通知の種別によって変更
     return unless temp.blank? && current_end_user.id != end_user_id
 

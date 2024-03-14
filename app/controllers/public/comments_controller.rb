@@ -5,6 +5,7 @@ class Public::CommentsController < ApplicationController
     comment = current_end_user.comments.new(comment_params)
     comment.post_id = post.id
     comment.save
+    comment.create_notification_comment!(current_end_user, post)
     redirect_to post_path(post.id)
   end
   def destroy

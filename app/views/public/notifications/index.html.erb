@@ -3,11 +3,18 @@
 <% if @notifications.exists? %>
 
   <% @notifications.each do |notification| %>
-    <% case notification.target_type %>
-    <% when "like" %>
-      <%= link_to notification.end_user.name, end_user_path(notification.end_user) %>さんが<%= link_to notification.like.post.title, post_path(notification.like.post) %>にいいねしました。
-    <% end %>
+    <div>
+      <% case notification.target_type %>
+      <% when "like" %>
+        <%= link_to notification.end_user.name, end_user_path(notification.end_user) %>さんが<%= link_to notification.like.post.title, post_path(notification.like.post) %>にいいねしました。
+      <% when "comment" %>
+        <%= link_to notification.end_user.name, end_user_path(notification.end_user) %>さんが<%= link_to notification.comment.post.title, post_path(notification.comment.post) %>にコメントしました。
+      <% when "follow" %>
+        <%= link_to notification.end_user.name, end_user_path(notification.end_user) %>さんがあなたをフォローしました。
+      <% end %>
+    </div>
   <% end %>
+
 <% else %>
   <p>通知はありません。</p>
 <% end %>
