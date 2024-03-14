@@ -27,7 +27,8 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
-    resources :notifications, only: [:index]
+    patch 'notifications/update_all'
+    resources :notifications, only: [:index, :update]
   end
 
   devise_for :admins, skip: [:registrations, :passwords], controllers: { #sign_inのみ

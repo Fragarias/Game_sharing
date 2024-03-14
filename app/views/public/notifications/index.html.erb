@@ -1,7 +1,9 @@
 <h1>通知一覧</h1>
 
+
 <% if @notifications.exists? %>
 
+<%= link_to "すべての通知を既読にする", notifications_update_all_path, method: :patch, class: "btn btn-primary" %>
   <% @notifications.each do |notification| %>
     <div>
       <% case notification.target_type %>
@@ -12,6 +14,7 @@
       <% when "follow" %>
         <%= link_to notification.end_user.name, end_user_path(notification.end_user) %>さんがあなたをフォローしました。
       <% end %>
+      <%= link_to "既読", notification_path(notification), method: :patch, class: "btn btn-primary" %>
     </div>
   <% end %>
 
