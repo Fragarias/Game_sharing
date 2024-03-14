@@ -4,7 +4,6 @@ class Public::EndUsersController < ApplicationController
 
   def index
     @end_user = current_end_user
-    @game_bookmarks = @end_user.game_bookmarks.all
     post_like_count = {}
     EndUser.all.each do |end_user|
       post_like_count.store(end_user, Like.where(post_id: Post.where(end_user_id: end_user.id).pluck(:id)).count)
@@ -14,7 +13,6 @@ class Public::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
-    @game_bookmarks = @end_user.game_bookmarks.all
     @posts = @end_user.posts.all
   end
 

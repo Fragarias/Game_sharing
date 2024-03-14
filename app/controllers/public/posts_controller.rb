@@ -29,13 +29,11 @@ class Public::PostsController < ApplicationController
     # @posts = Post.all.where(is_deleted: false)
     @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false).order('id DESC')
     @end_user = current_end_user
-    @game_bookmarks = @end_user.game_bookmarks.all
   end
 
   def show #URL入力で論理削除した投稿を表示させない処理が必要
     @post = Post.find(params[:id])
     @end_user = @post.end_user
-    @game_bookmarks = @end_user.game_bookmarks.all
     @comments = @post.comments.where(is_deleted: false)
     @comment = Comment.new
   end

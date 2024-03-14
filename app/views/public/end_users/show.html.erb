@@ -1,37 +1,6 @@
 <h1>ユーザ詳細画面</h1>
 
-<div>
-  <%= link_to end_user_path(@end_user.id) do %>
-    <%= image_tag @end_user.get_profile_image(100, 100) %><br>
-    <%= @end_user.name %>
-  <% end %><br>
-  <%= @end_user.introduction %><br>
-  <%= link_to end_user_relationships_path(@end_user.id), class: "btn btn-secondary" do %>
-    フォロー数　<%= @end_user.followings.count %>
-  <% end %>
-  <%= link_to end_user_relationships_path(@end_user.id, followers_id: @end_user.id), class: "btn btn-secondary" do %>
-    フォロワー数　<%= @end_user.followers.count %>
-  <% end %>
-  <% if @end_user == current_end_user %>
-    <% if @end_user.name != "guestuser" %>
-      <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
-    <% end %>
-  <% else %>
-    <% if current_end_user.following?(current_end_user, @end_user) %>
-      <%= link_to "フォロー済", end_user_relationships_path(@end_user.id), method: :delete, class: "btn btn-secondary" %>
-    <% else %>
-      <%= link_to "フォローする", end_user_relationships_path(@end_user.id), method: :post, class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
-</div>
-
-<h3>play game</h3>
-
-<% @game_bookmarks.each do |game| %>
-  <%= link_to community_path(game.community.id) do %>
-    <%= image_tag game.community.get_image(100, 100) %>
-  <% end %>
-<% end %>
+<%= render 'user', end_user: @end_user %>
 
 <% @posts.each do |post| %>
   <div class="card mb-3" style="max-width: 18rem;">
