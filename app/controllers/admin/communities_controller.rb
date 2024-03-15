@@ -11,7 +11,7 @@ class Admin::CommunitiesController < ApplicationController
   end
 
   def index
-    @communities = Community.all
+    @communities = Community.page(params[:page]).per(10)
   end
 
   def show
@@ -19,9 +19,9 @@ class Admin::CommunitiesController < ApplicationController
     @tags = Tag.all
     if params[:tag_id]
       @tag = Tag.find(params[:tag_id])
-      @posts = @tag.posts.where(community_id: @community.id)
+      @posts = @tag.posts.where(community_id: @community.id).page(params[:page]).per(10)
     else
-      @posts = @community.posts.all
+      @posts = @community.posts.page(params[:page]).per(10)
     end
   end
 

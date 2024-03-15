@@ -26,8 +26,8 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    # @posts = Post.all.where(is_deleted: false)
-    @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false).order('id DESC')
+    # 自分と自分がフォローしているユーザの投稿一覧
+    @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false).order('id DESC').page(params[:page])
     @end_user = current_end_user
   end
 

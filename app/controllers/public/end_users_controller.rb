@@ -13,7 +13,7 @@ class Public::EndUsersController < ApplicationController
 
   def show
     @end_user = EndUser.find(params[:id])
-    @posts = @end_user.posts.all
+    @posts = @end_user.posts.page(params[:page])
   end
 
   def edit

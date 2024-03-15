@@ -1,13 +1,13 @@
 class Admin::EndUsersController < ApplicationController
   before_action :authenticate_admin!
   def index
-    @end_users = EndUser.all
+    @end_users = EndUser.page(params[:page]).per(10)
   end
 
   def show
     @end_user = EndUser.find(params[:id])
     @game_bookmarks = @end_user.game_bookmarks.all
-    @posts = @end_user.posts.all
+    @posts = @end_user.posts.page(params[:page]).per(10)
   end
 
   def edit

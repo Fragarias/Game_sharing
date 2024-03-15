@@ -36,30 +36,8 @@
   </ul>
 </div>
 
-<% @posts.each do |post| %>
-  <div class="card mb-3" style="max-width: 18rem;">
-    <h2 class="card-header">
-      <%= link_to post_path(post.id) do %>
-        <%= post.title %>
-      <% end %>
-    </h2>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= post.community.name %>
-        <% post.post_tags.all.each do |post_tag| %>
-          <%= post_tag.tag.name %>
-        <% end %>
-      </h5>
-      <p class="card-text">
-        <%= post.text %>
-      </p>
-    </div>
-    <div class="card-footer">
-      <%= link_to end_user_path(post.end_user.id) do %>
-        <%= post.end_user.name %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+<%= render 'public/posts/post', posts: @posts %>
 
 <%= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary" %>
+
+<%= paginate @posts %>
