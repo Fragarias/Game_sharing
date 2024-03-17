@@ -1,45 +1,20 @@
-<div class="container px-5 px-sm-0">
-  <div class="row m-3 pt-3">
-    <div class="col-3">
-      <h3 class="bg text-center">管理者ログイン</h3>
-    </div>
-  </div>
-  <%= form_with model: @admin, url: admin_session_path do |f| %>
-    <div class="row justify-content-center py-1">
-      <label class="col-sm-2 col-form-label">メールアドレス</label>
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@exampl", size: 50 %>
-    </div>
-    <div class="row justify-content-center py-1">
-      <label class="col-sm-2 col-form-label">パスワード</label>
-      <%= f.password_field :password, autocomplete: "current-password", size: 50 %>
-    </div>
-    <div class="row m-3 pt-3" align="center">
-      <div class="col">
-        <%= f.submit "ログイン", class: "btn btn-primary" %>
+<div class="container mx-auto my-4" style="width:400px; height:500px;">
+  <div class="box-inner">
+    <h4 class="text-center">管理者ログイン</h4>
+
+    <%= form_with model: @admin, url: admin_session_path do |f| %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "sample@exampl" %>
       </div>
-    </div>
-  <% end %>
-  <%= render "admin/shared/links" %>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+      <div class="py-2">
+        <%= f.submit "ログイン", class: "btn btn-primary w-100 mb-3" %>
+      </div>
+    <% end %>
+    <%= render "admin/shared/links" %>
+  </div>
 </div>
-
-
-<!--<h2>Log in</h2>-->
-
-<!--<%#= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>-->
-<!--  <div class="field">-->
-<!--    <%#= f.label :email %><br />-->
-<!--    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>-->
-<!--  </div>-->
-
-<!--  <div class="field">-->
-<!--    <%#= f.label :password %><br />-->
-<!--    <%#= f.password_field :password, autocomplete: "current-password" %>-->
-<!--  </div>-->
-
-
-<!--  <div class="actions">-->
-<!--    <%#= f.submit "Log in" %>-->
-<!--  </div>-->
-<!--<%# end %>-->
-
-<!--<%#= render "admin/shared/links" %>-->

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://kit.fontawesome.com/65f238b083.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -13,87 +13,192 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <div class="col">
-            <a class="p-3" href="/">
-              <span class="navbar-brand text-black h1">GameSharing</span>
-            </a>
-          </div>
-          <div class="col ml-5">
-            <% if end_user_signed_in? %>
-              <h6>ようこそ、<%= current_end_user.name %>さん！</h6>
+      <!--<nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+      <!--  <div class="container">-->
+      <!--    <div class="col">-->
+      <!--      <a class="p-3" href="/">-->
+      <!--        <span class="navbar-brand text-black logo">GameSharing</span>-->
+      <!--      </a>-->
+      <!--    </div>-->
+      <!--    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"-->
+      <!--                  aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">-->
+      <!--      <span class="navbar-toggler-icon"></span>-->
+      <!--    </button>-->
+      <!--    <div class="collapse navbar-collapse" id="navbarNavDropdown">-->
+      <!--      <div class="flex-column">-->
+      <!--        <div class="ml-auto">-->
+      <!--          <% if end_user_signed_in? %>-->
+      <!--            <%= image_tag current_end_user.get_profile_image(50, 50) %>-->
+      <!--            <%= current_end_user.name %>-->
+      <!--            <%= link_to notifications_path, class: 'text-dark' do %>-->
+      <!--              <i class="fa-solid fa-bell"></i>-->
+      <!--            <% end %>-->
+      <!--            <%= link_to destroy_end_user_session_path, class: 'text-dark', method: :delete do %>-->
+      <!--              <i class="fa-solid fa-right-from-bracket"></i>-->
+      <!--            <% end %>-->
+      <!--          <% end %>-->
+      <!--        </div>-->
+      <!--        <div class="ml-auto">-->
+      <!--          <% if admin_signed_in? %> <!-- 管理者ログイン時 -->
+      <!--            <%= form_with url: admin_root_path, method: :get do |f| %>-->
+      <!--              <%= f.text_field :word, placeholder: "Search" %>-->
+      <!--              <%= f.submit "検索" %>-->
+      <!--            <% end %>-->
+      <!--          <% else %> <!-- 顧客ログイン時 又は ログアウト時 -->
+      <!--            <%= form_with url: root_path, method: :get do |f| %>-->
+      <!--              <%= f.text_field :word, placeholder: "Search" %>-->
+      <!--              <%= f.submit "検索" %>-->
+      <!--            <% end %>-->
+      <!--          <% end %>-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <!--      <div class="row">-->
+      <!--        <ul class="navbar-nav">-->
+      <!--          <% if admin_signed_in? %>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ゲーム一覧", admin_communities_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "投稿一覧", admin_root_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ユーザ一覧", admin_end_users_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ログアウト", destroy_admin_session_path, class: 'nav-link text-dark', method: :delete %>-->
+      <!--            </li>-->
+      <!--          <% elsif end_user_signed_in? %>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ホーム", root_path, class: 'nav-link text-dark text-center' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "タイムライン", posts_path, class: 'nav-link text-dark text-center' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "コミュニティ", communities_path, class: 'nav-link text-dark text-center' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ユーザ", end_users_path, class: 'nav-link text-dark text-center' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "マイページ", end_user_path(current_end_user.id), class: 'nav-link text-dark text-center' %>-->
+      <!--            </li>-->
+      <!--          <% else %>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ゲーム一覧", communities_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "新規登録", new_end_user_registration_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--            <li class="nav-item">-->
+      <!--              <%= link_to "ログイン", new_end_user_session_path, class: 'nav-link text-dark' %>-->
+      <!--            </li>-->
+      <!--          <% end %>-->
+      <!--        </ul>-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</nav>-->
+
+      <div class="container">
+        <% if admin_signed_in? %><!-- 管理者ログイン時 -->
+          <h1 class="logo text-center text-white pt-3 mb-3">
+            <span style="color: #DE140D;">G</span>ame<span style="color: #DE5D0D;">S</span>haring
+          </h1>
+          <div class="search-wrap">
+            <%= form_with url: admin_root_path, method: :get do |f| %>
+              <%= f.text_field :word, class: "search-text" %>
             <% end %>
           </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse flex-column" id="navbarNavDropdown">
-            <ul class="navbar-nav ml-auto">
-              <% if admin_signed_in? %>
-                <li class="nav-item">
-                  <%= link_to "ゲーム一覧", admin_communities_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "投稿一覧", admin_root_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ユーザ一覧", admin_end_users_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ログアウト", destroy_admin_session_path, class: 'nav-link text-dark border rounded', method: :delete %>
-                </li>
-              <% elsif end_user_signed_in? %>
-                <li class="nav-item">
-                  <%= link_to "タイムライン", posts_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ゲーム一覧", communities_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ユーザ一覧", end_users_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "通知", notifications_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "マイページ", end_user_path(current_end_user.id), class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ログアウト", destroy_end_user_session_path, class: 'nav-link text-dark border rounded', method: :delete %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                  <%= link_to "ゲーム一覧", communities_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "投稿一覧", posts_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "新規登録", new_end_user_registration_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "ログイン", new_end_user_session_path, class: 'nav-link text-dark border rounded' %>
-                </li>
-              <% end %>
+          <div class="w-100">
+            <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
+              <li>
+                <%= link_to "Home", admin_root_path %>
+              </li>
+              <li>
+                <%= link_to "Community", admin_communities_path %>
+              </li>
+              <li>
+                <%= link_to "User", admin_end_users_path %>
+              </li>
+              <li>
+                <%= link_to "Log out", destroy_admin_session_path, method: :delete %>
+              </li>
             </ul>
-            <div class="ml-auto">
-              <% if admin_signed_in? %> <!-- 管理者ログイン時 -->
-                <%= form_with url: admin_root_path, method: :get do |f| %>
-                  <%= f.text_field :word, placeholder: "Search" %>
-                  <%= f.submit "検索" %>
-                <% end %>
-              <% else %> <!-- 顧客ログイン時 又は ログアウト時 -->
-                <%= form_with url: root_path, method: :get do |f| %>
-                  <%= f.text_field :word, placeholder: "Search" %>
-                  <%= f.submit "検索" %>
-                <% end %>
-              <% end %>
-            </div>
           </div>
-        </div>
-      </nav>
+        <% elsif end_user_signed_in? %><!-- 顧客ログイン時 -->
+          <h1 class="logo text-center pt-3 mb-3">
+            <span style="color: #DE140D;">G</span>ame<span style="color: #DE5D0D;">S</span>haring
+          </h1>
+          <div class="search-wrap">
+            <%= form_with url: root_path, method: :get do |f| %>
+              <%= f.text_field :word, class: "search-text" %>
+            <% end %>
+          </div>
+          <div class="profile">
+            <%= link_to end_user_path(current_end_user.id) do %>
+              <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid profile-img mx-2"  %>
+              <%= current_end_user.name %>
+            <% end %>
+            <%= link_to notifications_path, class: 'bell', style: "width:30px;height:30px;" do %>
+              <i class="fa-solid fa-bell"></i>
+            <% end %>
+            <%= link_to destroy_end_user_session_path, class: 'log-out', method: :delete do %>
+              <i class="fa-solid fa-right-from-bracket"></i>
+            <% end %>
+          </div>
+          <div class="w-100">
+            <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
+              <li>
+                <%= link_to "Home", root_path %>
+              </li>
+              <li>
+                <%= link_to "Timeline", posts_path %>
+              </li>
+              <li>
+                <%= link_to "Community", communities_path %>
+              </li>
+              <li>
+                <%= link_to "User", end_users_path %>
+              </li>
+              <li>
+                <%= link_to "MyPage", end_user_path(current_end_user.id) %>
+              </li>
+            </ul>
+          </div>
+        <% else %><!-- ログアウト時 -->
+          <h1 class="logo text-center pt-3 mb-3">
+            <span style="color: #DE140D;">G</span>ame<span style="color: #DE5D0D;">S</span>haring
+          </h1>
+          <div class="search-wrap">
+            <%= form_with url: root_path, method: :get do |f| %>
+              <%= f.text_field :word, class: "search-text" %>
+            <% end %>
+          </div>
+          <div class="w-100">
+            <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
+              <li>
+                <%= link_to "Home", root_path %>
+              </li>
+              <li>
+                <%= link_to "Community", communities_path %>
+              </li>
+              <li>
+                <%= link_to "Sign up", new_end_user_registration_path %>
+              </li>
+              <li>
+                <%= link_to "Log in", new_end_user_session_path %>
+              </li>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+
+
+
     </header>
     <main>
       <div class="container px-5 my-3">
@@ -101,6 +206,8 @@
       </div>
       <%= yield %>
     </main>
-    <footer></footer>
+    <footer class="text-center py-4">
+      <span style="color: #DE140D;">G</span>ame<span style="color: #DE5D0D;">S</span>haring
+    </footer>
   </body>
 </html>

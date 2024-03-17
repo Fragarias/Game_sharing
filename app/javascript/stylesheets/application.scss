@@ -1,1 +1,214 @@
-@use '~bootstrap/scss/bootstrap';
+// $theme-colors: (
+//   "primary": #B30006,
+//   "secondary": #B30071,
+//   "danger": #FF7269
+// );
+$enable-rounded: false;
+@import '~bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Delius+Swash+Caps&family=Noto+Sans+JP:wght@100..900&display=swap');
+
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+}
+
+// HEADER
+header {
+  background-color: #E0A5A6;
+}
+
+.logo {
+  font-family: "Delius Swash Caps", cursive;
+}
+
+.profile-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.profile {
+  position: absolute;/*絶対配置にして*/
+  z-index: 2;/*最前面に設定。数字は変更可*/
+  top: 20px;
+  left: 30px;
+}
+.bell {
+  color: #F6EB0A;
+  margin: 5px;
+}
+.log-out {
+  color: #3C578E;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+}
+
+
+// BODY
+body {
+  font-family: "Noto Sans JP", sans-serif;
+}
+.community_card-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+.pagination {
+  justify-content: center;
+}
+
+
+// FOOTER
+footer {
+  background-color: #7A1400;
+  color: #fff;
+}
+
+
+// VIEW
+.box {
+  width: 400px;
+  height: 500px;
+  margin: 60px auto;
+  border-radius: 4px;
+  border: 1px #ddd solid;
+}
+.box-inner {
+  padding: 20px 26px;
+}
+.form-group label {
+  font-weight: 600;
+  font-size: 15px;
+  padding-left: 2px;
+  // padding-bottom: 2px;
+}
+.form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"] {
+  border-style: none;
+  box-sizing: border-box;
+  width: 100%;
+  height: 35px;
+  border: 1px solid #a6a6a6;
+  box-shadow: 0 1px 0 rgba(0,0,0,.07) inset;
+  border-radius: 3px;
+  padding: 0 7px;
+}
+.login-action input[type="submit"] {
+  border-style: none;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+  border-radius: 3px;
+  border: 1px #a88734 solid;
+}
+.login-action input[type="submit"]:hover {
+  cursor: pointer;
+  background: #f0c14b;
+}
+.box-newusr p {
+  text-align: center;
+  font-size: 12px;
+  color: #767676;
+  margin-bottom: 14px;
+}
+.box-newusr p span {
+  text-decoration: line-through;
+  text-decoration-color: #e7e7e7;
+}
+.box-newusr a {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding-top: 1px;
+  font-size: 15px;
+  color: #111;
+  line-height: 31px;
+  text-align: center;
+  background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
+  border-radius: 3px;
+  border: 1px #a2a6ac solid;
+}
+.box-newusr a:hover {
+  background: #e7e9ec;
+}
+
+
+// MOVE
+
+/*検索窓のエリア*/
+.search-wrap {
+  position: absolute;/*絶対配置にして*/
+  z-index: 2;/*最前面に設定。数字は変更可*/
+  top: 10px;
+  right: 10px;
+}
+/*テキスト入力input設定*/
+.search-text{
+  -webkit-appearance: none;/*SafariやChromeのデフォルトの設定を無効*/
+  width: 60px;/*テキスト入力エリアが伸びる前の横幅*/
+  height: 60px;
+  padding: 20px;
+  border: none;
+  background:#fff url("https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/7-2-3/img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
+  background-size: 25px 25px;
+  transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
+  outline: none;
+  cursor: pointer;/*カーソルを指マークに*/
+}
+/*テキスト入力inputにフォーカスした時の形状*/
+.search-text:focus {
+  width: 250px;/*テキスト入力エリアが伸びる後の横幅*/
+  padding: 20px 0 20px 60px;
+  box-shadow: 0 2px rgba(0,0,0,.26);
+}
+
+.gnavi{
+  display: flex;
+  flex-wrap: wrap;/*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin:0 0 50px 0;
+  list-style: none;
+}
+.gnavi li a{
+  display: block;
+  padding:10px 30px;
+  text-decoration: none;
+  color: #333;
+}
+.gnavi li{
+  margin-bottom:20px;
+}
+/*==================================================
+　5-3-1 中心から外に線が伸びる（下部）
+===================================*/
+
+.gnavi li a{
+  /*線の基点とするためrelativeを指定*/
+  position: relative;
+}
+
+.gnavi li.current a,
+.gnavi li a:hover{
+  color: #000;
+}
+
+.gnavi li a::after {
+  content: '';
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  /*線の形状*/
+  width: 80%;
+  height: 2px;
+  background: #000;
+  /*アニメーションの指定*/
+  transition: all .3s;
+  transform: scale(0, 1);/*X方向0、Y方向1*/
+  transform-origin: center top;/*上部中央基点*/
+}
+
+/*現在地とhoverの設定*/
+.gnavi li.current a::after,
+.gnavi li a:hover::after {
+  transform: scale(1, 1);/*X方向にスケール拡大*/
+}

@@ -1,10 +1,11 @@
+<!-- public内 -->
+<!-- communities [#show] / end_users [#show] / posts [#index] -->
+
 <% posts.each do |post| %>
-  <div class="card mb-3" style="max-width: 18rem;">
-    <h2 class="card-header">
-      <%= link_to post_path(post.id) do %>
-        <%= post.title %>
-      <% end %>
-    </h2>
+  <div class="card mb-3">
+    <h5 class="card-header">
+      <%= link_to post.title, post_path(post.id) %>
+    </h5>
     <div class="card-body">
       <h5 class="card-title">
         <%= link_to_unless_current "#{post.community.name}", community_path(post.community.id) %>
@@ -16,11 +17,16 @@
         <%= image_tag post.get_post_image(200, 200) %>
       <% end %>
       <p class="card-text">
-        <%= post.text %>
+        <%= simple_format(post.text, sanitize: true, class: 'm-0 p-0') %>
       </p>
     </div>
-    <div class="card-footer">
-      <%= link_to_unless_current "#{post.end_user.name}", end_user_path(post.end_user.id) %>
+    <div class="card-footer text-right">
+      <small class="d-block">
+        <%= link_to_unless_current "#{post.end_user.name}", end_user_path(post.end_user.id) %>
+      </small>
+      <small class="text-black-50">
+        <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H:%M') %>
+      </small>
     </div>
   </div>
 <% end %>

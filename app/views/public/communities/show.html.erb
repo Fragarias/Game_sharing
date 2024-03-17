@@ -1,43 +1,67 @@
-<h1>ゲーム詳細画面</h1>
+<div class="container">
+  <h2>ゲーム詳細画面</h2>
 
-<div class="card" style="width: 18rem;">
-  <%= image_tag @community.get_image(300, 300) %>
-  <div class="card-body">
-    <h5 class="card-title">
-      <%= @community.name %>
-    </h5>
-    <p class="card-text">
-      <%= @community.overview %>
-    </p>
-    <% if @community.game_bookmarked_by?(current_end_user) %>
-      <div>
-      <%= link_to community_game_bookmarks_path(@community), method: :delete, class: "btn btn-secondary" do %>
-        ブックマーク済
-      <% end %>
-      </div>
-    <% else %>
-      <%= link_to community_game_bookmarks_path(@community), method: :post, class: "btn btn-primary" do %>
-        ブックマーク
-      <% end %>
-    <% end %>
-  </div>
-</div>
 
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
+  <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
+    <li>
       <%= link_to "すべて", community_path(@community.id), class: "text-dark" %>
     </li>
     <% @tags.each do |tag| %>
-      <li class="list-group-item">
+      <li>
         <%= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>
       </li>
     <% end %>
   </ul>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <%= image_tag @community.get_image(300, 300) %>
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= @community.name %>
+          </h5>
+          <p class="card-text">
+            <%= @community.overview %>
+          </p>
+          <% if @community.game_bookmarked_by?(current_end_user) %>
+            <div>
+            <%= link_to community_game_bookmarks_path(@community), method: :delete, class: "btn btn-secondary" do %>
+              ブックマーク済
+            <% end %>
+            </div>
+          <% else %>
+            <%= link_to community_game_bookmarks_path(@community), method: :post, class: "btn btn-primary" do %>
+              ブックマーク
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <%= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary mb-3" %>
+      <%= render 'public/posts/post', posts: @posts %>
+      <%= paginate @posts %>
+    </div>
+  </div>
+
+  <!--<div class="card" style="width: 18rem;">-->
+  <!--  <ul class="list-group list-group-flush">-->
+  <!--    <li class="list-group-item">-->
+  <!--      <%= link_to "すべて", community_path(@community.id), class: "text-dark" %>-->
+  <!--    </li>-->
+  <!--    <% @tags.each do |tag| %>-->
+  <!--      <li class="list-group-item">-->
+  <!--        <%= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>-->
+  <!--      </li>-->
+  <!--    <% end %>-->
+  <!--  </ul>-->
+  <!--</div>-->
+
+  <%#= render 'public/posts/post', posts: @posts %>
+
+  <%#= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary" %>
+
+
+
 </div>
-
-<%= render 'public/posts/post', posts: @posts %>
-
-<%= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary" %>
-
-<%= paginate @posts %>
