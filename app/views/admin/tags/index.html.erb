@@ -1,32 +1,45 @@
-<h1>タグ管理</h1>
+<div class="container-fluid">
+  <div class="col-9 mx-auto">
+    <h2 class="ttl_center4">タグ管理</h2>
+    <div class="row d-flex justify-content-around py-3">
+      <div class="col-5">
+        <table class="table" border="1" style="border-collapse: collapse">
+          <thead>
+            <th>タグ名</th>
+            <th width="85"></th>
+            <th width="85"></th>
+          </thead>
+          <tbody>
+            <% @tags.each do |tag| %>
+              <tr>
+                <%= form_with model: tag, url: admin_tag_path(tag.id), method: :patch, local: true do |f| %>
+                  <td>
+                    <div class="form-group"><%= f.text_field :name, style: "width:100%" %></div>
+                  </td>
+                  <td>
+                    <%= f.submit "更新", class: "btn btn-success" %>
+                  </td>
+                <% end %>
+                <td>
+                  <%= link_to "削除", admin_tag_path(tag.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-5 pt-5">
+      <%= form_with model: @tag, url: admin_tags_path, method: :post, local: true do |f| %>
+        <div class="form-group px-5">
+          <%= f.label "タグ名" %>
+          <%= f.text_field :name, size: "50" %>
+        </div>
+        <div style="text-align:center">
+          <%= f.submit "タグ登録", class: "simple-button" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<table class="table" border="1" style="border-collapse: collapse">
-  <thead>
-    <th height="50" width="150">タグ名</th>
-    <th width="100"></th>
-    <th width="100"></th>
-  </thead>
-  <tbody>
-    <% @tags.each do |tag| %>
-      <tr>
-        <%= form_with model: tag, url: admin_tag_path(tag.id), method: :patch, local: true do |f| %>
-          <td>
-            <%= f.text_field :name, size: "30" %>
-          </td>
-          <td>
-            <%= f.submit "更新", class: "btn btn-success" %>
-          </td>
-        <% end %>
-        <td>
-          <%= link_to "削除", admin_tag_path(tag.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= form_with model: @tag, url: admin_tags_path, method: :post, local: true do |f| %>
-  <label>タグ名</label><br>
-  <%= f.text_field :name, size: "50" %>
-  <%= f.submit "タグ登録", class: "btn btn-primary" %>
-<% end %>

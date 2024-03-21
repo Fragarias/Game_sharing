@@ -1,14 +1,23 @@
-<h1>コミュニティ編集画面</h1>
+<div class="container-fluid">
+  <div class="col-5 mx-auto mt-4 mb-5">
+    <h2 class="ttl_center4"><%= @community.name %>編集画面</h2>
 
-<%= form_with model: @community, url: admin_community_path(@community.id), method: :patch, local: true do |f| %>
-  <div>
-    <%= f.file_field :image, accept: "image/*" %>
+    <%= form_with model: @community, url: admin_community_path(@community.id), method: :patch, local: true do |f| %>
+      <div class="form-group px-5">
+        <%= f.label :image %>
+        <%= f.file_field :image, accept: "image/*" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :name %>
+        <%= f.text_field :name, size: "50" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :overview %>
+        <%= f.text_area :overview, style: "width:100%", rows: "4" %>
+      </div>
+      <div style="text-align:center">
+        <%= f.submit "更新", class: "simple-button" %>
+      </div>
+    <% end %>
   </div>
-  <div>
-    <label>ゲームタイトル</label>
-    <%= f.text_field :name, size: "40" %><br>
-    <label>ゲーム概要</label>
-    <%= f.text_area :overview, size: "40×60" %>
-  </div>
-  <%= f.submit "更新", class: "btn btn-success" %>
-<% end %>
+</div>

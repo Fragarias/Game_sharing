@@ -125,6 +125,9 @@
                 <%= link_to "User", admin_end_users_path %>
               </li>
               <li>
+                <%= link_to "Tag", admin_tags_path %>
+              </li>
+              <li>
                 <%= link_to "Log out", destroy_admin_session_path, method: :delete %>
               </li>
             </ul>
@@ -140,7 +143,7 @@
           </div>
           <div class="profile">
             <%= link_to end_user_path(current_end_user.id) do %>
-              <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid profile-img mx-2"  %>
+              <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid mini-img mx-2"  %>
               <%= current_end_user.name %>
             <% end %>
             <%= link_to notifications_path, class: 'bell', style: "width:30px;height:30px;" do %>

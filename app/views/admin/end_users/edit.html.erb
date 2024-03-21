@@ -1,19 +1,41 @@
-<h1>ユーザ編集画面</h1>
+<div class="container-fluid">
+  <div class="col-5 mx-auto mt-4 mb-5">
+    <h2 class="ttl_center4"><%= @end_user.name %>　の設定編集</h2>
 
-<%= form_with model: @end_user, url: admin_end_user_path(@end_user.id), method: :patch, local: true do |f| %>
-  <label>プロフィール画像</label>
-  <%= f.file_field :profile_image, accept: "image/*" %>
-  <label>ニックネーム</label>
-  <%= f.text_field :name, size: "40" %>
-  <label>メールアドレス</label>
-  <%= f.email_field :email, autocomplete: "email" %>
-  <label>自己紹介文</label>
-  <%= f.text_area :introduction, size: "40×60" %>
-  <label>会員ステータス</label>
-  <%= f.radio_button :is_active, "true" %>
-  <%= f.label :is_active_true, "現役" %>
-  <%= f.radio_button :is_active, "false" %>
-  <%= f.label :is_active_false, "退会" %>
+    <%= form_with model: @end_user, url: admin_end_user_path(@end_user.id), method: :patch, local: true do |f| %>
+      <div class="form-group px-5">
+        <%= f.label :profile_image %>
+        <%= f.file_field :profile_image, accept: "image/*" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :name %>
+        <%= f.text_field :name, size: "50" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :email %>
+        <%= f.email_field :email, autocomplete: "email", size: "50" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction, style: "width:100%", rows: "4" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label "会員ステータス" %>
+        <div class="row d-flex justify-content-center">
+          <div class="col-2 text-center">
+            <%= f.radio_button :is_active, "true", class: "" %>
+            <%= f.label :is_active_true, "現役" %>
+          </div>
+          <div class="col-2 text-center">
+            <%= f.radio_button :is_active, "false", class: "" %>
+            <%= f.label :is_active_false, "退会" %>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center">
+        <%= f.submit "更新", class: "simple-button" %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-  <%= f.submit "更新", class: "btn btn-success" %>
-<% end %>

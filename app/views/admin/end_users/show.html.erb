@@ -1,43 +1,79 @@
-<h1>ユーザ詳細画面</h1>
-
-<div>
-  <%= image_tag @end_user.get_profile_image(100, 100) %><br>
-  <%= @end_user.name %><br>
-  <%= @end_user.introduction %><br>
-  <%= link_to "設定", edit_admin_end_user_path(@end_user.id), class: "btn btn-secondary" %>
-</div>
-
-<h3>play game</h3>
-<% @game_bookmarks.each do |game| %>
-  <%= link_to admin_community_path(game.community.id) do %>
-    <%= image_tag game.community.get_image(100, 100) %>
-  <% end %>
-<% end %>
-
-<% @posts.each do |post| %>
-  <div class="card mb-3" style="max-width: 18rem;">
-    <h2 class="card-header">
-      <%= link_to admin_post_path(post.id) do %>
-        <%= post.title %>
-      <% end %>
-    </h2>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= link_to admin_community_path(post.community.id) do %>
-          <%= post.community.name %>
-        <% end %>
-        <% post.post_tags.all.each do |post_tag| %>
-          <%= post_tag.tag.name %>
-        <% end %>
-      </h5>
-      <p class="card-text">
-        <%= post.text %>
-      </p>
-    </div>
-    <div class="card-footer">
-      <%= post.end_user.name %>
+<div class="container-fluid mb-4">
+  <div class="col-9 mx-auto">
+    <h2 class="ttl_center4"><%= @end_user.name %></h2>
+    <div class="row">
+      <div class="col-3">
+        <div class="card mb-3" style="width: 17rem;">
+          <%= image_tag @end_user.get_profile_image(100, 100) %>
+          <div class="card-body">
+            <h3 class="card-title"><%= @end_user.name %></h3>
+            <p class="card-text"><%= @end_user.introduction %></p>
+            <div style="text-align:center">
+              <%= link_to "ユーザ設定", edit_admin_end_user_path(@end_user.id), class: "simple-button" %>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:center">
+          <h3>Bookmark</h3>
+          <div class="row row-cols-3">
+            <% @game_bookmarks.each do |game| %>
+              <div class="col">
+                <%= link_to admin_community_path(game.community.id) do %>
+                  <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <table class="table" border="1" style="border-collapse: collapse">
+          <thead>
+            <th>投稿タイトル</th>
+            <th width="240">作成日時</th>
+            <th width="110">コメント数</th>
+            <th width="110">いいね数</th>
+            <th width="150">投稿ステータス</th>
+          </thead>
+          <tbody>
+            <% @posts.each do |post| %>
+              <tr>
+                <td>
+                  <%= link_to admin_post_path(post.id), class: "text-dark" do %>
+                    <h4><%= post.title %></h4>
+                  <% end %>
+                  <small>
+                    <%= link_to admin_community_path(post.community.id), class: "text-muted" do %>
+                      <%= post.community.name %>
+                    <% end %>
+                  </small>
+                </td>
+                <td align="center">
+                  <%= link_to admin_post_path(post.id), class: "btntextchange" do %>
+                    <span><%= post.created_at.strftime('%Y/%m/%d %H:%M') %></span>
+                    <span>投稿を見る</span>
+                  <% end %>
+                </td>
+                <td align="center"><%= post.comments.count %></td>
+                <td align="center"><%= post.likes.count %></td>
+                <td align="center">
+                  <% if post.is_deleted == true %> <!--削除されている-->
+                    <div class="text-danger font-weight-bold">削除済</div>
+                  <% else %>
+                    <% if post.is_published == true %> <!--削除されていない かつ 公開中-->
+                    <div class="text-success font-weight-bold">公開</div>
+                    <% else %> <!--削除されていない かつ 非公開中-->
+                    <div class="text-secondary font-weight-bold">非公開</div>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
-<% end %>
+</div>
 
-<%= paginate @posts %>

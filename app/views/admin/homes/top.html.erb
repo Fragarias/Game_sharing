@@ -1,66 +1,58 @@
-<h1>新規投稿一覧</h1>
-<% @new_posts.each do |new_post| %>
-  <div class="card mb-3" style="max-width: 18rem;">
-    <h2 class="card-header">
-      <%= link_to admin_post_path(new_post.id) do %>
-        <%= new_post.title %>
-      <% end %>
-    </h2>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= link_to admin_community_path(new_post.community.id) do %>
-          <%= new_post.community.name %>
+<div class="container-fluid">
+  <div class="col-9 mx-auto">
+    <h2 class="ttl_center4">新規投稿一覧</h2>
+    <table class="table" border="1" style="border-collapse: collapse">
+      <thead>
+        <th>投稿タイトル</th>
+        <th width="240">ユーザ名</th>
+        <th width="240">作成日時</th>
+        <th width="110">コメント数</th>
+        <th width="110">いいね数</th>
+        <th width="150">投稿ステータス</th>
+      </thead>
+      <tbody>
+        <% @new_posts.each do |new_post| %>
+          <tr>
+            <td>
+              <%= link_to admin_post_path(new_post.id), class: "text-dark" do %>
+                <h3><%= new_post.title %></h3>
+              <% end %>
+              <small>
+                <%= link_to admin_community_path(new_post.community.id), class: "text-muted" do %>
+                  <%= new_post.community.name %>
+                <% end %>
+              </small>
+            </td>
+            <td>
+              <%= link_to admin_end_user_path(new_post.end_user.id), class: "text-dark" do %>
+                <%= image_tag new_post.end_user.get_profile_image(100,100), class: "img-fluid mini-img" %>
+                <%= new_post.end_user.name %>
+              <% end %>
+            </td>
+            <td align="center">
+              <%= link_to admin_post_path(new_post.id), class: "btntextchange" do %>
+                <span><%= new_post.created_at.strftime('%Y/%m/%d %H:%M') %></span>
+                <span>投稿を見る</span>
+              <% end %>
+            </td>
+            <td align="center"><%= new_post.comments.count %></td>
+            <td align="center"><%= new_post.likes.count %></td>
+            <td align="center">
+              <% if new_post.is_deleted == true %> <!--削除されている-->
+                <div class="text-danger font-weight-bold">削除済</div>
+              <% else %>
+                <% if new_post.is_published == true %> <!--削除されていない かつ 公開中-->
+                <div class="text-success font-weight-bold">公開</div>
+                <% else %> <!--削除されていない かつ 非公開中-->
+                <div class="text-secondary font-weight-bold">非公開</div>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-        <% new_post.post_tags.all.each do |post_tag| %>
-          <%= post_tag.tag.name %>
-        <% end %>
-      </h5>
-      <p class="card-text">
-        <%= new_post.text %>
-      </p>
-    </div>
-    <div class="card-footer">
-      <%= link_to admin_end_user_path(new_post.end_user.id) do %>
-        <%= new_post.end_user.name %>
-      <% end %>
-    </div>
+      </tbody>
+    </table>
+
+    <%= paginate @new_posts %>
   </div>
-  <%#= link_to post_path(new_post.id) do %>
-    <%# if new_post.get_post_image.present? %>
-      <%#= image_tag new_post.get_post_image(150, 150) %>
-    <%# end %>
-  <%# end %>
-<% end %>
-
-<table class="table" border="1" style="border-collapse: collapse">
-  <thead>
-    <th>投稿日時</th>
-    <th>コミュニティ名</th>
-    <th>ユーザ名</th>
-    <th>投稿タイトル</th>
-    <th>コメント数</th>
-    <th>いいね数</th>
-    <th>投稿ステータス</th>
-  </thead>
-  <tbody>
-    <% @new_posts.each do |new_post| %>
-      <tr>
-        <td><%= new_post.created_at.strftime('%Y/%m/%d %H:%M:%S') %></td>
-        <td><%= new_post.community.name %></td>
-        <td><%= new_post.end_user.name %></td>
-        <td><%= new_post.title %></td>
-        <td><%= new_post.comments.count %></td>
-        <td><%= new_post.likes.count %></td>
-        <td>
-          <% if new_post.is_deleted == false %>
-            <%= link_to "削除", admin_post_path(new_post.id), method: :delete, "data-confirm" => "投稿を削除しますか？", class: "btn btn-danger" %>
-          <% else %>
-            削除済
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= paginate @new_posts %>
+</div>
