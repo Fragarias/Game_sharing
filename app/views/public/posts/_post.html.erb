@@ -1,32 +1,33 @@
 <!-- public内 -->
-<!-- communities [#show] / end_users [#show] / posts [#index] -->
+<!-- homes [#top] / communities [#show] / end_users [#show] / posts [#index] -->
 
 <% posts.each do |post| %>
-  <div class="card mb-3">
-    <h5 class="card-header">
-      <%= link_to post.title, post_path(post.id) %>
-    </h5>
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= link_to_unless_current "#{post.community.name}", community_path(post.community.id) %>
-        <% post.post_tags.all.each do |post_tag| %>
-          <%= post_tag.tag.name %>
-        <% end %>
-      </h5>
-      <% if post.post_image.attached? %>
-        <%= image_tag post.get_post_image(200, 200) %>
-      <% end %>
-      <p class="card-text">
-        <%= simple_format(post.text, sanitize: true, class: 'm-0 p-0') %>
-      </p>
-    </div>
-    <div class="card-footer text-right">
-      <small class="d-block">
-        <%= link_to_unless_current "#{post.end_user.name}", end_user_path(post.end_user.id) %>
-      </small>
-      <small class="text-black-50">
-        <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H:%M') %>
-      </small>
+  <div class="col my-3">
+    <div class="card bg-dark text-white" style="max-width: 18rem;">
+      <div class="card-opacity">
+        <%= image_tag post.community.get_image(500, 500), class: "img-fluid card-img card-image" %>
+      </div>
+      <div class="card-img-overlay">
+        <h3 class="card-title">
+          <%= link_to post.title, post_path(post.id), class: "text-white" %>
+        </h3>
+        <p class="card-text">
+          <small>
+            <%= link_to_unless_current "#{post.community.name}", community_path(post.community.id), class: "text-white" %>
+            <% post.post_tags.all.each do |post_tag| %>
+              #<%= post_tag.tag.name %>
+            <% end %>
+          </small>
+        </p>
+        <div class="text-right">
+          <small class="d-block">
+            <%= link_to_unless_current "#{post.end_user.name}", end_user_path(post.end_user.id), class: "text-white" %>
+          </small>
+          <small class="text-white">
+            <%= post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H:%M') %>
+          </small>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>

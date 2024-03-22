@@ -1,60 +1,72 @@
-<h1>投稿詳細画面</h1>
-
-<%= render 'public/end_users/user', end_user: @end_user %>
-
-<h2>
-  <%= @post.title %>
-</h2>
-<% if @post.post_image.attached? %>
-  <%= image_tag @post.get_post_image(300, 300) %>
-<% end %>
-<% if @post.end_user == current_end_user %>
-  <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
-  <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？" %>
-<% end %><br>
-<%= link_to community_path(@post.community.id) do %>
-  <%= @post.community.name %>
-<% end %>
-<% @post.post_tags.all.each do |post_tag| %>
-  <%= post_tag.tag.name %>
-<% end %><br>
-<%= @post.text %><br>
-
-<div>
-  <% if @post.liked_by?(current_end_user) %>
-    <div>
-      <%= link_to post_likes_path(@post.id), method: :delete do %>
-        ❤<%= @post.likes.count %>いいね
-      <% end %>
+<div class="container-fluid mb-4">
+  <div class="col-9 mx-auto">
+    <div class="row justify-content-between">
+      <div class="col-3">
+        <%= render 'public/end_users/user', end_user: @end_user %>
+      </div>
+      <div class="col-5 post-box">
+        <h2 class="ttl_line"><%= @post.title %></h2>
+        <% if @post.is_deleted == true %>
+          <div class="text-danger font-weight-bold">削除されています</div>
+        <% else %>
+          <% if @post.end_user == current_end_user %>
+            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
+            <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
+          <% end %>
+        <% end %><br>
+        <%= link_to community_path(@post.community.id), class: "ml-3 text-dark" do %>
+          <%= @post.community.name %>
+        <% end %>
+        <small class="ml-2 text-muted">
+          <% @post.post_tags.all.each do |post_tag| %>
+            #<%= post_tag.tag.name %>
+          <% end %>
+        </small>
+        <% if @post.post_image.attached? %>
+          <%= image_tag @post.get_post_image(500, 500), class: "img-fluid post-large-img" %>
+        <% end %>
+        <p class="p-2"><%= @post.text %></p>
+      </div>
+      <div class="col-3">
+        <div class="row d-flex justify-content-around p-3">
+          <div>
+            <% if @post.liked_by?(current_end_user) %>
+              <%= link_to post_likes_path(@post.id), method: :delete, class: "text-dark" do %>
+                ❤　<%= @post.likes.count %>
+              <% end %>
+            <% else %>
+              <%= link_to post_likes_path(@post.id), method: :post, class: "text-dark" do %>
+                ♡　<%= @post.likes.count %>
+              <% end %>
+            <% end %>
+          </div>
+          <div>コメント　<%= @comments.count %></div>
+        </div>
+        <div class="mt-1">
+          <% @comments.each do |comment| %>
+            <div class="p-3">
+              <%= image_tag comment.end_user.get_profile_image(200, 200), class: "img-fluid mini-img" %>
+              <%= comment.end_user.name %>
+              <small class="ml-2 text-muted">
+                <%= comment.created_at.strftime('%Y/%m/%d') %>
+              </small>
+                <div class="p-2">
+                  <%= comment.text %>
+                </div>
+              <% if current_end_user == comment.end_user || current_end_user == comment.post.end_user %>
+                <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？", class: "text-center" %>
+              <% end %><br>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <%= form_with model: [@post, @comment], url: post_comments_path(@post.id), method: :post do |f| %>
+            <%= f.text_field :text, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.submit "送信" %>
+          <% end %>
+        </div>
+      </div>
     </div>
-  <% else %>
-    <div>
-      <%= link_to post_likes_path(@post.id), method: :post do %>
-        ♡<%= @post.likes.count %>いいね
-      <% end %>
-    </div>
-  <% end %>
-</div>
-<div>
-  <%= @comments.count %>コメント
+  </div>
 </div>
 
-<div>
-  <% @comments.each do |comment| %>
-    <%= image_tag comment.end_user.get_profile_image(50, 50) %>
-    <%= comment.end_user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %>
-    <% if current_end_user == comment.end_user || current_end_user == comment.post.end_user %>
-      <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？", class: "btn btn-danger" %>
-    <% end %><br>
-    <div>
-      <%= comment.text %>
-    </div>
-  <% end %>
-</div>
-<div>
-  <%= form_with model: [@post, @comment], url: post_comments_path(@post.id), method: :post do |f| %>
-    <%= f.text_field :text, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信" %>
-  <% end %>
-</div>

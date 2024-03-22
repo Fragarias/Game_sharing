@@ -1,27 +1,49 @@
-<h1>投稿内容編集</h1>
+<div class="container-fluid">
+  <div class="col-7 mx-auto my-3">
+    <h2 class="ttl_center4">投稿内容編集</h2>
 
-<%= link_to "投稿削除", post_path(@post.id), method: :delete, "data-confirm" => "投稿を削除してよろしいですか？", class: "btn btn-danger" %>
+    <%= link_to "投稿削除", post_path(@post.id), method: :delete, "data-confirm" => "投稿を削除してよろしいですか？", class: "btn btn-danger delete-button" %>
 
-<%= form_with model: @post, url: post_path(@post.id), method: :patch, local: true do |f| %>
-  <label>投稿写真</label><br>
-  <%= f.file_field :post_image, accept: "image/*" %><br>
-  <label>ゲームタイトル</label><br>
-  <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name) %><br>
-  <label>題名</label><br>
-  <%= f.text_field :title, size: "50" %><br>
-  <label>本文</label><br>
-  <%= f.text_area :text, size: "50×50" %><br>
-  <label>タグ</label>
-  <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |t| %><br>
-    <%= t.check_box %>
-    <%= t.label %>
-  <% end %><br>
-  <% if @post.is_published == true %>
-    <%= f.submit "公開したまま更新する", :name => 'publish', class: "btn btn-success" %>
-    <%= f.submit "下書きにする", :name => 'draft', class: "btn btn-secondary" %>
-  <% else %>
-    <%= f.submit "公開する", :name => 'publish', class: "btn btn-success" %>
-    <%= f.submit "下書きのまま更新する", :name => 'draft', class: "btn btn-secondary" %>
-  <% end %>
+    <%= form_with model: @post, url: post_path(@post.id), method: :patch, local: true do |f| %>
+      <div class="row d-flex justify-content-center">
+        <div class="col-3">
+          <div class="form-group">
+            <%= f.label "Community_name" %><br>
+            <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name), style: "width:100%" %>
+          </div>
+          <div class="form-group">
+            <%= f.label "Tags" %>
+            <%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name do |t| %><br>
+              <%= t.check_box %>
+              <%= t.label %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-5">
+          <div class="form-group">
+            <%= f.label :post_image %>
+            <%= f.file_field :post_image, accept: "image/*" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, size: "50" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :text %>
+            <%= f.text_area :text, style: "width:100%", rows: "4" %>
+          </div>
+        </div>
+      </div>
 
-<% end %>
+      <div style="text-align:center">
+        <% if @post.is_published == true %>
+          <%= f.submit "公開したまま更新する", :name => 'publish', class: "simple-button" %>
+          <%= f.submit "下書きにする", :name => 'draft', class: "simple-button" %>
+        <% else %>
+          <%= f.submit "公開する", :name => 'publish', class: "simple-button" %>
+          <%= f.submit "下書きのまま更新する", :name => 'draft', class: "simple-button" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

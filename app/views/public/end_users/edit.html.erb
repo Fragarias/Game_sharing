@@ -1,41 +1,32 @@
-<div class="container px-5 px-sm-0">
-  <div class="row m-3 pt-3">
-    <div class="col-3">
-      <h3 class="bg text-center">会員情報編集</h3>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-10 offset-1">
-      <%= form_with model: @end_user, url: end_users_update_path do |f| %>
-        <table style="border-collapse: collapse">
-          <tbody>
-            <tr>
-              <td align="left" height="50" width="150">プロフィール画像</td>
-              <td width="500"><%= f.file_field :profile_image, accept: "image/*" %></td>
-            </tr>
-            <tr align="left">
-              <td height="50" width="200">ニックネーム</td>
-              <td width="500"><%= f.text_field :name %></td>
-            </tr>
-            <tr align="left">
-              <td height="50">メールアドレス</td>
-              <td><%= f.email_field :email, autocomplete: "email" %></td>
-            </tr>
-            <tr align="left">
-              <td height="50">自己紹介文</td>
-              <td><%= f.text_area :introduction %></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="row justify-content-around mt-3">
-          <div class="col-3">
-            <%= f.submit "更新", class: "btn btn-success" %>
-          </div>
-          <div class="col-3">
-            <%= link_to "退会する", end_users_quit_path, class: "btn btn-danger" %>
-          </div>
+<div class="container-fluid">
+  <div class="col-5 mx-auto mt-4 mb-5">
+    <h2 class="ttl_center4">会員情報編集</h2>
+
+    <%= form_with model: @end_user, url: end_users_update_path do |f| %>
+      <div class="form-group px-5">
+        <%= f.label :profile_image %>
+        <%= f.file_field :profile_image, accept: "image/*" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :name %>
+        <%= f.text_field :name, size: "50" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :email %>
+        <%= f.email_field :email, autocomplete: "email", size: "50" %>
+      </div>
+      <div class="form-group px-5">
+        <%= f.label :introduction %>
+        <%= f.text_area :introduction, style: "width:100%", rows: "4" %>
+      </div>
+      <div class="row justify-content-around mt-3 py-2">
+        <div class="col-3">
+          <%= f.submit "更新", class: "simple-button" %>
         </div>
-      <% end %>
-    </div>
+        <div class="col-3">
+          <%= link_to "退会する", end_users_quit_path, class: "simple-button" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

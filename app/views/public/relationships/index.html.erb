@@ -1,35 +1,52 @@
-<h1>フォロー一覧</h1>
+<div class="container-fluid">
+  <div class="col-9 mx-auto">
+    <h2 class="ttl_center4">フォロー一覧</h2>
+    <div class="row justify-content-center mb-3">
 
-<%= link_to end_user_path(@end_user.id) do %>
-  <%= image_tag @end_user.get_profile_image(100, 100) %>
-  <%= @end_user.name %>
-<% end %>
+      <div class="col-3">
+        <div class="card mb-3" style="width: 17rem;">
+          <%= image_tag @end_user.get_profile_image(500, 500), class: "img-fluid" %>
+          <div class="card-body">
+            <h3 class="card-title"><%= @end_user.name %></h3>
+            <p class="card-text"><%= @end_user.introduction %></p>
+          </div>
+        </div>
+        <div class="card" style="width: 17rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <%= link_to "フォロー中", end_user_relationships_path(@end_user.id), class: "text-dark" %>
+              <%= @end_user.followings.count %>
+            </li>
+            <li class="list-group-item">
+              <%= link_to "フォロワー", end_user_relationships_path(@end_user.id, followers_id: @end_user.id), class: "text-dark" %>
+              <%= @end_user.followers.count %>
+            </li>
+          </ul>
+        </div>
+      </div>
 
-<div class="card" style="width: 18rem;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <%= link_to "フォロー中", end_user_relationships_path(@end_user.id), class: "text-dark" %>
-      <%= @end_user.followings.count %>
-    </li>
-    <li class="list-group-item">
-      <%= link_to "フォロワー", end_user_relationships_path(@end_user.id, followers_id: @end_user.id), class: "text-dark" %>
-      <%= @end_user.followers.count %>
-    </li>
-  </ul>
+      <div class="col-5">
+        <% @end_users.each do |follow| %>
+          <div class="d-flex py-3">
+            <div class="mx-2">
+              <%= link_to end_user_path(follow.id), class: "text-dark" do %>
+                <%= image_tag follow.get_profile_image(200, 200), class: "img-fluid icon-img mr-2" %>
+                <%= follow.name %>
+              <% end %>
+            </div>
+            <div class="ml-auto">
+              <% if follow != current_end_user %>
+                <% if current_end_user.following?(current_end_user, follow) %>
+                  <%= link_to "フォロー済", end_user_relationships_path(follow.id), method: :delete, class: "simple-button ml-3" %>
+                <% else %>
+                  <%= link_to "フォローする", end_user_relationships_path(follow.id), method: :post, class: "simple-button ml-3" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<% @end_users.each do |follow| %>
-  <div>
-    <%= link_to end_user_path(follow.id) do %>
-      <%= image_tag follow.get_profile_image(100, 100) %>
-      <%= follow.name %>
-    <% end %>
-    <% if follow != current_end_user %>
-      <% if current_end_user.following?(current_end_user, follow) %>
-        <%= link_to "フォロー済", end_user_relationships_path(follow.id), method: :delete, class: "btn btn-secondary" %>
-      <% else %>
-        <%= link_to "フォローする", end_user_relationships_path(follow.id), method: :post, class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>

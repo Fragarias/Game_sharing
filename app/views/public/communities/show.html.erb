@@ -1,67 +1,55 @@
-<div class="container">
-  <h2>ゲーム詳細画面</h2>
-
-
-  <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
-    <li>
-      <%= link_to "すべて", community_path(@community.id), class: "text-dark" %>
-    </li>
-    <% @tags.each do |tag| %>
-      <li>
-        <%= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <%= image_tag @community.get_image(300, 300) %>
-        <div class="card-body">
-          <h5 class="card-title">
-            <%= @community.name %>
-          </h5>
-          <p class="card-text">
-            <%= @community.overview %>
-          </p>
-          <% if @community.game_bookmarked_by?(current_end_user) %>
-            <div>
-            <%= link_to community_game_bookmarks_path(@community), method: :delete, class: "btn btn-secondary" do %>
-              ブックマーク済
-            <% end %>
+<div class="container-fluid">
+  <div class="col-9 mx-auto mb-3">
+    <h2 class="ttl_center4"><%= @community.name %></h2>
+  <!--<ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">-->
+  <!--  <li>-->
+  <!--    <%#= link_to "すべて", community_path(@community.id), class: "text-dark" %>-->
+  <!--  </li>-->
+  <!--  <%# @tags.each do |tag| %>-->
+  <!--    <li>-->
+  <!--      <%#= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>-->
+  <!--    </li>-->
+  <!--  <%# end %>-->
+  <!--</ul>-->
+    <div class="row">
+      <div class="col-3">
+        <div class="card" style="width: 17rem;">
+          <%= image_tag @community.get_image(500, 500), class: "img-fluid" %>
+          <div class="card-body">
+            <h3 class="card-title"><%= @community.name %></h3>
+            <p class="card-text p-2"><%= @community.overview %></p>
+            <p class="card-text mb-0"><small class="text-muted">ブックマーク登録者数:<%= @community.game_bookmarks.count %></small></p>
+            <p class="card-text"><small class="text-muted">投稿数:<%= @community.posts.count %></small></p>
+            <div style="text-align:center">
+              <% if @community.game_bookmarked_by?(current_end_user) %>
+                <%= link_to "ブックマーク済", community_game_bookmarks_path(@community), method: :delete, class: "simple-button" %>
+              <% else %>
+                <%= link_to "ブックマーク", community_game_bookmarks_path(@community), method: :post, class: "simple-button" %>
+              <% end %>
             </div>
-          <% else %>
-            <%= link_to community_game_bookmarks_path(@community), method: :post, class: "btn btn-primary" do %>
-              ブックマーク
+          </div>
+        </div>
+        <div class="card" style="width: 17rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <%= link_to "すべて", community_path(@community.id), class: "text-dark" %>
+            </li>
+            <% @tags.each do |tag| %>
+              <li class="list-group-item">
+                <%= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>
+              </li>
             <% end %>
-          <% end %>
+          </ul>
         </div>
       </div>
-    </div>
-    <div class="col-md-8">
-      <%= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary mb-3" %>
-      <%= render 'public/posts/post', posts: @posts %>
-      <%= paginate @posts %>
+
+      <div class="col">
+        <%= link_to "投稿する", new_post_path, class: "simple-button" %>
+        <div class="row row-cols-3 mb-3">
+          <%= render 'public/posts/post', posts: @posts %>
+        </div>
+        <%= paginate @posts %>
+      </div>
     </div>
   </div>
-
-  <!--<div class="card" style="width: 18rem;">-->
-  <!--  <ul class="list-group list-group-flush">-->
-  <!--    <li class="list-group-item">-->
-  <!--      <%= link_to "すべて", community_path(@community.id), class: "text-dark" %>-->
-  <!--    </li>-->
-  <!--    <% @tags.each do |tag| %>-->
-  <!--      <li class="list-group-item">-->
-  <!--        <%= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>-->
-  <!--      </li>-->
-  <!--    <% end %>-->
-  <!--  </ul>-->
-  <!--</div>-->
-
-  <%#= render 'public/posts/post', posts: @posts %>
-
-  <%#= link_to "投稿新規作成画面へ", new_post_path, class: "btn btn-primary" %>
-
-
-
 </div>

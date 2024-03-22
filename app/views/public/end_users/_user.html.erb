@@ -1,35 +1,49 @@
 <!-- public内 -->
 <!-- end_users [#index, #show] / posts [#index, #show] -->
 
-
-<div>
-  <%= link_to end_user_path(end_user.id) do %>
-    <%= image_tag end_user.get_profile_image(100, 100) %><br>
-    <%= end_user.name %>
-  <% end %><br>
-  <%= end_user.introduction %><br>
-  <%= link_to end_user_relationships_path(end_user.id), class: "btn btn-secondary" do %>
-    フォロー数　<%= end_user.followings.count %>
-  <% end %>
-  <%= link_to end_user_relationships_path(end_user.id, followers_id: end_user.id), class: "btn btn-secondary" do %>
-    フォロワー数　<%= end_user.followers.count %>
-  <% end %>
-  <% if end_user == current_end_user %>
-    <% if end_user.name != "guestuser" %>
-      <%= link_to "設定", end_users_information_edit_path, class: "btn btn-secondary" %>
-    <% end %>
-  <% else %>
-    <% if current_end_user.following?(current_end_user, end_user) %>
-      <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "btn btn-secondary" %>
-    <% else %>
-      <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "btn btn-primary" %>
-    <% end %>
-  <% end %>
+<div class="card mb-3" style="width: 17rem;">
+  <%= image_tag end_user.get_profile_image(500, 500), class: "img-fluid" %>
+  <div class="card-body">
+    <h3 class="card-title">
+      <%= link_to_unless_current "#{end_user.name}", end_user_path(end_user.id), class: "text-dark" %>
+    </h3>
+    <p class="card-text"><%= end_user.introduction %></p>
+    <div class="row py-2">
+      <div class="col text-center">
+        <%= link_to end_user_relationships_path(end_user.id), class: "text-dark" do %>
+          フォロー<br><%= end_user.followings.count %>
+        <% end %>
+      </div>
+      <div class="col text-center">
+        <%= link_to end_user_relationships_path(end_user.id, followers_id: end_user.id), class: "text-dark" do %>
+          フォロワー<br><%= end_user.followers.count %>
+        <% end %>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <% if end_user == current_end_user %>
+        <% if end_user.name != "guestuser" %>
+          <%= link_to "ユーザ設定", end_users_information_edit_path, class: "simple-button" %>
+        <% end %>
+      <% else %>
+        <% if current_end_user.following?(current_end_user, end_user) %>
+          <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "simple-button" %>
+        <% else %>
+          <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "simple-button" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<h3>play game</h3>
-<% end_user.game_bookmarks.all.each do |game| %>
-  <%= link_to community_path(game.community.id) do %>
-    <%= image_tag game.community.get_image(100, 100) %>
-  <% end %>
-<% end %>
+<div style="text-align:center">
+  <h3>Bookmark</h3>
+  <div class="row row-cols-3">
+    <% end_user.game_bookmarks.all.each do |game| %>
+      <div class="col">
+        <%= link_to community_path(game.community.id) do %>
+          <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

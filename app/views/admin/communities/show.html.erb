@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-3">
         <div class="card" style="width: 17rem;">
-          <%= image_tag @community.get_image(300, 300) %>
+          <%= image_tag @community.get_image(500, 500), class: "img-fluid" %>
           <div class="card-body">
             <h3 class="card-title"><%= @community.name %></h3>
             <p class="card-text"><%= @community.overview %></p>
