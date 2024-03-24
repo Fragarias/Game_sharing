@@ -20,13 +20,15 @@
             <p class="card-text p-2"><%= @community.overview %></p>
             <p class="card-text mb-0"><small class="text-muted">ブックマーク登録者数:<%= @community.game_bookmarks.count %></small></p>
             <p class="card-text"><small class="text-muted">投稿数:<%= @community.posts.count %></small></p>
-            <div style="text-align:center">
-              <% if @community.game_bookmarked_by?(current_end_user) %>
-                <%= link_to "ブックマーク済", community_game_bookmarks_path(@community), method: :delete, class: "simple-button" %>
-              <% else %>
-                <%= link_to "ブックマーク", community_game_bookmarks_path(@community), method: :post, class: "simple-button" %>
-              <% end %>
-            </div>
+            <% if end_user_signed_in? %>
+              <div style="text-align:center">
+                <% if @community.game_bookmarked_by?(current_end_user) %>
+                  <%= link_to "ブックマーク済", community_game_bookmarks_path(@community), method: :delete, class: "background_button" %>
+                <% else %>
+                  <%= link_to "ブックマーク", community_game_bookmarks_path(@community), method: :post, class: "simple-button" %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
         <div class="card" style="width: 17rem;">
@@ -42,9 +44,8 @@
           </ul>
         </div>
       </div>
-
       <div class="col">
-        <%= link_to "投稿する", new_post_path, class: "simple-button" %>
+        <%= link_to "投稿する", new_post_path(community_id: @community.id), class: "simple-button" %>
         <div class="row row-cols-3 mb-3">
           <%= render 'public/posts/post', posts: @posts %>
         </div>

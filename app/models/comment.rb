@@ -5,7 +5,7 @@ class Comment < ApplicationRecord
   after_update :delete_notification
 
   # Notification作成
-  def create_notification_comment!(current_end_user, post)
+  def create_notification_comment!(current_end_user, post) #comment_controller.rb
     end_user_id = post.end_user_id
     # 既に通知があるかどうかの判定
     temp = Notification.where(["target_user_id = ? and target_id = ? and target_type = ?", end_user_id, id, 1]) # target_typeは、通知の種別によって変更
@@ -20,7 +20,7 @@ class Comment < ApplicationRecord
     notification.save if notification.valid?
   end
 
-  def delete_notification
+  def delete_notification #過剰に通知を送らないようにする
     notification = Notification.find_by(["target_id = ? and target_type = ?", id, 1])
     notification.destroy
   end

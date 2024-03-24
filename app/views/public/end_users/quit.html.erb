@@ -11,8 +11,8 @@
     </div>
     <br>
     <div align="center">
-      <%= link_to "退会する", end_users_withdraw_path(@end_user), class: "simple-button", method: :patch, "data-confirm" => "本当に退会しますか？" %>
-      <%= link_to "詳細画面へ戻る", end_user_path(current_end_user.id), class: "simple-button" %>
+      <%= link_to "退会する", end_users_withdraw_path(@end_user), class: "danger-button", method: :patch, "data-confirm" => "本当に退会しますか？" %>
+      <%= link_to "詳細画面へ戻る", end_user_path(current_end_user.id), class: "draft-button" %>
     </div>
   </div>
 </div>

@@ -20,7 +20,6 @@ class EndUser < ApplicationRecord
   has_many :followings, through: :relationships, source: :followees
   has_many :followers, through: :reverse_of_relationships, source: :followers
 
-
   has_one_attached :profile_image #ActiveStorage_プロフィール画像
   def get_profile_image(width, height)
     unless profile_image.attached?
@@ -48,6 +47,12 @@ class EndUser < ApplicationRecord
   # フォローしているか判定
   def following?(current_end_user, end_user)
     followings.include?(end_user)
+  end
+
+  # ユーザ退会時のフォロー解除
+  def remove_follow(end_user)
+    relationships.where(followers_id: end_user.id).destroy
+    relationships.where(followees_id: end_user.id).destroy
   end
 
 end

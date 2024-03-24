@@ -24,8 +24,8 @@ header {
 .profile {
   position: absolute;/*絶対配置にして*/
   z-index: 2;/*最前面に設定。数字は変更可*/
-  top: 20px;
-  left: 30px;
+  top: 25px;
+  left: 100px;
 }
 .bell {
   color: #F6EB0A;
@@ -115,11 +115,22 @@ footer {
 }
 
 // FORM
+.login-action input[type="submit"] {
+  border-style: none;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+  border-radius: 3px;
+  border: 1px #a88734 solid;
+}
+.login-action input[type="submit"]:hover {
+  cursor: pointer;
+  background: #f0c14b;
+}
 .form-group label {
   font-weight: 600;
   font-size: 15px;
   padding-left: 2px;
-  // padding-bottom: 2px;
 }
 .form-group input[type="text"], .form-group input[type="email"], .form-group input[type="password"] {
   border-style: none;
@@ -143,18 +154,26 @@ footer {
   width: 100%;
   height: 35px;
 }
-.login-action input[type="submit"] {
+.comment-form input[type="text"] {
+  width: 80%;
+  height: 30px;
   border-style: none;
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(to bottom,#f7dfa5,#f0c14b);
+  box-sizing: border-box;
+  border: 1px solid #a6a6a6;
+  box-shadow: 0 1px 0 rgba(0,0,0,.07) inset;
   border-radius: 3px;
-  border: 1px #a88734 solid;
+  padding: 0 7px;
 }
-.login-action input[type="submit"]:hover {
-  cursor: pointer;
-  background: #f0c14b;
+.comment-button {
+  display: inline-block;
+  width: 20%;
+  height: 30px;
+  font-weight: bold; /* 文字の太さ */
+  text-decoration: none;
+  text-align: center;
+  transition: 0.3s;
 }
+
 
 // BOX
 .box {
@@ -206,95 +225,13 @@ hr {
   margin: 15px 0;
 }
 
-// MOVE
-/*検索窓のエリア*/
-.search-wrap {
-  position: absolute;/*絶対配置にして*/
-  z-index: 2;/*最前面に設定。数字は変更可*/
-  top: 10px;
-  right: 10px;
-}
-/*テキスト入力input設定*/
-.search-text{
-  -webkit-appearance: none;/*SafariやChromeのデフォルトの設定を無効*/
-  width: 60px;/*テキスト入力エリアが伸びる前の横幅*/
-  height: 60px;
-  padding: 20px;
-  border: none;
-  background:#fff url("https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/7-2-3/img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
-  background-size: 25px 25px;
-  transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
-  outline: none;
-  cursor: pointer;/*カーソルを指マークに*/
-}
-/*テキスト入力inputにフォーカスした時の形状*/
-.search-text:focus {
-  width: 250px;/*テキスト入力エリアが伸びる後の横幅*/
-  padding: 20px 0 20px 60px;
-  box-shadow: 0 2px rgba(0,0,0,.26);
-}
-
-.gnavi{
-  display: flex;
-  flex-wrap: wrap;/*スマホ表示折り返し用なのでPCのみなら不要*/
-  margin:0 0 50px 0;
-  list-style: none;
-}
-.gnavi li a{
-  display: block;
-  padding:10px 30px;
-  text-decoration: none;
-  color: #333;
-}
-.gnavi li{
-  margin-bottom:20px;
-}
-/*==================================================
-　5-3-1 中心から外に線が伸びる（下部）
-===================================*/
-
-.gnavi li a{
-  /*線の基点とするためrelativeを指定*/
-  position: relative;
-}
-
-.gnavi li.current a,
-.gnavi li a:hover{
-  color: #000;
-}
-
-.gnavi li a::after {
-  content: '';
-  /*絶対配置で線の位置を決める*/
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  /*線の形状*/
-  width: 80%;
-  height: 2px;
-  background: #000;
-  /*アニメーションの指定*/
-  transition: all .3s;
-  transform: scale(0, 1);/*X方向0、Y方向1*/
-  transform-origin: center top;/*上部中央基点*/
-}
-
-/*現在地とhoverの設定*/
-.gnavi li.current a::after,
-.gnavi li a:hover::after {
-  transform: scale(1, 1);/*X方向にスケール拡大*/
-}
-
 
 // BUTTON
 //--登録・編集ボタンなど
-.simple-button {
+.simple-button, .setting-button, .background_button, .draft-button, .danger-button {
   display: inline-block;
   width: 100%;
   max-width: 200px; /* ボタン幅 */
-  color: #4D9BC1; /* 文字色 */
-  border: 2px solid #4D9BC1; /* 線幅・種類・色 */
-  background: #fff; /* 背景色 */
   padding: 1em 2em;
   font-weight: bold; /* 文字の太さ */
   text-decoration: none;
@@ -302,36 +239,53 @@ hr {
   transition: 0.3s;
   margin: 0 auto;
 }
+.simple-button {
+  color: #4D9BC1; /* 文字色 */
+  border: 2px solid #4D9BC1; /* 線幅・種類・色 */
+  background: #fff; /* 背景色 */
+}
 /* マウスオーバーした際のデザイン */
-.simple-button:hover {
+.simple-button:hover, .background_button {
   color: #fff; /* 文字色 */
   background: #4D9BC1; /* 背景色 */
 }
-
-//--新規作成画面への遷移
+.setting-button {
+  color: #9197A4; /* 文字色 */
+  border: 2px solid #9197A4; /* 線幅・種類・色 */
+  background: #fff; /* 背景色 */
+}
+.setting-button:hover {
+  color: #fff; /* 文字色 */
+  background: #9197A4; /* 背景色 */
+}
+.background_button, .draft-button {
+  position: relative;
+}
+.draft-button {
+  background: #9197A4; /* 背景色 */
+  border: 2px solid #9197A4; /* 線幅・種類・色 */
+  color: #fff; /* 文字色 */
+}
+.danger-button {
+  color: #EA4433; /* 文字色 */
+  border: 2px solid #EA4433; /* 線幅・種類・色 */
+  background: #fff; /* 背景色 */
+}
+.danger-button:hover {
+  color: #fff; /* 文字色 */
+  background: #EA4433; /* 背景色 */
+}
+/* マウスオーバーした際のデザイン */
+.background_button:hover, .draft-button:hover {
+  color: #000; /* 文字色 */
+}
+//--固定ボタン
 .new-button, .delete-button, .notification-button {
   position: absolute;
   top: 10px;
   right: 10px;
 }
-.button-text {
-  // height: 80px;
-  width: 100%;
-  max-width: 200px; /* ボタン幅 */
-  color: #4D9BC1; /* 文字色 */
-  border: 2px solid #4D9BC1; /* 線幅・種類・色 */
-  background: #fff; /* 背景色 */
-  padding: 1em 2em;
-  font-weight: bold; /* 文字の太さ */
-  text-decoration: none;
-  text-align: center;
-  transition: 0.3s;
-  // margin: 0 auto;
-}
-.button-text:hover {
-  color: #fff; /* 文字色 */
-  background: #4D9BC1; /* 背景色 */
-}
+
 //--投稿詳細画面への遷移
 /*表示するテキストが切り替わる*/
 .btntextchange{
@@ -377,4 +331,79 @@ hr {
 }
 .btntextchange:hover span:nth-child(2){
   opacity:1;/*不透明に*/
+}
+
+
+// MOVE
+/*検索窓のエリア*/
+.search-wrap {
+  position: absolute;/*絶対配置にして*/
+  z-index: 2;/*最前面に設定。数字は変更可*/
+  top: 10px;
+  right: 10px;
+}
+/*テキスト入力input設定*/
+.search-text{
+  -webkit-appearance: none;/*SafariやChromeのデフォルトの設定を無効*/
+  width: 60px;/*テキスト入力エリアが伸びる前の横幅*/
+  height: 60px;
+  padding: 20px;
+  border: none;
+  background:#fff url("https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/7-2-3/img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
+  background-size: 25px 25px;
+  transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
+  outline: none;
+  cursor: pointer;/*カーソルを指マークに*/
+}
+/*テキスト入力inputにフォーカスした時の形状*/
+.search-text:focus {
+  width: 250px;/*テキスト入力エリアが伸びる後の横幅*/
+  padding: 20px 0 20px 60px;
+  box-shadow: 0 2px rgba(0,0,0,.26);
+}
+
+/*Header内ナビゲーション*/
+.gnavi{
+  display: flex;
+  flex-wrap: wrap;/*スマホ表示折り返し用なのでPCのみなら不要*/
+  margin:0 0 50px 0;
+  list-style: none;
+}
+.gnavi li a{
+  display: block;
+  padding:10px 30px;
+  text-decoration: none;
+  color: #333;
+}
+.gnavi li{
+  margin-bottom:20px;
+}
+/*==================================================
+　5-3-1 中心から外に線が伸びる（下部）
+===================================*/
+.gnavi li a{
+  /*線の基点とするためrelativeを指定*/
+  position: relative;
+}
+.gnavi li.current a, .gnavi li a:hover{
+  color: #000;
+}
+.gnavi li a::after {
+  content: '';
+  /*絶対配置で線の位置を決める*/
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  /*線の形状*/
+  width: 80%;
+  height: 2px;
+  background: #000;
+  /*アニメーションの指定*/
+  transition: all .3s;
+  transform: scale(0, 1);/*X方向0、Y方向1*/
+  transform-origin: center top;/*上部中央基点*/
+}
+/*現在地とhoverの設定*/
+.gnavi li.current a::after, .gnavi li a:hover::after {
+  transform: scale(1, 1);/*X方向にスケール拡大*/
 }

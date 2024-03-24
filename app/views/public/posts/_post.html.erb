@@ -8,9 +8,11 @@
         <%= image_tag post.community.get_image(500, 500), class: "img-fluid card-img card-image" %>
       </div>
       <div class="card-img-overlay">
-        <h3 class="card-title">
-          <%= link_to post.title, post_path(post.id), class: "text-white" %>
-        </h3>
+        <% if post.title.present? %>
+          <h3 class="card-title"><%= link_to post.title, post_path(post.id), class: "text-white" %></h3>
+        <% else %>
+          <h5 class="card-title"><%= link_to "題名が設定されていません", post_path(post.id), class: "text-white" %></h5>
+        <% end %>
         <p class="card-text">
           <small>
             <%= link_to_unless_current "#{post.community.name}", community_path(post.community.id), class: "text-white" %>

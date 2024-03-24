@@ -1,7 +1,12 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_end_user!, except: [:index, :show]
+  before_action :authenticate_end_user!, except: [:show]
+  before_action :login_user_only, only: [:edit]
+  before_action :published_post, only: [:show]
   def new
     @post = Post.new
+    if params[:community_id]
+      @community = Community.find(params[:community_id])
+    end
   end
 
   def create
@@ -18,27 +23,27 @@ class Public::PostsController < ApplicationController
       post.is_published = false
       post.save
       flash[:notice] = "下書き保存しました。"
-      redirect_to end_user_path(current_end_user.id)
+      redirect_to post_path(post.id)
       #post.update(post_params)
       #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
     end
     #update(is_published: true)
   end
 
-  def index
+  def index #
     # 自分と自分がフォローしているユーザの投稿一覧
-    @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false).order('id DESC').page(params[:page])
+    @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).order('id DESC').page(params[:page])
     @end_user = current_end_user
   end
 
-  def show #URL入力で論理削除した投稿を表示させない処理が必要
+  def show # 論理削除した投稿 もしくは 下書き投稿を表示させない
     @post = Post.find(params[:id])
     @end_user = @post.end_user
     @comments = @post.comments.where(is_deleted: false)
     @comment = Comment.new
   end
 
-  def edit
+  def edit #ログインユーザの投稿じゃない場合は表示をさせない
     @post = Post.find(params[:id])
   end
 
@@ -59,7 +64,7 @@ class Public::PostsController < ApplicationController
       @post.update(post_params)
       #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
       flash[:notice] = "下書きで更新しました。"
-      redirect_to end_user_path(current_end_user.id)
+      redirect_to post_path(@post.id)
     end
   end
 
@@ -70,11 +75,30 @@ class Public::PostsController < ApplicationController
       comment.update(is_deleted: true)
     end
     flash[:notice] = "投稿を削除しました。"
-    redirect_to community_path(post.community.id)
+    redirect_to end_user_path(current_end_user.id)
   end
 
   private
   def post_params
     params.require(:post).permit(:post_image, :community_id, :title, :text, :is_published, :is_deleted, tag_ids: [] )
+  end
+
+  def published_post # 下書きと削除されたログインユーザ以外の投稿は表示しない[:show]
+    post = Post.find(params[:id])
+    return if post.end_user_id == current_end_user.id # ログインユーザの投稿の場合return
+    if post.is_deleted == true
+      # 投稿が削除されている ー リダイレクト
+      redirect_to end_user_path(current_end_user.id)
+    else
+      return if post.is_published == true # 投稿が削除されていない かつ 公開中 であればreturn
+      # 投稿が削除されていないが、非公開中 ー リダイレクト
+      redirect_to end_user_path(current_end_user.id)
+    end
+  end
+
+  def login_user_only # ログインユーザの投稿じゃない場合リダイレクト[:edit]
+    post = Post.find(params[:id])
+    return if post.end_user_id == current_end_user.id
+    redirect_to end_user_path(current_end_user.id)
   end
 end

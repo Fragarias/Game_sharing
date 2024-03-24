@@ -6,7 +6,11 @@
         <div class="col-3">
           <div class="form-group">
             <%= f.label "Community_name" %><br>
-            <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name), style: "width:100%" %>
+            <% if @community.present? %>
+              <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name, { :selected => @community.id }), style: "width:100%" %>
+            <% else %>
+              <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name), include_blank: "ゲームタイトルを選択してください", style: "width:100%" %>
+            <% end %>
           </div>
           <div class="form-group">
             <%= f.label "Tags" %>
@@ -33,7 +37,7 @@
       </div>
       <div style="text-align:center">
         <%= f.submit "投稿", :name => 'publish', class: "simple-button" %>
-        <%= f.submit "下書き保存", :name => 'draft', class: "simple-button" %>
+        <%= f.submit "下書き保存", :name => 'draft', class: "draft-button" %>
       </div>
     <% end %>
   </div>

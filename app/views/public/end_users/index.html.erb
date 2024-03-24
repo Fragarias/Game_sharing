@@ -2,9 +2,11 @@
   <div class="col-9 mx-auto">
     <h2 class="ttl_center4">ユーザ一覧</h2>
     <div class="row justify-content-center mb-3">
-      <div class="col-3">
-        <%= render 'user', end_user: @end_user %>
-      </div>
+      <% if end_user_signed_in? %>
+        <div class="col-3">
+          <%= render 'user', end_user: @end_user %>
+        </div>
+      <% end %>
       <div class="col-5">
         <% @end_users.each do |end_user| %>
           <div class="d-flex py-3">
@@ -14,15 +16,17 @@
                 <%= end_user.name %>
               <% end %>
             </div>
-            <div class="ml-auto">
-              <% if end_user != current_end_user %>
-                <% if current_end_user.following?(current_end_user, end_user) %>
-                  <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "simple-button ml-3" %>
-                <% else %>
-                  <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "simple-button ml-3" %>
+            <% if end_user_signed_in? %>
+              <div class="ml-auto">
+                <% if end_user != current_end_user %>
+                  <% if current_end_user.following?(current_end_user, end_user) %>
+                    <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_button ml-3" %>
+                  <% else %>
+                    <%= link_to "＋フォロー", end_user_relationships_path(end_user.id), method: :post, class: "simple-button ml-3" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>

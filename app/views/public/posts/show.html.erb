@@ -5,14 +5,19 @@
         <%= render 'public/end_users/user', end_user: @end_user %>
       </div>
       <div class="col-5 post-box">
-        <h2 class="ttl_line"><%= @post.title %></h2>
-        <% if @post.is_deleted == true %>
-          <div class="text-danger font-weight-bold">削除されています</div>
-        <% else %>
-          <% if @post.end_user == current_end_user %>
-            <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
-            <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
+        <div style="text-align:center">
+          <% if end_user_signed_in? && @post.end_user == current_end_user %>
+            <% if @post.is_published == true %>
+              <div class="text-success font-weight-bold">公開中</div>
+            <% else %>
+              <div class="text-secondary font-weight-bold">非公開（下書き）</div>
+            <% end %>
           <% end %>
+        </div>
+        <h2 class="ttl_line"><%= @post.title %></h2>
+        <% if end_user_signed_in? && @post.end_user == current_end_user %>
+          <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
+          <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
         <% end %><br>
         <%= link_to community_path(@post.community.id), class: "ml-3 text-dark" do %>
           <%= @post.community.name %>
@@ -29,6 +34,7 @@
       </div>
       <div class="col-3">
         <div class="row d-flex justify-content-around p-3">
+          <% if end_user_signed_in? %>
           <div>
             <% if @post.liked_by?(current_end_user) %>
               <%= link_to post_likes_path(@post.id), method: :delete, class: "text-dark" do %>
@@ -40,6 +46,9 @@
               <% end %>
             <% end %>
           </div>
+          <% else %>
+          <div>いいね　<%= @post.likes.count %></div>
+          <% end %>
           <div>コメント　<%= @comments.count %></div>
         </div>
         <div class="mt-1">
@@ -53,16 +62,20 @@
                 <div class="p-2">
                   <%= comment.text %>
                 </div>
-              <% if current_end_user == comment.end_user || current_end_user == comment.post.end_user %>
+              <% if end_user_signed_in? && (current_end_user == comment.end_user || current_end_user == comment.post.end_user) %>
                 <%= link_to "削除", post_comment_path(comment.post.id, comment.id), method: :delete, "data-confirm" => "本当に削除してよろしいですか？", class: "text-center" %>
               <% end %><br>
             </div>
           <% end %>
         </div>
         <div>
-          <%= form_with model: [@post, @comment], url: post_comments_path(@post.id), method: :post do |f| %>
-            <%= f.text_field :text, rows: '5', placeholder: "コメントをここに" %>
-            <%= f.submit "送信" %>
+          <% if end_user_signed_in? %>
+            <%= form_with model: [@post, @comment], url: post_comments_path(@post.id), method: :post do |f| %>
+              <div class="row comment-form mx-1">
+                <%= f.text_field :text, rows: '5', placeholder: "Comment" %>
+                <%= f.submit "送信", class: "comment-button" %>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>

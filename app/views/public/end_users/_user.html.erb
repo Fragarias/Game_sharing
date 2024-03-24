@@ -20,30 +20,38 @@
         <% end %>
       </div>
     </div>
-    <div style="text-align:center">
-      <% if end_user == current_end_user %>
-        <% if end_user.name != "guestuser" %>
-          <%= link_to "ユーザ設定", end_users_information_edit_path, class: "simple-button" %>
-        <% end %>
-      <% else %>
-        <% if current_end_user.following?(current_end_user, end_user) %>
-          <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "simple-button" %>
+    <% if end_user_signed_in? %>
+      <div style="text-align:center">
+        <% if end_user == current_end_user %>
+          <% if end_user.name != "guestuser" %>
+            <%= link_to "ユーザ設定", end_users_information_edit_path, class: "setting-button" %>
+          <% end %>
         <% else %>
-          <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "simple-button" %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
-</div>
-<div style="text-align:center">
-  <h3>Bookmark</h3>
-  <div class="row row-cols-3">
-    <% end_user.game_bookmarks.all.each do |game| %>
-      <div class="col">
-        <%= link_to community_path(game.community.id) do %>
-          <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
+          <% if current_end_user.following?(current_end_user, end_user) %>
+            <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_button" %>
+          <% else %>
+            <%= link_to "＋フォロー", end_user_relationships_path(end_user.id), method: :post, class: "simple-button" %>
+          <% end %>
         <% end %>
       </div>
     <% end %>
   </div>
+</div>
+<div style="text-align:center">
+  <h3>Bookmark</h3>
+  <% if end_user.game_bookmarks.present? %>
+    <div class="row row-cols-3">
+      <% end_user.game_bookmarks.all.each do |game| %>
+        <div class="col">
+          <%= link_to community_path(game.community.id) do %>
+            <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="col">
+      ブックマーク登録したゲームは<br>ありません。
+    </div>
+  <% end %>
 </div>

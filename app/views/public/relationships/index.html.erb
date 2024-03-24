@@ -35,11 +35,11 @@
               <% end %>
             </div>
             <div class="ml-auto">
-              <% if follow != current_end_user %>
+              <% if end_user_signed_in? && follow != current_end_user %>
                 <% if current_end_user.following?(current_end_user, follow) %>
-                  <%= link_to "フォロー済", end_user_relationships_path(follow.id), method: :delete, class: "simple-button ml-3" %>
+                  <%= link_to "フォロー済", end_user_relationships_path(follow.id), method: :delete, class: "background_button ml-3" %>
                 <% else %>
-                  <%= link_to "フォローする", end_user_relationships_path(follow.id), method: :post, class: "simple-button ml-3" %>
+                  <%= link_to "＋フォロー", end_user_relationships_path(follow.id), method: :post, class: "simple-button ml-3" %>
                 <% end %>
               <% end %>
             </div>

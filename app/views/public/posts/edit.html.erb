@@ -9,7 +9,7 @@
         <div class="col-3">
           <div class="form-group">
             <%= f.label "Community_name" %><br>
-            <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name), style: "width:100%" %>
+            <%= f.select :community_id, options_from_collection_for_select(Community.all, :id, :name, { :selected => @post.community_id.to_i }), style: "width:100%" %>
           </div>
           <div class="form-group">
             <%= f.label "Tags" %>
@@ -37,11 +37,11 @@
 
       <div style="text-align:center">
         <% if @post.is_published == true %>
-          <%= f.submit "公開したまま更新する", :name => 'publish', class: "simple-button" %>
-          <%= f.submit "下書きにする", :name => 'draft', class: "simple-button" %>
+          <%= f.submit "更新", :name => 'publish', class: "simple-button" %>
+          <%= f.submit "下書きにする", :name => 'draft', class: "draft-button" %>
         <% else %>
           <%= f.submit "公開する", :name => 'publish', class: "simple-button" %>
-          <%= f.submit "下書きのまま更新する", :name => 'draft', class: "simple-button" %>
+          <%= f.submit "下書き更新", :name => 'draft', class: "draft-button" %>
         <% end %>
       </div>
     <% end %>
