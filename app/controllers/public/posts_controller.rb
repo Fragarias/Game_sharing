@@ -30,7 +30,7 @@ class Public::PostsController < ApplicationController
     #update(is_published: true)
   end
 
-  def index #
+  def index
     # 自分と自分がフォローしているユーザの投稿一覧
     @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).order('id DESC').page(params[:page])
     @end_user = current_end_user

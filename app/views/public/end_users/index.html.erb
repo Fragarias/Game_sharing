@@ -18,13 +18,16 @@
             </div>
             <% if end_user_signed_in? %>
               <div class="ml-auto">
-                <% if end_user != current_end_user %>
-                  <% if current_end_user.following?(current_end_user, end_user) %>
-                    <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_button ml-3" %>
-                  <% else %>
-                    <%= link_to "＋フォロー", end_user_relationships_path(end_user.id), method: :post, class: "simple-button ml-3" %>
-                  <% end %>
-                <% end %>
+                <div class="mypage-follow-contents-<%= end_user.id %>">
+                  <%= render 'public/relationships/follow', lacals: {end_user: end_user} %>
+                  <!--<% if end_user != current_end_user %>-->
+                  <!--  <% if current_end_user.following?(current_end_user, end_user) %>-->
+                  <!--    <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_b ml-3" %>-->
+                  <!--  <% else %>-->
+                  <!--    <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "simple-button ml-3" %>-->
+                  <!--  <% end %>-->
+                  <!--<% end %>-->
+                </div>
               </div>
             <% end %>
           </div>

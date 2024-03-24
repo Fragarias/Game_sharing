@@ -4,18 +4,18 @@ class EndUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
-  has_many :game_bookmarks, dependent: :destroy
+  has_many :posts#, dependent: :destroy
+  has_many :comments#, dependent: :destroy
+  has_many :likes#, dependent: :destroy
+  has_many :game_bookmarks#, dependent: :destroy
 
   # 通知を送られた(通知先)の関係
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'target_id', dependent: :destroy
-  has_many :passive_notifications, class_name: "Notification", foreign_key: "target_user_id", dependent: :destroy
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'target_id'#, dependent: :destroy
+  has_many :passive_notifications, class_name: "Notification", foreign_key: "target_user_id"#, dependent: :destroy
 
   # フォローをした、されたの関係
-  has_many :relationships, class_name: "Relationship", foreign_key: "followers_id", dependent: :destroy
-  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followees_id", dependent: :destroy
+  has_many :relationships, class_name: "Relationship", foreign_key: "followers_id"#, dependent: :destroy
+  has_many :reverse_of_relationships, class_name: "Relationship", foreign_key: "followees_id"#, dependent: :destroy
   # 一覧画面で使う
   has_many :followings, through: :relationships, source: :followees
   has_many :followers, through: :reverse_of_relationships, source: :followers
@@ -51,8 +51,14 @@ class EndUser < ApplicationRecord
 
   # ユーザ退会時のフォロー解除
   def remove_follow(end_user)
-    relationships.where(followers_id: end_user.id).destroy
-    relationships.where(followees_id: end_user.id).destroy
+    relationships.where(followers_id: end_user.id).destroy_all
+    relationships.where(followees_id: end_user.id).destroy_all
+  end
+  def user_has_many_delete(end_user)
+      end_user.posts.update_all(is_deleted: true)
+      end_user.comments.update_all(is_deleted: true)
+      end_user.likes.destroy_all
+      end_user.game_bookmarks.destroy_all
   end
 
 end

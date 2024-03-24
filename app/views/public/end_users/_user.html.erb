@@ -27,11 +27,11 @@
             <%= link_to "ユーザ設定", end_users_information_edit_path, class: "setting-button" %>
           <% end %>
         <% else %>
-          <% if current_end_user.following?(current_end_user, end_user) %>
-            <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_button" %>
-          <% else %>
-            <%= link_to "＋フォロー", end_user_relationships_path(end_user.id), method: :post, class: "simple-button" %>
-          <% end %>
+          <div>
+            <div class="mypage-follow-contents-<%= end_user.id %>">
+              <%= render 'public/relationships/follow', lacals: {end_user: end_user} %>
+            </div>
+          </div>
         <% end %>
       </div>
     <% end %>

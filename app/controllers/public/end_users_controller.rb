@@ -45,6 +45,7 @@ class Public::EndUsersController < ApplicationController
     if end_user.update(is_active: false)
       reset_session
       end_user.remove_follow(end_user)
+      end_user.user_has_many_delete(end_user)
       flash[:notice] = "退会しました。"
       redirect_to root_path
     end

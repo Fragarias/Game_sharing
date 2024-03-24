@@ -16,3 +16,10 @@ import "../stylesheets/application";
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// 以下を追加する
+//= require jquery
+require("@rails/ujs").start()
+// require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")

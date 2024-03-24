@@ -1,0 +1,5 @@
+
+
+<!--$('#follows_button').html("<%#= j(render partial: 'follow', locals: {follow: follow}) %>");-->
+
+$('.mypage-follow-contents-<%= @end_user.id %>').html("<%= j(render partial: 'public/relationships/follow', locals: {end_user: @end_user}) %>")
