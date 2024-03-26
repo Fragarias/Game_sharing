@@ -4,7 +4,7 @@
     <div class="row justify-content-center mb-3">
       <% if end_user_signed_in? %>
         <div class="col-3">
-          <%= render 'user', end_user: @end_user %>
+          <%= render 'user', end_user: current_end_user %>
         </div>
       <% end %>
       <div class="col-5">
@@ -19,14 +19,8 @@
             <% if end_user_signed_in? %>
               <div class="ml-auto">
                 <div class="mypage-follow-contents-<%= end_user.id %>">
-                  <%= render 'public/relationships/follow', lacals: {end_user: end_user} %>
-                  <!--<% if end_user != current_end_user %>-->
-                  <!--  <% if current_end_user.following?(current_end_user, end_user) %>-->
-                  <!--    <%= link_to "フォロー済", end_user_relationships_path(end_user.id), method: :delete, class: "background_b ml-3" %>-->
-                  <!--  <% else %>-->
-                  <!--    <%= link_to "フォローする", end_user_relationships_path(end_user.id), method: :post, class: "simple-button ml-3" %>-->
-                  <!--  <% end %>-->
-                  <!--<% end %>-->
+                  <% @end_user = end_user %>
+                  <%= render 'public/relationships/follow', lacals: {end_user: @end_user} %>
                 </div>
               </div>
             <% end %>

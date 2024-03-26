@@ -29,7 +29,8 @@
         <% else %>
           <div>
             <div class="mypage-follow-contents-<%= end_user.id %>">
-              <%= render 'public/relationships/follow', lacals: {end_user: end_user} %>
+              <% @end_user = end_user %>
+              <%= render 'public/relationships/follow', lacals: {end_user: @end_user} %>
             </div>
           </div>
         <% end %>

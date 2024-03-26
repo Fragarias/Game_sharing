@@ -36,7 +36,8 @@
             </div>
             <div class="ml-auto">
               <div class="mypage-follow-contents-<%= end_user.id %>">
-                <%= render 'follow', lacals: {end_user: end_user} %>
+                <% @end_user = end_user %>
+                <%= render 'follow', lacals: {end_user: @end_user} %>
               </div>
             </div>
           </div>
