@@ -17,10 +17,8 @@ class Public::RelationshipsController < ApplicationController
     current_end_user.follow(@end_user.id)
     relationship = Relationship.find_by(followers_id: current_end_user.id, followees_id: @end_user.id)
     relationship.create_notification_follow!(current_end_user, @end_user.id)
-    # if params[:userall]
-    #   redirect_to end_users_path
-    # end
   end
+
   def destroy
     # # [フォロー先:パラメータ。フォロー主:Log_inユーザ] を探して削除
     @end_user = EndUser.find(params[:end_user_id])
