@@ -40,3 +40,5 @@ https://docs.google.com/spreadsheets/d/1bRkUqpKS1U-sbtvDLhtYnYozoIC0cec4Zx_A-8Dg
 * ゲーム内の画像等は、著作権に抵触のおそれがあるため以下のフリー写真素材を使用しています。
 実際にアプリとして運営するような際には、各ゲーム会社との契約を締結して著作権の問題をクリアする前提で作っています。
   * Unsplash(https://unsplash.com/ja)
+  * O-DAN(https://o-dan.net/ja/)
+  * ぱくたそ(https://www.pakutaso.com/)
