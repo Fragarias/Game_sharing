@@ -6,7 +6,8 @@ class Public::EndUsersController < ApplicationController
   def index
     @end_user = current_end_user
     post_like_count = {}
-    EndUser.where(is_active: true).each do |end_user| #退会したユーザを表示させない
+    active_users = EndUser.where(is_active: true)
+    active_users.each do |end_user| #退会したユーザを表示させない
       # 削除・非公開中の投稿を省き、いいねを多くもらっているユーザ順に表示する
       post_like_count.store(end_user, Like.where(post_id: Post.where(is_deleted: false, is_published: true, end_user_id: end_user.id).pluck(:id)).count)
     end
