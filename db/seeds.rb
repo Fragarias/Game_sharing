@@ -40,21 +40,21 @@ nagi = EndUser.find_or_create_by!(email: "Nagi128@example.com") do |user|
   user.profile_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/user_cat.jpg"), filename:"user_cat.jpg")
 end
 
-tag1 = Tag.find_or_create_by!(name: "攻略")
-tag2 = Tag.find_or_create_by!(name: "雑談")
+# tag1 = Tag.find_or_create_by!(name: "攻略")
+# tag2 = Tag.find_or_create_by!(name: "雑談")
 
-Post.find_or_create_by!(title: "新情報！") do |post|
-  post.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/post_tea.jpg"), filename:"post_tea.jpg")
-  post.text = "新しく日本モチーフのエリアが公開されるらしい！早速行ってみたい。"
-  post.end_user_id = haru.id
-  post.community_id = cosmos.id
-  post.tag_ids  = [tag2.id]
-end
+# Post.find_or_create_by!(title: "新情報！") do |post|
+#   post.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/post_tea.jpg"), filename:"post_tea.jpg")
+#   post.text = "新しく日本モチーフのエリアが公開されるらしい！早速行ってみたい。"
+#   post.end_user_id = haru.id
+#   post.community_id = cosmos.id
+#   post.tag_ids  = [tag2.id]
+# end
 
-Post.find_or_create_by!(title: "難関ステージ") do |post|
-  post.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/post_desk.jpg"), filename:"post_desk.jpg")
-  post.text = "クリアするのに２週間ぐらい日にちかけた。ステージの仕掛けが特殊だった。"
-  post.end_user_id = gin.id
-  post.community_id = moon.id
-  post.tag_ids  = [tag1.id]
-end
+# Post.find_or_create_by!(title: "難関ステージ") do |post|
+#   post.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/post_desk.jpg"), filename:"post_desk.jpg")
+#   post.text = "クリアするのに２週間ぐらい日にちかけた。ステージの仕掛けが特殊だった。"
+#   post.end_user_id = gin.id
+#   post.community_id = moon.id
+#   post.tag_ids  = [tag1.id]
+# end
