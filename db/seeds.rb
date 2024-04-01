@@ -49,9 +49,7 @@ Post.find_or_create_by!(title: "新情報！") do |post|
   post.text = "新しく日本モチーフのエリアが公開されるらしい！早速行ってみたい。"
   post.end_user_id = haru.id
   post.community_id = cosmos.id
-  post.tag_ids.each do |tag_id|
-    tag_id = tag2.id
-  end
+  post.tag_ids  = [tag2.id]
 end
 
 Post.find_or_create_by!(title: "難関ステージ") do |post|
@@ -59,7 +57,5 @@ Post.find_or_create_by!(title: "難関ステージ") do |post|
   post.text = "クリアするのに２週間ぐらい日にちかけた。ステージの仕掛けが特殊だった。"
   post.end_user_id = gin.id
   post.community_id = moon.id
-  post.tag_ids.each do |tag_id|
-    tag_id = tag1.id
-  end
+  post.tag_ids  = [tag1.id]
 end
