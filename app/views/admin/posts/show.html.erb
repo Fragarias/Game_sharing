@@ -31,16 +31,22 @@
       </div>
 
       <div class="col-5 post-box">
-        <h2 class="ttl_line"><%= @post.title %></h2>
-        <% if @post.is_deleted == true %>
-          <div class="text-danger font-weight-bold">削除されています</div>
-        <% else %>
-          <%= link_to "削除", admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
-        <% end %><br>
-        <%= link_to admin_community_path(@post.community.id), class: "ml-3 text-dark" do %>
+        <div class="d-flex">
+          <h2 class="col-10 ttl_line"><%= @post.title %></h2>
+          <div class="ml-auto">
+            <% if @post.is_deleted == true %>
+              <small class="text-danger font-weight-bold">削除されています</small>
+            <% else %>
+              <%= link_to admin_post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "text-danger" do %>
+                <i class="fa-solid fa-trash-can" style="font-size: 25px;"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+        <%= link_to admin_community_path(@post.community.id), class: "ml-3 mb-3 text-dark" do %>
           <%= @post.community.name %>
         <% end %>
-        <small class="ml-2 text-muted">
+        <small class="ml-2 mb-3 text-muted">
           <% @post.post_tags.all.each do |post_tag| %>
             #<%= post_tag.tag.name %>
           <% end %>

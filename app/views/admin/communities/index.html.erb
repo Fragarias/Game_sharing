@@ -22,6 +22,7 @@
             <td><%= community.id %></td>
             <td>
               <%= link_to admin_community_path(community.id), class: "text-dark" do %>
+                <%= image_tag community.get_image(200, 200), class: "img-fluid mini-img" %>
                 <%= community.name %>
               <% end %>
             </td>

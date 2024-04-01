@@ -5,20 +5,34 @@
         <%= render 'public/end_users/user', end_user: @end_user %>
       </div>
       <div class="col-5 post-box">
-        <div style="text-align:center">
-          <% if end_user_signed_in? && @post.end_user == current_end_user %>
+        <% if end_user_signed_in? && @post.end_user == current_end_user %>
+          <div style="text-align:center">
             <% if @post.is_published == true %>
               <div class="text-success font-weight-bold">公開中</div>
             <% else %>
               <div class="text-secondary font-weight-bold">非公開（下書き）</div>
             <% end %>
+          </div>
+        <% end %>
+
+        <div class="d-flex">
+          <h2 class="col-10 ttl_line"><%= @post.title %></h2>
+          <% if end_user_signed_in? && @post.end_user == current_end_user %>
+            <div class="ml-auto flex-column">
+              <div class="m-1">
+                <%= link_to edit_post_path(@post.id), class: "text-success" do %>
+                  <i class="fa-regular fa-pen-to-square mr-1" style="font-size: 20px;"></i>編集
+                <% end %>
+              </div>
+              <div class="m-1">
+                <%= link_to post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "text-danger" do %>
+                  <i class="fa-solid fa-trash-can mr-1" style="font-size: 20px;"></i>削除
+                <% end %>
+              </div>
+            </div>
           <% end %>
         </div>
-        <h2 class="ttl_line"><%= @post.title %></h2>
-        <% if end_user_signed_in? && @post.end_user == current_end_user %>
-          <%= link_to "編集", edit_post_path(@post.id), class: "btn btn-success" %>
-          <%= link_to "削除", post_path(@post.id), method: :delete, "data-confirm" => "本当に投稿を削除してよろしいですか？", class: "btn btn-danger" %>
-        <% end %><br>
+
         <%= link_to community_path(@post.community.id), class: "ml-3 text-dark" do %>
           <%= @post.community.name %>
         <% end %>

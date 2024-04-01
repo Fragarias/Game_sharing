@@ -83,22 +83,22 @@ class Public::PostsController < ApplicationController
     params.require(:post).permit(:post_image, :community_id, :title, :text, :is_published, :is_deleted, tag_ids: [] )
   end
 
-  def published_post # 下書きと削除されたログインユーザ以外の投稿は表示しない[:show]
-    post = Post.find(params[:id])
-    return if post.end_user_id == current_end_user.id # ログインユーザの投稿の場合return
+  def published_post # 削除済投稿と、ログインユーザ以外の下書き投稿は表示しない[:show]
+    post = Post.find(params[:id]) # 表示したい場合にreturn
+    return if end_user_signed_in? && post.end_user_id == current_end_user.id # ログインユーザの投稿の場合return
     if post.is_deleted == true
       # 投稿が削除されている ー リダイレクト
-      redirect_to end_user_path(current_end_user.id)
+      redirect_to root_path
     else
       return if post.is_published == true # 投稿が削除されていない かつ 公開中 であればreturn
       # 投稿が削除されていないが、非公開中 ー リダイレクト
-      redirect_to end_user_path(current_end_user.id)
+      redirect_to root_path
     end
   end
 
   def login_user_only # ログインユーザの投稿じゃない場合リダイレクト[:edit]
     post = Post.find(params[:id])
-    return if post.end_user_id == current_end_user.id
-    redirect_to end_user_path(current_end_user.id)
+    return if end_user_signed_in? && post.end_user_id == current_end_user.id
+    redirect_to post_path(post.id)
   end
 end

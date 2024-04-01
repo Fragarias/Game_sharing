@@ -232,7 +232,6 @@ hr {
   display: inline-block;
   width: 100%;
   max-width: 200px; /* ボタン幅 */
-  padding: 1em 2em;
   font-weight: bold; /* 文字の太さ */
   text-decoration: none;
   text-align: center;
@@ -240,6 +239,7 @@ hr {
   margin: 0 auto;
 }
 .simple-button {
+  padding: 13px 2em;
   color: #4D9BC1; /* 文字色 */
   border: 2px solid #4D9BC1; /* 線幅・種類・色 */
   background: #fff; /* 背景色 */
@@ -250,6 +250,7 @@ hr {
   background: #4D9BC1; /* 背景色 */
 }
 .setting-button {
+  padding: 1em 2em;
   color: #9197A4; /* 文字色 */
   border: 2px solid #9197A4; /* 線幅・種類・色 */
   background: #fff; /* 背景色 */
@@ -259,6 +260,7 @@ hr {
   background: #9197A4; /* 背景色 */
 }
 .background_button, .draft-button {
+  padding: 1em 2em;
   position: relative;
 }
 .draft-button {
@@ -267,6 +269,7 @@ hr {
   color: #fff; /* 文字色 */
 }
 .danger-button {
+  padding: 1em 2em;
   color: #EA4433; /* 文字色 */
   border: 2px solid #EA4433; /* 線幅・種類・色 */
   background: #fff; /* 背景色 */
@@ -280,9 +283,14 @@ hr {
   color: #000; /* 文字色 */
 }
 //--固定ボタン
-.new-button, .delete-button, .notification-button {
+.delete-button, .notification-button {
   position: absolute;
   top: 10px;
+  right: 10px;
+}
+.new-button {
+  position: absolute;
+  top: 0px;
   right: 10px;
 }
 
