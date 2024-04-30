@@ -1,16 +1,6 @@
 <div class="container-fluid">
   <div class="col-9 mx-auto mb-3">
     <h2 class="ttl_center4"><%= @community.name %></h2>
-  <!--<ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">-->
-  <!--  <li>-->
-  <!--    <%#= link_to "すべて", community_path(@community.id), class: "text-dark" %>-->
-  <!--  </li>-->
-  <!--  <%# @tags.each do |tag| %>-->
-  <!--    <li>-->
-  <!--      <%#= link_to tag.name, community_path(@community.id, tag_id: tag.id), class: "text-dark" %>-->
-  <!--    </li>-->
-  <!--  <%# end %>-->
-  <!--</ul>-->
     <div class="row">
       <div class="col-3">
         <div class="card" style="width: 17rem;">
@@ -23,7 +13,7 @@
             <% if end_user_signed_in? %>
               <div style="text-align:center">
                 <% if @community.game_bookmarked_by?(current_end_user) %>
-                  <%= link_to "ブックマーク済", community_game_bookmarks_path(@community), method: :delete, class: "background_button" %>
+                  <%= link_to "ブックマーク済", community_game_bookmarks_path(@community), method: :delete, class: "background-button" %>
                 <% else %>
                   <%= link_to "ブックマーク", community_game_bookmarks_path(@community), method: :post, class: "simple-button" %>
                 <% end %>
@@ -45,7 +35,7 @@
         </div>
       </div>
       <div class="col">
-        <%= link_to "投稿する", new_post_path(community_id: @community.id), class: "simple-button" %>
+        <%= link_to "投稿する", new_post_path(community_id: @community.id), class: "newpost-button" %>
         <div class="row row-cols-3 mb-3">
           <%= render 'public/posts/post', posts: @posts %>
         </div>

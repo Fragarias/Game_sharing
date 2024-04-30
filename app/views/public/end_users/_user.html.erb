@@ -8,7 +8,7 @@
       <%= link_to_unless_current "#{end_user.name}", end_user_path(end_user.id), class: "text-dark" %>
     </h3>
     <p class="card-text"><%= end_user.introduction %></p>
-    <div class="row py-2">
+    <div class="row py-2 my-3">
       <div class="col text-center">
         <%= link_to end_user_relationships_path(end_user.id), class: "text-dark" do %>
           フォロー<br><%= end_user.followings.count %>
@@ -38,21 +38,23 @@
     <% end %>
   </div>
 </div>
-<div style="text-align:center">
+<div class="py-3 mb-3" style="text-align:center">
   <h3>Bookmark</h3>
-  <% if end_user.game_bookmarks.present? %>
-    <div class="row row-cols-3">
-      <% end_user.game_bookmarks.all.each do |game| %>
-        <div class="col">
-          <%= link_to community_path(game.community.id) do %>
-            <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="col">
-      ブックマーク登録したゲームは<br>ありません。
-    </div>
-  <% end %>
+  <div class="pt-2">
+    <% if end_user.game_bookmarks.present? %>
+      <div class="row row-cols-3">
+        <% end_user.game_bookmarks.all.each do |game| %>
+          <div class="col">
+            <%= link_to community_path(game.community.id) do %>
+              <%= image_tag game.community.get_image(300, 300), class: "img-fluid icon-img" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="col">
+        ブックマーク登録したゲームは<br>ありません。
+      </div>
+    <% end %>
+  </div>
 </div>

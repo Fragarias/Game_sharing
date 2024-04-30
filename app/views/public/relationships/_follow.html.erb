@@ -3,7 +3,7 @@
 
 <% if end_user_signed_in? && @end_user != current_end_user %>
   <% if current_end_user.following?(current_end_user, @end_user) %>
-    <%= link_to "フォロー済", end_user_relationships_path(@end_user.id), method: :delete, remote: true, class: "background_button ml-3" %>
+    <%= link_to "フォロー済", end_user_relationships_path(@end_user.id), method: :delete, remote: true, class: "background-button ml-3" %>
   <% else %>
     <%= link_to "＋フォロー", end_user_relationships_path(@end_user.id), method: :post, remote: true, class: "simple-button ml-3" %>
   <% end %>
