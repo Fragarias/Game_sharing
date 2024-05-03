@@ -4,6 +4,9 @@ class EndUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :name, presence: true, length: { maximum: 20 } #20文字以内
+  validates :introduction, length: { maximum: 80 } #80文字以内
+
   has_many :posts#, dependent: :destroy
   has_many :comments#, dependent: :destroy
   has_many :likes#, dependent: :destroy
