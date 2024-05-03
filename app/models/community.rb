@@ -1,4 +1,8 @@
 class Community < ApplicationRecord
+
+  validates :name, presence: true, length: { maximum: 20 } #20文字以内
+  validates :overview, presence: true, length: { maximum: 50 } #50文字以内
+
   has_many :posts, dependent: :destroy
   has_many :game_bookmarks, dependent: :destroy
 
