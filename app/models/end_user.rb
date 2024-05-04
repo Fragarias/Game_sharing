@@ -4,8 +4,10 @@ class EndUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true, length: { maximum: 20 } #20文字以内
-  validates :introduction, length: { maximum: 80 } #80文字以内
+  validates :name, presence: true, length: { maximum: 20 } #名前 20文字以内
+  validates :introduction, length: { maximum: 80 } #自己紹介文 80文字以内
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i #emailフォーマット
+  validates :email, presence: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }
 
   has_many :posts#, dependent: :destroy
   has_many :comments#, dependent: :destroy
