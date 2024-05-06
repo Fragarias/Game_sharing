@@ -6,8 +6,13 @@ class Admin::CommunitiesController < ApplicationController
 
   def create
     community = Community.new(community_params)
-    community.save
-    redirect_to admin_community_path(community.id)
+    if community.save
+      flash[:nootice] = "コミュニティを登録しました。"
+      redirect_to admin_community_path(community.id)
+    else
+      flash[:notice] = "コミュニティの登録に失敗しました。"
+      redirect_to new_admin_community_path
+    end
   end
 
   def index
@@ -31,8 +36,13 @@ class Admin::CommunitiesController < ApplicationController
 
   def update
     community = Community.find(params[:id])
-    community.update(community_params)
-    redirect_to admin_community_path(community.id)
+    if community.update(community_params)
+      flash[:notice] = "コミュニティの登録内容を更新しました。"
+      redirect_to admin_community_path(community.id)
+    else
+      flash[:notice] = "コミュニティの更新に失敗しました。"
+      redirect_to edit_admin_community_path
+    end
   end
 
   private
