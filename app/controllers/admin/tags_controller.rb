@@ -6,14 +6,20 @@ class Admin::TagsController < ApplicationController
   end
   def create
     tag = Tag.new(tag_params)
-    tag.save
-    flash[:notice] = "タグを登録しました。"
+    if tag.save
+      flash[:notice] = "タグを登録しました。"
+    else
+      flash[:notice] = "タグの登録に失敗しました。"
+    end
     redirect_to admin_tags_path
   end
   def update
     tag = Tag.find(params[:id])
-    tag.update(tag_params)
-    flash[:notice] = "タグ名を変更しました。"
+    if tag.update(tag_params)
+      flash[:notice] = "タグ名を変更しました。"
+    else
+      flash[:notice] = "タグ名の変更に失敗しました。"
+    end
     redirect_to admin_tags_path
   end
   def destroy
