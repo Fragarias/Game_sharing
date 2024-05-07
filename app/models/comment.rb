@@ -1,4 +1,7 @@
 class Comment < ApplicationRecord
+
+  validates :text, presence: true, length: { maximum: 100 } #コメント 100文字以内
+
   belongs_to :end_user
   belongs_to :post
   has_many :active_notifications, class_name: 'Notification', foreign_key: 'target_id', dependent: :destroy # Notification関連
