@@ -17,17 +17,19 @@ class Public::PostsController < ApplicationController
         flash[:notice] = "投稿しました。"
         redirect_to post_path(post.id)
       else
+        flash[:notice] = "投稿に失敗しました。"
         render :new
       end
     else
       post.is_published = false
-      post.save
-      flash[:notice] = "下書き保存しました。"
-      redirect_to post_path(post.id)
-      #post.update(post_params)
-      #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
+      if post.save
+        flash[:notice] = "下書き保存しました。"
+        redirect_to post_path(post.id)
+      else
+        flash[:notice] = "下書き保存に失敗しました。"
+        render :new
+      end
     end
-    #update(is_published: true)
   end
 
   def index
@@ -57,14 +59,19 @@ class Public::PostsController < ApplicationController
         redirect_to post_path(@post.id)
       else
         @post.update(is_published: false)
+        flash[:notice] = "更新に失敗しました。"
         render :edit
       end
     else
       @post.update(is_published: false)
-      @post.update(post_params)
-      #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
-      flash[:notice] = "下書きで更新しました。"
-      redirect_to post_path(@post.id)
+      if @post.update(post_params)
+        #post.update(is_published: false, title: post_params[:title], text: post_params[:text])
+        flash[:notice] = "下書きで更新しました。"
+        redirect_to post_path(@post.id)
+      else
+        flash[:notice] = "更新に失敗しました。"
+        render :edit
+      end
     end
   end
 
