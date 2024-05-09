@@ -37,6 +37,7 @@ class Public::EndUsersController < ApplicationController
       flash[:notice] = "編集内容を保存しました。"
       redirect_to end_user_path(@end_user.id)
     else
+      flash[:notice] = "編集内容の更新に失敗しました。"
       render :edit
     end
   end
