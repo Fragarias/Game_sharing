@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_end_user!, except: [:show]
-  before_action :login_user_only, only: [:edit]
+  before_action :login_user_only, only: [:edit, :update, :destroy]
   before_action :published_post, only: [:show]
   def new
     @post = Post.new
@@ -49,7 +49,7 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def update
+  def update #ログインユーザの投稿じゃない場合は表示をさせない
     @post = Post.find(params[:id])
     if params[:publish].present?
       @post.attributes = post_params.merge(is_published: true)
@@ -75,7 +75,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #ログインユーザの投稿じゃない場合は表示をさせない
     post = Post.find(params[:id])
     post.update(is_deleted: true)
     post.comments.each do |comment|
@@ -103,7 +103,7 @@ class Public::PostsController < ApplicationController
     end
   end
 
-  def login_user_only # ログインユーザの投稿じゃない場合リダイレクト[:edit]
+  def login_user_only # ログインユーザの投稿じゃない場合リダイレクト[:edit, :update, :destroy]
     post = Post.find(params[:id])
     return if end_user_signed_in? && post.end_user_id == current_end_user.id
     redirect_to post_path(post.id)
