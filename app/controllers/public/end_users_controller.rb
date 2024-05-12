@@ -1,6 +1,6 @@
 class Public::EndUsersController < ApplicationController
   before_action :authenticate_end_user!, except: [:index, :show]
-  before_action :ensure_guest_user, only: [:edit]
+  before_action :ensure_guest_user, only: [:edit, :quit, :update, :withdraw]
   before_action :active_user_only, only: [:show]
 
   def index
@@ -27,11 +27,11 @@ class Public::EndUsersController < ApplicationController
     @end_user = current_end_user
   end
 
-  def quit
+  def quit #guest以外アクセス可
     @end_user = current_end_user
   end
 
-  def update
+  def update #guest以外アクセス可
     @end_user = current_end_user
     if @end_user.update(end_user_params)
       flash[:notice] = "編集内容を保存しました。"
@@ -42,7 +42,7 @@ class Public::EndUsersController < ApplicationController
     end
   end
 
-  def withdraw
+  def withdraw #guest以外アクセス可
     end_user = current_end_user
     if end_user.update(is_active: false)
       reset_session
@@ -58,7 +58,7 @@ class Public::EndUsersController < ApplicationController
     params.require(:end_user).permit(:profile_image, :name, :introduction, :email)
   end
 
-  def ensure_guest_user #guestuserログイン用[:edit]
+  def ensure_guest_user #guestuserログイン用[:edit, :quit, :update, :withdraw]
     @end_user = current_end_user
     if @end_user.name == "guestuser"
       redirect_to end_user_path(@end_user.id), notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
