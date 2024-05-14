@@ -9,6 +9,10 @@ class Post < ApplicationRecord
   validates :title, presence: true, length: { maximum: 20 }, on: :publicize
   validates :text, presence: true, length: { maximum: 200 }, on: :publicize
 
+  scope :latest, -> {order(created_at: :desc)}
+  scope :old, -> {order(created_at: :asc)}
+  # scope :latest, -> {order(created_at: :desc)}
+
   def liked_by?(end_user)
     likes.exists?(end_user_id: end_user.id)
   end

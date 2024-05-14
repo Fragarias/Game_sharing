@@ -6,6 +6,11 @@
         <%= render 'public/end_users/user', end_user: @end_user %>
       </div>
       <div class="col">
+        <p>
+          <%= link_to "新しい順", posts_path(latest: "true") %>
+          <%= link_to "古い順", posts_path(old: "true") %>
+          <%#= link_to "いいね順", posts_path(like_count: "true") %>
+        </p>
         <div class="row row-cols-3 mb-3">
           <%= render 'post', posts: @posts %>
         </div>

@@ -34,8 +34,15 @@ class Public::PostsController < ApplicationController
 
   def index
     # 自分と自分がフォローしているユーザの投稿一覧
-    @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).order('id DESC').page(params[:page])
+    #@posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).order('id DESC').page(params[:page])
     @end_user = current_end_user
+    if params[:latest]
+      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).latest.page(params[:page])
+    elsif params[:old]
+      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).old.page(params[:page])
+    else
+      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).page(params[:page])
+    end
   end
 
   def show # 論理削除した投稿 もしくは 下書き投稿を表示させない
