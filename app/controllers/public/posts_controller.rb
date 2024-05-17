@@ -34,14 +34,16 @@ class Public::PostsController < ApplicationController
 
   def index
     # 自分と自分がフォローしているユーザの投稿一覧
-    #@posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).order('id DESC').page(params[:page])
+    posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).page(params[:page])
     @end_user = current_end_user
     if params[:latest]
-      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).latest.page(params[:page])
+      @posts = posts.latest
     elsif params[:old]
-      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).old.page(params[:page])
+      @posts = posts.old
+    elsif params[:like_count]
+      @posts = posts.like_count
     else
-      @posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).page(params[:page])
+      @posts = posts
     end
   end
 
