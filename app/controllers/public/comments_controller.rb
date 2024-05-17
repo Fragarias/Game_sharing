@@ -4,8 +4,12 @@ class Public::CommentsController < ApplicationController
     post = Post.find(params[:post_id])
     comment = current_end_user.comments.new(comment_params)
     comment.post_id = post.id
-    comment.save
-    comment.create_notification_comment!(current_end_user, post) #comment.rb
+    if comment.save
+      comment.create_notification_comment!(current_end_user, post) #comment.rb
+      flash[:notice] = "コメントを送信しました。"
+    else
+      flash[:notice] = "コメント送信に失敗しました。"
+    end
     redirect_to post_path(post.id)
   end
   def destroy
