@@ -25,6 +25,7 @@ class Comment < ApplicationRecord
 
   def delete_notification #過剰に通知を送らないようにする
     notification = Notification.find_by(["target_id = ? and target_type = ?", id, 1])
+    return if notification.blank?
     notification.destroy
   end
 end
