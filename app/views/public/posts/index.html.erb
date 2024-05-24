@@ -11,6 +11,7 @@
           <%= link_to "古い順", posts_path(old: "true") %>
           <%= link_to "いいね数順", posts_path(like_count: "true") %>
           <%= link_to "コメント数順", posts_path(comment_count: "true") %>
+          <%= link_to "ランダム", posts_path(random: "true") %>
         </p>
         <div class="row row-cols-3 mb-3">
           <%= render 'post', posts: @posts %>

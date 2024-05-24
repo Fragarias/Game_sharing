@@ -42,6 +42,10 @@ class Public::PostsController < ApplicationController
       @posts = posts.old
     elsif params[:like_count]
       @posts = posts.like_count
+    elsif params[:comment_count]
+      @posts = posts.comment_count
+    elsif params[:random]
+      @posts = posts.random
     else
       @posts = posts
     end
