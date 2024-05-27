@@ -277,7 +277,7 @@ hr {
   color: #fff; /* 文字色 */
   background: #9197A4; /* 背景色 */
 }
-.background_button, .draft-button {
+.background-button, .draft-button {
   padding: 1em 2em;
   position: relative;
 }
@@ -297,7 +297,7 @@ hr {
   background: #EA4433; /* 背景色 */
 }
 /* マウスオーバーした際のデザイン */
-.background_button:hover, .draft-button:hover {
+.background-button:hover, .draft-button:hover {
   color: #000; /* 文字色 */
 }
 //--固定ボタン
