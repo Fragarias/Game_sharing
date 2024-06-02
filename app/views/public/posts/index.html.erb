@@ -1,17 +1,16 @@
 <div class="container-fluid">
   <div class="col-9 mx-auto mb-3">
-    <h2 class="ttl_center4">フォロー中投稿一覧</h2>
+    <!--<h2 class="ttl_center4">フォロー中投稿一覧</h2>-->
     <div class="row">
       <div class="col-3">
         <%= render 'public/end_users/user', end_user: @end_user %>
       </div>
       <div class="col">
         <p>
-          <%= link_to "新しい順", posts_path(latest: "true") %>
-          <%= link_to "古い順", posts_path(old: "true") %>
-          <%= link_to "いいね数順", posts_path(like_count: "true") %>
-          <%= link_to "コメント数順", posts_path(comment_count: "true") %>
-          <%= link_to "ランダム", posts_path(random: "true") %>
+          <%= link_to "新着順", posts_path(latest: "true"), class: "text-dark" %>｜
+          <%= link_to "投稿順", posts_path(old: "true"), class: "text-dark" %>｜
+          <%= link_to "いいね数順", posts_path(like_count: "true"), class: "text-dark" %>｜
+          <%= link_to "ランダム", posts_path(random: "true"), class: "text-dark" %>
         </p>
         <div class="row row-cols-3 mb-3">
           <%= render 'post', posts: @posts %>

@@ -34,7 +34,7 @@ class Public::PostsController < ApplicationController
 
   def index
     # 自分と自分がフォローしているユーザの投稿一覧
-    posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true).page(params[:page])
+    posts = Post.where(end_user_id: [current_end_user.id, *current_end_user.following_ids], is_deleted: false, is_published: true)
     @end_user = current_end_user
     if params[:latest]
       @posts = posts.latest
@@ -42,8 +42,6 @@ class Public::PostsController < ApplicationController
       @posts = posts.old
     elsif params[:like_count]
       @posts = posts.like_count
-    elsif params[:comment_count]
-      @posts = posts.comment_count
     elsif params[:random]
       @posts = posts.random
     else

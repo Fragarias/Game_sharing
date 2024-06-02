@@ -12,7 +12,6 @@ class Post < ApplicationRecord
   scope :latest, -> { order(created_at: :desc) }
   scope :old, -> { order(created_at: :asc) }
   scope :like_count, -> { includes(:likes).sort {|a,b| b.likes.size <=> a.likes.size} }
-  scope :comment_count, -> { includes(:comments).sort {|a,b| b.comments.size <=> a.comments.size} }
   scope :random, -> { shuffle }
 
   def liked_by?(end_user)
