@@ -19,7 +19,7 @@ moon = Community.find_or_create_by!(name: "MOON") do |community|
   community.overview = "美麗な銀河へ旅立つスペースファンタジー！"
 end
 
-haru = EndUser.find_or_create_by!(email: "Haru0930@example.com") do |user|
+haru = EndUser.find_or_create_by!(email: "Haru93@example.com") do |user|
   user.name = "はる"
   user.introduction = "プレイスタイルはゆったり派。"
   user.password = ENV['USER_PASS1']
@@ -53,7 +53,7 @@ end
 
 Post.find_or_create_by!(title: "難関ステージ") do |post|
   post.post_image = ActiveStorage::Blob.create_and_upload!(io: File.open("#{Rails.root}/db/fixtures/post_desk.jpg"), filename:"post_desk.jpg")
-  post.text = "クリアするのに２週間ぐらい日にちかけた。ステージの仕掛けが特殊だった。"
+  post.text = "クリアするのに２週間ぐらいかかった。ステージの仕掛けが特殊だった。"
   post.end_user_id = gin.id
   post.community_id = moon.id
   post.tag_ids  = [tag1.id]
