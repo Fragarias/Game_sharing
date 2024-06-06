@@ -1,13 +1,13 @@
 <div class="container-fluid">
-  <div class="col-9 mx-auto">
-    <h2 class="ttl_center4">ユーザ一覧</h2>
+  <div class="col-lg-9 mx-auto">
     <div class="row justify-content-center mb-3">
       <% if end_user_signed_in? %>
-        <div class="col-3">
+        <div class="col-lg-4 col-md-5">
           <%= render 'user', end_user: current_end_user %>
         </div>
       <% end %>
-      <div class="col-5">
+      <div class="col-lg-6 offset-lg-1 col-md-8">
+        <h2 class="ttl_center4">ユーザ</h2>
         <% @end_users.each do |end_user| %>
           <div class="d-flex py-3">
             <div class="mx-2">
