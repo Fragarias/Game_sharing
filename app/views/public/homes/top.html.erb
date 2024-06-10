@@ -1,15 +1,13 @@
 <div class="container-fluid">
   <div class="col-9 mx-auto">
-    <!--<h2 class="ttl_center4">新規投稿一覧</h2>-->
     <p class="pt-2">
       <%= link_to "新着順", root_path(latest: "true"), class: "text-dark" %>｜
       <%= link_to "投稿順", root_path(old: "true"), class: "text-dark" %>｜
       <%= link_to "いいね順", root_path(like_count: "true"), class: "text-dark" %>｜
       <%= link_to "ランダム", root_path(random: "true"), class: "text-dark" %>
     </p>
-    <div class="row row-cols-4 mb-3">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 mb-3">
       <%= render 'public/posts/post', posts: @new_posts %>
     </div>
-    <%#= paginate @new_posts %>
   </div>
 </div>
