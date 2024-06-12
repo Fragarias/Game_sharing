@@ -1,14 +1,14 @@
 <div class="container-fluid">
   <div class="col-9 mx-auto pt-3 mb-3">
     <div class="row">
-      <div class="col-3">
+      <div class="col-lg-4 col-md-5">
         <%= render 'user', end_user: @end_user %>
       </div>
       <div class="col">
         <% if @end_user == current_end_user %>
           <%= link_to "投稿する", new_post_path, class: "newpost-button" %>
         <% end %>
-        <div class="row row-cols-3 mb-3">
+        <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
           <%= render 'public/posts/post', posts: @posts %>
         </div>
         <%= paginate @posts %>
