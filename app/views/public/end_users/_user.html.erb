@@ -1,7 +1,7 @@
 <!-- public内 -->
 <!-- end_users [#index, #show] / posts [#index, #show] -->
 
-<div class="card mx-auto mb-3" style="width: 17rem;">
+<div class="card mx-auto mb-3" style="max-width: 18rem;">
   <%= image_tag end_user.get_profile_image(500, 500), class: "img-fluid" %>
   <div class="card-body">
     <h3 class="card-title">
@@ -42,7 +42,7 @@
   <h3>Bookmark</h3>
   <div class="pt-2">
     <% if end_user.game_bookmarks.present? %>
-      <div class="row row-cols-3">
+      <div class="row row-cols-2 row-cols-lg-3">
         <% end_user.game_bookmarks.all.each do |game| %>
           <div class="col">
             <%= link_to community_path(game.community.id) do %>
