@@ -9,7 +9,11 @@
           <%= link_to "投稿する", new_post_path, class: "newpost-button" %>
         <% end %>
         <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
-          <%= render 'public/posts/post', posts: @posts %>
+          <% if @posts.present? %>
+            <%= render 'public/posts/post', posts: @posts %>
+          <% else %>
+            投稿はまだありません。
+          <% end %>
         </div>
         <%= paginate @posts %>
       </div>
