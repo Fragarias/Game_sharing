@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="col-lg-10 mx-auto mb-3">
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-md-5 col-lg-4">
         <%= render 'public/end_users/user', end_user: @end_user %>
       </div>
-      <div class="col-lg-8 pl-4">
+      <div class="col">
         <p>
           <%= link_to "新着順", posts_path(latest: "true"), class: "text-dark" %>｜
           <%= link_to "投稿順", posts_path(old: "true"), class: "text-dark" %>｜
           <%= link_to "いいね数順", posts_path(like_count: "true"), class: "text-dark" %>｜
           <%= link_to "ランダム", posts_path(random: "true"), class: "text-dark" %>
         </p>
-        <div class="row row-cols-xl-3 row-cols-md-2 row-cols-sm-1 mb-3">
+        <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
           <%= render 'post', posts: @posts %>
         </div>
       </div>

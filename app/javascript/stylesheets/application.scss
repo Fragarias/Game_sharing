@@ -68,7 +68,7 @@ header {
 .ttl_line {
   font-weight: bold;
   padding: 0.3em 0.5em;
-  border-left: 10px double #4c9ac0;
+  border-left: 8px double #4c9ac0;
 }
 
 // BODY
@@ -254,10 +254,10 @@ hr {
   font-size: 20px;
   position: fixed;
   right: 150px;
-  bottom: 250px;
+  bottom: 100px;
 }
 .simple-button {
-  padding: 13px 2em;
+  padding: 1em;
   color: #4D9BC1; /* 文字色 */
   border: 2px solid #4D9BC1; /* 線幅・種類・色 */
   background: #fff; /* 背景色 */
@@ -287,7 +287,7 @@ hr {
   color: #fff; /* 文字色 */
 }
 .danger-button {
-  padding: 1em 2em;
+  padding: 1em;
   color: #EA4433; /* 文字色 */
   border: 2px solid #EA4433; /* 線幅・種類・色 */
   background: #fff; /* 背景色 */
