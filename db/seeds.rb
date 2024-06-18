@@ -75,7 +75,6 @@ _post1 = Post.find_or_create_by!(title: "新情報！") do |post1|
   post1.end_user_id = _haru.id
   post1.community_id = _cosmos.id
   post1.tag_ids  = [_tag2.id]
-  post1.created_at = "2024年03月25日 18:03"
 end
 
 _post2 = Post.find_or_create_by!(title: "難関ステージ") do |post2|
@@ -84,7 +83,6 @@ _post2 = Post.find_or_create_by!(title: "難関ステージ") do |post2|
   post2.end_user_id = _gin.id
   post2.community_id = _moon.id
   post2.tag_ids  = [_tag1.id]
-  post2.created_at = "2024年03月30日 20:10"
 end
 
 _post3 = Post.find_or_create_by!(title: "マルチ募集〜") do |post3|
@@ -93,7 +91,6 @@ _post3 = Post.find_or_create_by!(title: "マルチ募集〜") do |post3|
   post3.end_user_id = _taku.id
   post3.community_id = _fruit.id
   post3.tag_ids  = [_tag3.id]
-  post3.created_at = "2024年04月12日 19:53"
 end
 
 _post4 = Post.find_or_create_by!(title: "フレ募集投稿") do |post4|
@@ -101,7 +98,6 @@ _post4 = Post.find_or_create_by!(title: "フレ募集投稿") do |post4|
   post4.end_user_id = _yuu.id
   post4.community_id = _moon.id
   post4.tag_ids  = [_tag2.id, _tag3.id]
-  post4.created_at = "2024年04月18日 15:27"
 end
 
 _post5 = Post.find_or_create_by!(title: "共有したい") do |post5|
@@ -110,7 +106,6 @@ _post5 = Post.find_or_create_by!(title: "共有したい") do |post5|
   post5.end_user_id = _haru.id
   post5.community_id = _cookie.id
   post5.tag_ids  = [_tag1.id, _tag2.id]
-  post5.created_at = "2024年04月23日 18:46"
 end
 
 _post6 = Post.find_or_create_by!(title: "気になってる") do |post6|
@@ -119,7 +114,6 @@ _post6 = Post.find_or_create_by!(title: "気になってる") do |post6|
   post6.end_user_id = _haru.id
   post6.community_id = _fruit.id
   post6.tag_ids  = [_tag2.id]
-  post6.created_at = "2024年04月26日 10:20"
 end
 
 Like.find_or_create_by!(post_id: _post1.id, end_user_id: _yuu.id)
