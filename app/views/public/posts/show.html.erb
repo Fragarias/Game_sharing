@@ -68,8 +68,10 @@
         <div class="mt-1">
           <% @comments.each do |comment| %>
             <div class="p-3">
-              <%= image_tag comment.end_user.get_profile_image(200, 200), class: "img-fluid mini-img" %>
-              <%= comment.end_user.name %>
+              <%= link_to end_user_path(comment.end_user.id), class: "text-dark" do %>
+                <%= image_tag comment.end_user.get_profile_image(200, 200), class: "img-fluid mini-img" %>
+                <%= comment.end_user.name %>
+              <% end %>
               <small class="ml-2 text-muted">
                 <%= comment.created_at.strftime('%Y/%m/%d') %>
               </small>
