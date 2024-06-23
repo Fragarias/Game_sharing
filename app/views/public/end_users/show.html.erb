@@ -7,15 +7,44 @@
       <div class="col">
         <% if @end_user == current_end_user %>
           <%= link_to "投稿する", new_post_path, class: "newpost-button" %>
+          <div class="tabs">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#published">公開中</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#draft">非公開</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div id="published" class="tab-pane fade show active">
+                <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
+                  <% if @publish_posts.present? %>
+                    <%= render 'public/posts/post', posts: @publish_posts %>
+                  <% else %>
+                    投稿はまだありません。
+                  <% end %>
+                </div>
+                <%= paginate @publish_posts %>
+              </div>
+              <div id="draft" class="tab-pane fade">
+                <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
+                  <%= render 'public/posts/post', posts: @draft_posts %>
+                </div>
+                <%= paginate @draft_posts %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
+            <% if @posts.present? %>
+              <%= render 'public/posts/post', posts: @posts %>
+            <% else %>
+              投稿はまだありません。
+            <% end %>
+          </div>
+          <%= paginate @posts %>
         <% end %>
-        <div class="row row-cols-sm-1 row-cols-lg-2 row-cols-xl-3 mb-3">
-          <% if @posts.present? %>
-            <%= render 'public/posts/post', posts: @posts %>
-          <% else %>
-            投稿はまだありません。
-          <% end %>
-        </div>
-        <%= paginate @posts %>
       </div>
     </div>
   </div>

@@ -17,7 +17,8 @@ class Public::EndUsersController < ApplicationController
   def show #退会ユーザは表示させない
     @end_user = EndUser.find(params[:id])
     if @end_user == current_end_user
-      @posts = @end_user.posts.where(is_deleted: false).page(params[:page])
+      @publish_posts = @end_user.posts.where(is_deleted: false, is_published: true).page(params[:page])
+      @draft_posts = @end_user.posts.where(is_deleted: false, is_published: false).page(params[:page])
     else
       @posts = @end_user.posts.where(is_deleted: false, is_published: true).page(params[:page])
     end
