@@ -4,22 +4,21 @@
     <div class="row justify-content-center mb-3">
 
       <div class="col-3">
-        <div class="card mb-3" style="width: 17rem;">
+        <div class="card mx-auto mb-3" style="max-width: 18rem;">
           <%= image_tag @end_user.get_profile_image(500, 500), class: "img-fluid" %>
           <div class="card-body">
             <h3 class="card-title"><%= @end_user.name %></h3>
             <p class="card-text"><%= @end_user.introduction %></p>
           </div>
         </div>
-        <div class="card" style="width: 17rem;">
+        <div class="card mx-auto" style="max-width: 18rem;">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              <%= link_to "フォロー中", end_user_relationships_path(@end_user.id), class: "text-dark" %>
-              <%= @end_user.followings.count %>
+              <%= link_to "フォロー中：#{@end_user.followings.count}", end_user_relationships_path(@end_user.id), class: "text-dark" %>
             </li>
             <li class="list-group-item">
-              <%= link_to "フォロワー", end_user_relationships_path(@end_user.id, followers_id: @end_user.id), class: "text-dark" %>
-              <%= @end_user.followers.count %>
+              <%= link_to "フォロワー：#{@end_user.followers.count}", end_user_relationships_path(@end_user.id, followers_id: @end_user.id), class: "text-dark" %>
+
             </li>
           </ul>
         </div>
@@ -27,7 +26,7 @@
 
       <div class="col-5">
         <% @end_users.each do |end_user| %>
-          <div class="d-flex py-3">
+          <div class="d-flex align-item-center py-3">
             <div class="mx-2">
               <%= link_to end_user_path(end_user.id), class: "text-dark" do %>
                 <%= image_tag end_user.get_profile_image(200, 200), class: "img-fluid icon-img mr-2" %>
