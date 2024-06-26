@@ -77,8 +77,16 @@
               <li>
                 <%= link_to "User", end_users_path %>
               </li>
-              <li>
-                <%= link_to "MyPage", end_user_path(current_end_user.id) %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= current_end_user.name %>　様
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link_to "MyPage", end_user_path(current_end_user.id) %>
+                  <%= link_to "UserEdit", end_users_information_edit_path %>
+                  <div class="dropdown-divider"></div>
+                  <%= link_to "LogOut", destroy_end_user_session_path, class: 'log-out', method: :delete %>
+                </div>
               </li>
             </ul>
           </div>
