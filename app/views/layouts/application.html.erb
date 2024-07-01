@@ -51,18 +51,6 @@
               <%= f.text_field :word, class: "search-text" %>
             <% end %>
           </div>
-          <div class="profile">
-            <%= link_to end_user_path(current_end_user.id), class: "text-dark" do %>
-              <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid mini-img mx-2"  %>
-              <%= current_end_user.name %>
-            <% end %>
-            <%= link_to notifications_path, class: 'bell', style: "width:30px;height:30px;" do %>
-              <i class="fa-solid fa-bell"></i>
-            <% end %>
-            <%= link_to destroy_end_user_session_path, class: 'log-out', method: :delete do %>
-              <i class="fa-solid fa-right-from-bracket"></i>
-            <% end %>
-          </div>
           <div class="w-100">
             <ul class="gnavi list-unstyled d-block d-md-flex justify-content-between m-0 p-0">
               <li>
@@ -77,15 +65,24 @@
               <li>
                 <%= link_to "User", end_users_path %>
               </li>
-              <li class="nav-item dropdown">
+              <li class="dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <%= current_end_user.name %>　様
+                  <%= current_end_user.name %><span class="end_user_menu">様</span><i class="fa-solid fa-angle-down"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <%= link_to "MyPage", end_user_path(current_end_user.id) %>
-                  <%= link_to "UserEdit", end_users_information_edit_path %>
+                  <%= link_to end_user_path(current_end_user.id) do %>
+                    <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid mini-img mx-2"  %>MyPage
+                  <% end %>
+                  <%= link_to end_users_information_edit_path do %>
+                    <i class="fa-solid fa-user-pen mx-2"></i>ProfileEdit
+                  <% end %>
+                  <%= link_to notifications_path do %>
+                    <i class="fa-solid fa-bell mx-2"></i>Notification
+                  <% end %>
                   <div class="dropdown-divider"></div>
-                  <%= link_to "LogOut", destroy_end_user_session_path, class: 'log-out', method: :delete %>
+                  <%= link_to destroy_end_user_session_path, method: :delete do %>
+                    <i class="fa-solid fa-right-from-bracket mx-2"></i>LogOut
+                  <% end %>
                 </div>
               </li>
             </ul>

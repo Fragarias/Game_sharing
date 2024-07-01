@@ -21,21 +21,28 @@ header {
 .logo {
   font-family: "Delius Swash Caps", cursive;
 }
-.profile {
-  position: absolute;/*絶対配置にして*/
-  z-index: 2;/*最前面に設定。数字は変更可*/
-  top: 25px;
-  left: 100px;
+// .profile {
+//   position: absolute;/*絶対配置にして*/
+//   z-index: 2;/*最前面に設定。数字は変更可*/
+//   top: 25px;
+//   left: 100px;
+// }
+// .bell {
+//   color: #F6EB0A;
+//   margin: 5px;
+// }
+// .log-out {
+//   color: #3C578E;
+//   // width: 40px;
+//   // height: 40px;
+//   margin: 5px;
+// }
+.end_user_menu {
+  padding: 0 3px;
 }
-.bell {
-  color: #F6EB0A;
-  margin: 5px;
-}
-.log-out {
-  color: #3C578E;
-  width: 40px;
-  height: 40px;
-  margin: 5px;
+.dropdown-menu {
+  width: 200px;
+  padding: 2px;
 }
 
 // TITLE
@@ -64,7 +71,6 @@ header {
 .ttl_center4::after {
   right: 0;
 }
-
 .ttl_line {
   font-weight: bold;
   padding: 0.3em 0.5em;
@@ -333,14 +339,14 @@ hr {
 }
 /*hoverした際の変化*/
 .btntextchange:hover{
-  background:#333;
-  color:#fff;
+  background: #333;
+  color: #fff;
 }
 .btntextchange span{
   /*絶対配置でテキストの位置を決める*/
   position: absolute;
   left: 50%;
-  top:50%;
+  top: 50%;
     transform:translate(-50%,-50%);
     /*アニメーションの指定*/
     transition: all .5s;
@@ -350,14 +356,14 @@ hr {
 }
 /*差し替わるテキストの設定*/
 .btntextchange span:nth-child(2){
-  opacity:0;/*透過0に*/
+  opacity: 0;/*透過0に*/
 }
 /*hoverするとテキストが入れ替わる設定*/
 .btntextchange:hover span:nth-child(1){
-  opacity:0;/*透過0に*/
+  opacity: 0;/*透過0に*/
 }
 .btntextchange:hover span:nth-child(2){
-  opacity:1;/*不透明に*/
+  opacity: 1;/*不透明に*/
 }
 
 
@@ -405,8 +411,8 @@ hr {
 .gnavi li{
   margin-bottom:20px;
 }
-/*==================================================
-　5-3-1 中心から外に線が伸びる（下部）
+/*==================================
+　中心から外に線が伸びる（下部）
 ===================================*/
 .gnavi li a{
   /*線の基点とするためrelativeを指定*/
