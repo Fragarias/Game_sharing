@@ -74,14 +74,14 @@
                     <%= image_tag current_end_user.get_profile_image(100, 100), class: "img-fluid mini-img mx-2"  %>MyPage
                   <% end %>
                   <%= link_to end_users_information_edit_path do %>
-                    <i class="fa-solid fa-user-pen mx-2"></i>ProfileEdit
+                    <i class="fa-solid fa-user-pen mx-2" style="color: #4BA96F;"></i>ProfileEdit
                   <% end %>
                   <%= link_to notifications_path do %>
-                    <i class="fa-solid fa-bell mx-2"></i>Notification
+                    <i class="fa-solid fa-bell mx-2" style="color: #E6DA09;"></i>Notification
                   <% end %>
                   <div class="dropdown-divider"></div>
                   <%= link_to destroy_end_user_session_path, method: :delete do %>
-                    <i class="fa-solid fa-right-from-bracket mx-2"></i>LogOut
+                    <i class="fa-solid fa-right-from-bracket mx-2" style="color: #4869AC;"></i>LogOut
                   <% end %>
                 </div>
               </li>
