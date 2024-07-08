@@ -27,7 +27,9 @@
 https://docs.google.com/spreadsheets/d/1bRkUqpKS1U-sbtvDLhtYnYozoIC0cec4Zx_A-8DgK7M/edit?usp=sharing
 
 ## 設計書
-後ほど作成予定
+* [テーブル定義書](https://docs.google.com/spreadsheets/d/11Q5sl6vp_02CKtTF4_aaGIPHwg2HszfQ1EwSwZXyT9M/edit?gid=1243549839#gid=1243549839)
+* [ER図](https://drive.google.com/file/d/1DXhqhzRvNBsBSkkCP4I3c8gyNFvOcrCs/view?usp=sharing)
+* [詳細設計書](https://docs.google.com/spreadsheets/d/12Ch40g0YnTOdbWPlj-6rOwbCTNdagsRwJN5uMwkarg4/edit?gid=549108681#gid=549108681)
 
 ## 開発環境
 * OS：Linux(CentOS)
